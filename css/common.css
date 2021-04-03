@@ -1,0 +1,81 @@
+/* ------------ TYPOGRAPHIES ------------ */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+/* -------------- GÉNÉRAL -------------- */
+html,
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body{
+    background: #202020;
+    color: #ffffff;
+    font-family: Roboto;
+}
+
+section{
+    height: 100vh;
+    box-sizing: border-box;
+    padding: calc(12vh + 1%) 1% 1% 1%;
+}
+
+h1,h2{
+    margin: 0;
+}
+
+a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+/* -------------- HEADER -------------- */
+header{
+    background: #181818;
+    display: flex;
+    width: 100vw;
+    height: 12vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    box-sizing: border-box;
+    padding: 0 2.5%;
+}
+
+header h1{
+    font-size: 1.5em;
+}
+
+/* ---------------- NAV ---------------- */
+nav ul{
+    display: flex;
+    list-style: none;
+}
+
+nav li{
+    margin: 0 0 0 20px;
+}
+
+
+
+
+/* -------------- FOOTER -------------- */
+footer{
+    background: #181818;
+    font-size: 1em;
+    width: 100vw;
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    box-sizing: border-box;
+}
