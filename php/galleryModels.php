@@ -18,6 +18,18 @@ function getAllProjectsCategories() {
 	return $result->fetchAll();
 }
 
+function getProjectInfos($idProject) {
+    $cnx = connection();
+    $rqt = $cnx->prepare("SELECT * FROM `projets` WHERE idProjet=?");
+	return $rqt->execute($idProject)->fetchAll();
+}
+
+function getProjectMedia($idProject) {
+    $cnx = connection();
+    $rqt = $cnx->prepare("SELECT * FROM `media` WHERE idProjet=?");
+	return $rqt->execute($idProject)->fetchAll();
+}
+
 // ACCESSEURS EN ÉCRITURE
 // Fonctions permettant de modifier les informations
 // de la BDD (commencent par "set...")
