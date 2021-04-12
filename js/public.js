@@ -7,6 +7,8 @@
  */
 document.addEventListener('DOMContentLoaded', function(){
     getCategoryProjects(2);
+    getAllProjects();
+    getAllProjectsCategories();
 });
 
 // MODELS

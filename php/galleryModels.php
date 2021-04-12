@@ -14,7 +14,17 @@ function getCategoryProjects($idCategory){
     }*/
     return $result->fetchall(PDO::FETCH_ASSOC);
 }
+function getAllProjects() {
+    $cnx = connection();
+    $result = $cnx->query("SELECT idProjet, titre, miniature, ordre FROM `projets`");
+	return $result->fetchAll();
+}
 
+function getAllProjectsCategories() {
+    $cnx = connection();
+    $result = $cnx->query("SELECT DISTINCT cat.idCategorie, nom FROM `categories` AS cat JOIN `concerner` ON concerner.idCategorie = cat.idCategorie");
+	return $result->fetchAll();
+}
 
 
 // ACCESSEURS EN ÉCRITURE

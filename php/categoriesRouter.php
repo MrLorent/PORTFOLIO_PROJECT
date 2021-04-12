@@ -8,10 +8,10 @@ $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch($request[3]){
-    case /* endpoint name */:
+    case 'categories' :
         switch($method){
             case 'GET':
-                
+                echo getAllCategoriesasJSON();
                 break;
             case 'POST':
                 
