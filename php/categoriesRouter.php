@@ -7,6 +7,7 @@ require_once('categoriesControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
+// + 1 EN REQUEST CHEZ SULLY ET YAELLE 
 switch($request[4]){
     case 'categories' :
         switch($method){
