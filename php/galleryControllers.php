@@ -7,3 +7,7 @@ require_once('galleryModels.php');
 function getAllProjectsAsJSON() {
     return json_encode(getAllProjects());
 }
+
+function getAllProjectsCategoriesAsJSON() {
+    return json_encode(getAllProjectsCategories());
+}

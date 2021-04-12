@@ -12,6 +12,12 @@ function getAllProjects() {
 	return $result->fetchAll();
 }
 
+function getAllProjectsCategories() {
+    $cnx = connection();
+    $result = $cnx->query("SELECT DISTINCT cat.idCategorie, nom FROM `categories` AS cat JOIN `concerner` ON concerner.idCategorie = cat.idCategorie");
+	return $result->fetchAll();
+}
+
 // ACCESSEURS EN ÉCRITURE
 // Fonctions permettant de modifier les informations
 // de la BDD (commencent par "set...")
