@@ -8,7 +8,7 @@ require_once('connection.php');
 function getAllCategories() {
     $cnx = connection();
     $result = $cnx->query('select * from categories');
-    return $result->fetchall();
+    return $result->fetchall(PDO::FETCH_ASSOC);
 }
 
 // ACCESSEURS EN ÉCRITURE
