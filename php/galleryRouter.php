@@ -7,11 +7,11 @@ require_once('galleryControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch($request[3]){
-    case /* endpoint name */:
+switch($request[4]){
+    case "projects":
         switch($method){
             case 'GET':
-                
+                echo getAllProjectsAsJSON();
                 break;
             case 'POST':
                 
@@ -28,7 +28,7 @@ switch($request[3]){
                 break;
         }
         break;
-    case /* endpoint name */:
+    case "category":
         switch($method){
             case 'GET':
                 

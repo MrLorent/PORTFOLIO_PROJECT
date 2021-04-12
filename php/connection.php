@@ -1,8 +1,8 @@
 <?php
 // CONSTANTES
-define ('BASE', 'portfolio');
-define ('USERNAME', '#');
-define ('PASSWORD', '#');
+define ('BASE', 'portfoliobdd');
+define ('USERNAME', 'root');
+define ('PASSWORD', '');
 
 // CONNEXION À LA BASE DE DONNÉES
 function connection(){

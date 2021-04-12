@@ -6,7 +6,11 @@ require_once('connection.php');
 // Fonctions permettant de récupérer les informations
 // de la BDD (commencent par "get...")
 
-
+function getAllProjects() {
+    $cnx = connection();
+    $result = $cnx->query("SELECT idProjet, titre, miniature, ordre FROM `projets`");
+	return $result->fetchAll();
+}
 
 // ACCESSEURS EN ÉCRITURE
 // Fonctions permettant de modifier les informations
