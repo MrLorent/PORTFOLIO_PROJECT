@@ -5,8 +5,11 @@ require_once('connection.php');
 // ACCESSEURS EN LECTURE
 // Fonctions permettant de récupérer les informations
 // de la BDD (commencent par "get...")
-
-
+function getAll() {
+    $cnx = connection();
+    $result = $cnx->query('select * from categories');
+    return $result->fetchall();
+}
 
 // ACCESSEURS EN ÉCRITURE
 // Fonctions permettant de modifier les informations
