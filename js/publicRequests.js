@@ -41,3 +41,12 @@ async function getProject($idProject){
     console.log(projet);
     return projet;
 }
+
+//fonctions de test getAllSkills()
+async function getAllSkillsByCategory(){
+    const response = await fetch('php/skillsRouter.php/skills/');
+    const skills = await response.json();
+    
+     console.log(skills);
+     return skills;
+}

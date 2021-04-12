@@ -1,6 +1,6 @@
 <?php
 // IMPORTATION DES MODELS
-require_once('categoriesModels');
+require_once('categoriesModels.php');
 
 // CONTROLEURS
 
