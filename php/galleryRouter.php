@@ -31,7 +31,7 @@ switch($request[4]){
     case "category":
         switch($method){
             case 'GET':
-                getCategoryProjectsAsJSON($request[3]);
+                getCategoryProjectsAsJSON($request[5]);
                 break;
             case 'POST':
                 
