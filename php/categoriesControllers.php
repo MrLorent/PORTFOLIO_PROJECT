@@ -1,10 +1,10 @@
 <?php
 // IMPORTATION DES MODELS
-require_once('categoriesModels');
+require_once('categoriesModels.php');
 
 // CONTROLEURS
 
-function getAllCategoriesasJSON ()
+function getAllCategoriesAsJson ()
 {
-    return json_encode(getAll());
+    return json_encode(getAllCategories());
 }

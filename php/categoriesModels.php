@@ -5,10 +5,10 @@ require_once('connection.php');
 // ACCESSEURS EN LECTURE
 // Fonctions permettant de récupérer les informations
 // de la BDD (commencent par "get...")
-function getAll() {
+function getAllCategories() {
     $cnx = connection();
     $result = $cnx->query('select * from categories');
-    return $result->fetchall();
+    return $result->fetchall(PDO::FETCH_ASSOC);
 }
 
 // ACCESSEURS EN ÉCRITURE

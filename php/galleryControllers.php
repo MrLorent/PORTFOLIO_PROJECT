@@ -15,3 +15,12 @@ function getAllProjectsAsJSON() {
 function getAllProjectsCategoriesAsJSON() {
     return json_encode(getAllProjectsCategories());
 }
+
+function getProjectAsJSON($idProject) {
+    $project = array(
+        "Infos" => getProjectInfos($idProject),
+        "Media" => getProjectMedia($idProject),
+        );
+        
+    return json_encode($project);
+}

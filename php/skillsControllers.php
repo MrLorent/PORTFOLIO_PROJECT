@@ -1,5 +1,5 @@
 <?php
 // IMPORTATION DES MODELS
-require_once('skillsModels');
+require_once('skillsModels.php');
 
 // CONTROLEURS

@@ -13,6 +13,13 @@ async function getCategoryProjects(idCategory){
 // }
 
 // Fonction de test de getAllProjects
+async function getAllCategories(){
+    const response = await fetch('php/categoriesRouter.php/categories/');
+    const Allcategories = await response.json();
+    
+    console.log(Allcategories);
+    return Allcategories;
+}
 
 async function getAllProjects(){
     const response = await fetch('php/galleryRouter.php/projects/');
@@ -28,4 +35,12 @@ async function getAllProjectsCategories(){
     
     console.log(categories);
     return categories;
+}
+
+async function getProject($idProject){
+    const response = await fetch('php/galleryRouter.php/project/'+$idProject);
+    const projet = await response.json();
+    
+    console.log(projet);
+    return projet;
 }

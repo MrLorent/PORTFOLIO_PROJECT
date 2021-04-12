@@ -8,7 +8,7 @@ $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch($request[3]){
-    case /* endpoint name */:
+    case "skill":
         switch($method){
             case 'GET':
                 
@@ -20,6 +20,7 @@ switch($request[3]){
                 
                 break;
             case 'DELETE':
+              //  echo deleteSkillAndRefresh($request[4]);
 
                 break;
             default:
@@ -28,7 +29,7 @@ switch($request[3]){
                 break;
         }
         break;
-    case /* endpoint name */:
+    case "test" /* endpoint name */:
         switch($method){
             case 'GET':
                 

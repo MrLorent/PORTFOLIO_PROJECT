@@ -7,12 +7,13 @@ require_once('categoriesControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch($request[3]){
+switch($request[4]){
     case 'categories' :
         switch($method){
             case 'GET':
-                echo getAllCategoriesasJSON();
+                echo getAllCategoriesAsJson();
                 break;
+
             case 'POST':
                 
                 break;
@@ -28,7 +29,8 @@ switch($request[3]){
                 break;
         }
         break;
-    case /* endpoint name */:
+
+    case 'other':
         switch($method){
             case 'GET':
                 
