@@ -4,6 +4,10 @@ require_once('galleryModels.php');
 
 // CONTROLEURS
 
+function getCategoryProjectsAsJSON($idCategory){
+    return json_encode(getCategoryProjects($idCategory));
+}
+
 function getAllProjectsAsJSON() {
     return json_encode(getAllProjects());
 }

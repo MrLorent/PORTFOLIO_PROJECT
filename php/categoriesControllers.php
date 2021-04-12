@@ -4,7 +4,7 @@ require_once('categoriesModels.php');
 
 // CONTROLEURS
 
-function getAllCategoriesAsJSON ()
+function getAllCategoriesAsJson ()
 {
     return json_encode(getAllCategories());
 }

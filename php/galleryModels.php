@@ -6,6 +6,14 @@ require_once('connection.php');
 // Fonctions permettant de récupérer les informations
 // de la BDD (commencent par "get...")
 
+function getCategoryProjects($idCategory){
+    $cnx = connection();
+	$result = $cnx->query("SELECT p.miniature, p.titre FROM projets as p JOIN concerner as c ON c.idProjet=p.idProjet WHERE c.idCategorie=$idCategory");
+	/*if ($result!=false){
+		return $result->fetchall(PDO::FETCH_ASSOC);
+    }*/
+    return $result->fetchall();
+}
 function getAllProjects() {
     $cnx = connection();
     $result = $cnx->query("SELECT idProjet, titre, miniature, ordre FROM `projets`");
@@ -33,6 +41,7 @@ function getProjectMedia($idProject) {
     $mediaProject = $rqt->fetchAll(PDO::FETCH_ASSOC);
     return $mediaProject;
 }
+
 
 // ACCESSEURS EN ÉCRITURE
 // Fonctions permettant de modifier les informations
