@@ -29,7 +29,7 @@ switch($request[3]){
                 break;
         }
         break;
-    case /* endpoint name */:
+    case "test" /* endpoint name */:
         switch($method){
             case 'GET':
                 
