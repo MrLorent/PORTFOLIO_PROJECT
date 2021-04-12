@@ -48,6 +48,26 @@ switch($request[4]){
                 break;
         }
         break;
+        case "categories":
+            switch($method){
+                case 'GET':
+                    echo getAllProjectsCategoriesAsJSON();
+                    break;
+                case 'POST':
+                    
+                    break;
+                case 'PUT':
+                    
+                    break;
+                case 'DELETE':
+    
+                    break;
+                default:
+                    http_response_code('404');
+                    echo 'OUPSI !';
+                    break;
+            }
+            break;
     default :
         http_response_code('500');
         echo 'unknown endpoint';

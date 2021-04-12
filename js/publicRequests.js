@@ -18,3 +18,11 @@ async function getAllProjects(){
     console.log(projects);
     return projects;
 }
+
+async function getAllProjectsCategories(){
+    const response = await fetch('php/galleryRouter.php/categories/');
+    const categories = await response.json();
+    
+    console.log(categories);
+    return categories;
+}
