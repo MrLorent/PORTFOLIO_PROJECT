@@ -12,7 +12,7 @@ function getCategoryProjects($idCategory){
 	/*if ($result!=false){
 		return $result->fetchall(PDO::FETCH_ASSOC);
     }*/
-    return $result->fetchall(PDO::FETCH_ASSOC);
+    return $result->fetchall();
 }
 function getAllProjects() {
     $cnx = connection();
