@@ -18,3 +18,7 @@ require_once('connection.php');
 // Fonctions permettant de manipuler les informations
 // de la BDD en règles générales
 // (commencent par "add..." ou "delete..." par exemple)
+
+function deleteSkillAndRefresh($idSkill) {
+    
+}
