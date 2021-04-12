@@ -21,13 +21,17 @@ function getAllProjectsCategories() {
 function getProjectInfos($idProject) {
     $cnx = connection();
     $rqt = $cnx->prepare("SELECT * FROM `projets` WHERE idProjet=?");
-	return $rqt->execute($idProject)->fetchAll();
+	$rqt->execute(array($idProject));
+    $infoProject = $rqt->fetchAll();
+    return $infoProject;
 }
 
 function getProjectMedia($idProject) {
     $cnx = connection();
     $rqt = $cnx->prepare("SELECT * FROM `media` WHERE idProjet=?");
-	return $rqt->execute($idProject)->fetchAll();
+	$rqt->execute(array($idProject));
+    $mediaProject = $rqt->fetchAll();
+    return $mediaProject;
 }
 
 // ACCESSEURS EN ÉCRITURE
