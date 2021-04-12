@@ -2,9 +2,10 @@
 
 /**
  * FONCTION MAIN
- * Fonction lancer dès que la page HTML est chargées
+ * Fonction lancer dès que la page HTML est chargée
  */
 document.addEventListener('DOMContentLoaded', function(){
+    getAllCategories();
     getAllProjects();
     getAllProjectsCategories();
 });
