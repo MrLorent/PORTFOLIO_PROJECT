@@ -33,3 +33,11 @@ async function getAllProjectsCategories(){
     console.log(categories);
     return categories;
 }
+
+async function getProject($idProject){
+    const response = await fetch('php/galleryRouter.php/project/'+$idProject);
+    const projet = await response.json();
+    
+    console.log(projet);
+    return projet;
+}
