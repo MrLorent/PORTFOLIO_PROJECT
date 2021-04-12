@@ -11,8 +11,9 @@ switch($request[3]){
     case 'categories' :
         switch($method){
             case 'GET':
-                echo getAllCategoriesasJSON();
+                echo getAllCategoriesAsJSON();
                 break;
+
             case 'POST':
                 
                 break;

@@ -9,20 +9,20 @@ require_once('connection.php');
 function getAllProjects() {
     $cnx = connection();
     $result = $cnx->query("SELECT idProjet, titre, miniature, ordre FROM `projets`");
-	return $result->fetchAll();
+	return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getAllProjectsCategories() {
     $cnx = connection();
     $result = $cnx->query("SELECT DISTINCT cat.idCategorie, nom FROM `categories` AS cat JOIN `concerner` ON concerner.idCategorie = cat.idCategorie");
-	return $result->fetchAll();
+	return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getProjectInfos($idProject) {
     $cnx = connection();
     $rqt = $cnx->prepare("SELECT * FROM `projets` WHERE idProjet=?");
 	$rqt->execute(array($idProject));
-    $infoProject = $rqt->fetchAll();
+    $infoProject = $rqt->fetchAll(PDO::FETCH_ASSOC);
     return $infoProject;
 }
 
@@ -30,7 +30,7 @@ function getProjectMedia($idProject) {
     $cnx = connection();
     $rqt = $cnx->prepare("SELECT * FROM `media` WHERE idProjet=?");
 	$rqt->execute(array($idProject));
-    $mediaProject = $rqt->fetchAll();
+    $mediaProject = $rqt->fetchAll(PDO::FETCH_ASSOC);
     return $mediaProject;
 }
 
