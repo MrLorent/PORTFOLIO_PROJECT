@@ -10,8 +10,8 @@
 // }
 
 // Fonction de test de getAllProjects
-async function getAllCategoriess(){
-    const response = await fetch('php/categoriesRouteur.php/categories/');
+async function getAllCategories(){
+    const response = await fetch('php/categoriesRouter.php/categories/');
     const Allcategories = await response.json();
     
     console.log(Allcategories);
