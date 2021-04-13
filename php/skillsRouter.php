@@ -14,7 +14,9 @@ switch($request[4]){
                 
                 break;
             case 'POST':
-                
+                $json = file_get_contents('php://input');
+                addSkillAndRefresh($json);
+                echo getAllSkillsAsJSON();
                 break;
             case 'PUT':
                 

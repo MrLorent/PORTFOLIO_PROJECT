@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function(){
     //getProject("1");
     //getAllSkillsByCategory();
     //deleteSkillandRefresh("15");
+    
+    addSkillandRefresh();
 });
 
 // MODELS
