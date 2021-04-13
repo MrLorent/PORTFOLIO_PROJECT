@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
     //getAllProjectsCategories();
     //getProject("1");
     //deleteSkillandRefresh("15");
+    deleteACategoryAndRefresh("15");
 });
 
 // CONTROLEURS

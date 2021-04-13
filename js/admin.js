@@ -6,6 +6,11 @@
  */
 document.addEventListener('DOMContentLoaded', function(){
     //deleteProjectAndRefresh();
+    addProjectAndRefresh();
+    /** TEST AddCategory() 
+    const form = {};
+    form.nom = "salut";
+    addCategoryAndRefresh(form);*/
 });
 
 // MODELS

@@ -54,6 +54,8 @@ function getProjectMedia($idProject) {
 // de la BDD en règles générales
 // (commencent par "add..." ou "delete..." par exemple)
 
+
+//DELETE
 function deleteProject($idProject){
     $cnx = connection();
 
@@ -68,4 +70,37 @@ function deleteProject($idProject){
     
 }
 
+//ADD
+function addProject($titre, $date, $technique, $description, $miniature, $ordre){
+    $cnx = connection();
+    $rqt = $cnx->prepare('INSERT INTO projets VALUES( NULL, ?, ?, ?, ?, ?, ? )');
+    $rqt->execute(array($titre, $date, $technique, $description, $miniature, $ordre));
+}
+function updateProject($titre,$date,$technique,$description,$miniature,$ordre,$idProject){
+    $cnx = connection();
+    $rqtProject = $cnx->prepare('UPDATE projets
+                                SET titre = ?, date = ?,technique = ?, description = ?,miniature = ?, ordre = ?
+                                WHERE idProjet = ?');
+    $rqtProject->execute(array($titre,$date,$technique,$description,$miniature,$ordre,$idProject));
+}
 
+function addMedia($source, $legende, $type, $titre){
+    $cnx = connection();
+    $rqt = $cnx->prepare('INSERT INTO media VALUES( NULL, ?, ?, ?, (SELECT idProjet FROM projets WHERE titre=? ))');
+    $rqt->execute(array($source, $legende, $type, $titre));
+function updateMedia($source, $legende,$type,$idProject, $idMedias){
+    $cnx = connection();
+    $rqtMedia = $cnx->prepare('UPDATE medias
+                                SET source = ?, legende = ?,type = ?
+                                WHERE idProjet = ?
+                                AND idMedia = ?');
+    $rqtMedia->execute(array($source, $legende,$type,$idProject, $idMedias));
+}
+
+}
+
+function linkProjectToCategory($titre, $nom){
+    $cnx = connection();
+    $rqt = $cnx->prepare('INSERT INTO concerner VALUES( (SELECT idProjet FROM projets WHERE titre=?),(SELECT idCategorie FROM categories WHERE nom=?))');
+    $rqt->execute(array($titre, $nom));
+}
