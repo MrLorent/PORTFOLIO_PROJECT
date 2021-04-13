@@ -11,6 +11,7 @@ async function getCategoryProjects(idCategory){
     console.log(projects);
     return projects;
 }
+
 async function getAllCategories(){
     const response = await fetch('php/categoriesRouter.php/categories/');
     const Allcategories = await response.json();
@@ -43,7 +44,6 @@ async function getProject(idProject){
     return projet;
 }
 
-//fonctions de test getAllSkills()
 async function getAllSkillsByCategory(){
     const response = await fetch('php/skillsRouter.php/skills/');
     const skills = await response.json();
@@ -53,7 +53,9 @@ async function getAllSkillsByCategory(){
 }
 
 async function deleteSkillandRefresh($idSkill){
-    const response = await fetch('php/skillsRouter.php/skill/' +$idSkill,  { method: 'DELETE' });
+    const response = await fetch('php/skillsRouter.php/skill/' +$idSkill, {
+         method: 'DELETE'
+        });
     const skills = await response.json();
     
     console.log(skills);
@@ -61,7 +63,9 @@ async function deleteSkillandRefresh($idSkill){
 }
 
 async function deleteACategoryAndRefresh(idCategory){
-    const response = await fetch('php/categoriesRouter.php/category/' +idCategory,  { method: 'DELETE' });
+    const response = await fetch('php/categoriesRouter.php/category/' +idCategory, {
+        method: 'DELETE'
+    });
     const category = await response.json();
     
      console.log(category);

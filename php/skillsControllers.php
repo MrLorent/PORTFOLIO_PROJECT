@@ -4,14 +4,25 @@ require_once('skillsModels.php');
 
 // CONTROLEURS
 
-function getAllSkillsAsJSON(){
-    $categories = getAllSkillsCategories();
-    foreach($categories as $key => $value){
-        foreach($value as $val){
-            $skills[$val] = getAllSkillsByCategory($val);
+function getAllSkillsByCategoryAsJSON(){
+    $categories = getAllSkillCategories();
+    
+    foreach($categories as $category){
+        $skillsByCategory[$category['nom']]['idCategory'] = $category['idCategorie'];
+
+        $skills = getAllSkillsFromACategory($category['idCategorie']);
+        $count = 0;
+        
+        foreach($skills as $skill){
+            $skillList[$count]['idSkill'] = $skill['idComp'];
+            $skillList[$count]['name'] = $skill['outil'];
+            $count++;
         }
+
+        $skillsByCategory[$category['nom']]['skills'] = $skillList;
     }
-    return json_encode($skills);
+
+    return json_encode($skillsByCategory);
 }
 
 function deleteSkillAndRefresh($idSkill) {

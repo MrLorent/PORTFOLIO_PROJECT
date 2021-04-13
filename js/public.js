@@ -20,15 +20,36 @@ document.addEventListener('DOMContentLoaded', function(){
     //getAllProjectsCategories();
     //getProject("1");
     //deleteSkillandRefresh("15");
-    deleteACategoryAndRefresh("15");
+    //deleteACategoryAndRefresh("15");
 });
 
 // CONTROLEURS
 function generateSkillsAsList(skillsByCategories){
-    skillsByCategories.forEach(skillCategorie => {
-        let ulCategories = document.createElement('ul');
-        let liCategorie = document.createElement('li');
-    });
-}
+    // On créer la liste principale
+    let ulCategories = document.createElement('ul');
+    ulCategories.classList.add('skillCategoryList');
 
-// INJECTEURS
+    // On créer les sous listes
+    for(let category in skillsByCategories){
+        let tabCategory = skillsByCategories[category];
+        let liCategory = document.createElement('li');
+        liCategory.classList.add('skillCategory');
+        liCategory.dataset.idCategory = tabCategory['idCategory'];
+        liCategory.innerHTML = category;
+
+        let ulSkills = document.createElement('ul');
+        ulSkills.classList.add('skillList');
+        for(let skill in tabCategory['skills']){
+            let tabSkill = tabCategory['skills'][skill];
+            let liSkill = document.createElement('li');
+            liSkill.classList.add('skill');
+            liSkill.dataset.idSkill = tabSkill['idSkill'];
+            liSkill.innerHTML = tabSkill['name'];
+            ulSkills.append(liSkill);
+        }
+        liCategory.append(ulSkills);
+        ulCategories.append(liCategory);
+    }
+
+    return ulCategories;
+}

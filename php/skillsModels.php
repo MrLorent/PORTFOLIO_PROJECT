@@ -6,22 +6,24 @@ require_once('connection.php');
 // Fonctions permettant de récupérer les informations
 // de la BDD (commencent par "get...")
 
-function getAllSkillsCategories(){
+function getAllSkillCategories(){
     $cnx = connection();
-    $result = $cnx->query('SELECT DISTINCT categories.nom
+    $result = $cnx->query('SELECT DISTINCT categories.idCategorie, categories.nom
     FROM categories, competences 
     WHERE categories.idCategorie = competences.idCategorie');
-    return $result->fetchAll();
+    
+    return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getAllSkillsByCategory($name){
+function getAllSkillsFromACategory($idCategorie){
     $cnx = connection();
-    $rqt = $cnx->prepare('SELECT outil
+    $rqt = $cnx->prepare('SELECT competences.idComp, competences.outil
     FROM competences, categories
     WHERE categories.idCategorie = competences.idCategorie
-    AND categories.nom = ?');
-    $rqt->execute(array($name));
-    $result = $rqt->fetchAll();
+    AND categories.idCategorie = ?');
+    $rqt->execute(array($idCategorie));
+    $result = $rqt->fetchAll(PDO::FETCH_ASSOC);
+    
     return $result;
 }
 
