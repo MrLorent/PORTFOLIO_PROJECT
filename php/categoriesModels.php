@@ -21,3 +21,9 @@ function getAllCategories() {
 // Fonctions permettant de manipuler les informations
 // de la BDD en règles générales
 // (commencent par "add..." ou "delete..." par exemple)
+function deleteCategory($idCategory) {
+    $cnx = connection();
+    $rqt = $cnx->prepare('delete from categories where name=?');
+    $rqt->execute(array($idCategory));
+    return getAllCategories();
+}

@@ -21,6 +21,7 @@ switch($request[4]){
                 
                 break;
             case 'DELETE':
+                echo deleteACategory($request[5]);
 
                 break;
             default:
