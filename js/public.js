@@ -44,11 +44,16 @@ function generateSkillsAsList(skillsByCategories){
             let liSkill = document.createElement('li');
             liSkill.classList.add('skill');
             liSkill.dataset.idSkill = tabSkill['idSkill'];
+            liSkill.addEventListener('click', displaySkill);
             liSkill.innerHTML = tabSkill['name'];
             ulSkills.append(liSkill);
         }
         liCategory.append(ulSkills);
         ulCategories.append(liCategory);
+    }
+
+    function displaySkill(){
+        getSkill(this.dataset.idSkill);
     }
 
     return ulCategories;

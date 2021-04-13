@@ -25,6 +25,10 @@ function getAllSkillsByCategoryAsJSON(){
     return json_encode($skillsByCategory);
 }
 
+function getSkillAsJSON($idSkill){
+    return json_encode(getSkill($idSkill));
+}
+
 function deleteSkillAndRefresh($idSkill) {
     deleteSkill($idSkill);
 }
