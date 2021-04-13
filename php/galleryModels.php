@@ -68,4 +68,19 @@ function deleteProject($idProject){
     
 }
 
+function updateProject($titre,$date,$technique,$description,$miniature,$ordre,$idProject){
+    $cnx = connection();
+    $rqtProject = $cnx->prepare('UPDATE projets
+                                SET titre = ?, date = ?,technique = ?, description = ?,miniature = ?, ordre = ?
+                                WHERE idProjet = ?');
+    $rqtProject->execute(array($titre,$date,$technique,$description,$miniature,$ordre,$idProject));
+}
 
+function updateMedia($source, $legende,$type,$idProject, $idMedias){
+    $cnx = connection();
+    $rqtMedia = $cnx->prepare('UPDATE medias
+                                SET source = ?, legende = ?,type = ?
+                                WHERE idProjet = ?
+                                AND idMedia = ?');
+    $rqtMedia->execute(array($source, $legende,$type,$idProject, $idMedias));
+}
