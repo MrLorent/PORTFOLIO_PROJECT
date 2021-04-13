@@ -26,5 +26,8 @@ function addCategory($nom){
     $cnx = connection();
     $rqt = $cnx->prepare('INSERT INTO categories(nom) values(?)');
     $result = $rqt->execute(array($nom));
-    return getAllCategories();
+    //code d'erreur
+    if($result){
+        $error = $cnx->errorInfo();
+    }
 }

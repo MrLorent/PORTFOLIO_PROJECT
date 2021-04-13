@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', function(){
     //getAllProjects();
     //getAllProjectsCategories();
     //getProject("1");
-    getAllSkillsByCategory();
+    //getAllSkillsByCategory();
+    document.getElementById('button').onclick = event => {
+        addCategoryAndRefresh();
+    }
 });
 
 // MODELS

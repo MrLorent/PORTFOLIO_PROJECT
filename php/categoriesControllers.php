@@ -8,3 +8,9 @@ function getAllCategoriesAsJson ()
 {
     return json_encode(getAllCategories());
 }
+
+function addCategoryAndRefresh($form){
+    $category = json_decode($form, true);
+    addCategory(($category['nom']));
+    return json_encode(getAllCategories());
+}
