@@ -14,8 +14,7 @@ switch($request[3]){
                 echo getAllProjectsAsJSON();
                 break;
             case 'POST':
-                $json = file_get_contents('php://input');
-                echo addProjectAndRefresh($json);
+                
                 break;
             case 'PUT':
                 
@@ -75,7 +74,8 @@ switch($request[3]){
                         echo getProjectAsJSON($request[4]);
                         break;
                     case 'POST':
-                        
+                        $json = file_get_contents('php://input');
+                        echo addProjectAndRefresh($json);
                         break;
                     case 'PUT':
                         

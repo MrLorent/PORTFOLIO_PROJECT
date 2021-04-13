@@ -30,9 +30,10 @@ function deleteProjectAndRefresh($idProject){
     return json_encode(getAllProjects());
 }
 
-function addProjectAndRefresh($titre, $date, $technique, $description, $miniature, $ordre, $source, $legende, $type, $nomCategorie){
-    addProject($titre, $date, $technique, $description, $miniature, $ordre);
-    addMedia($source, $legende, $type, $titre);
-    linkProjectToCategory($titre, $nomCategorie); //faire un foreach ou on enverrait au lieu de $nomCategorie un tableau de noms de categories
+function addProjectAndRefresh($projet){
+    $form=json_decode($projet, true);
+    addProject($form['titre'], $form['date'], $form['technique'], $form['description'], $form['miniature'], $form['ordre']);
+    addMedia($form['source'], $form['legende'], $form['type'], $form['titre']);
+    linkProjectToCategory($form['titre'], $form['categorie']); //faire un foreach ou on enverrait au lieu de $nomCategorie un tableau de noms de categories
     return json_encode(getAllProjects());
 }
