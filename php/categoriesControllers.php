@@ -12,3 +12,9 @@ function getAllCategoriesAsJson ()
 function deleteACategoryAndRefresh($idCategory) {
     return json_encode(deleteCategory($idCategory));
 }
+
+function addCategoryAndRefresh($form){
+    $category = json_decode($form, true);
+    addCategory(($category['nom']));
+    return json_encode(getAllCategories());
+}

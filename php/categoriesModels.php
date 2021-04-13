@@ -27,3 +27,13 @@ function deleteCategory($idCategory) {
     $rqt->execute(array($idCategory));
     return getAllCategories();
 }
+
+function addCategory($nom){
+    $cnx = connection();
+    $rqt = $cnx->prepare('INSERT INTO categories(nom) values(?)');
+    $result = $rqt->execute(array($nom));
+    //code d'erreur
+    if($result){
+        $error = $cnx->errorInfo();
+    }
+}

@@ -32,13 +32,14 @@ switch($request[5]){
         }
         break;
 
-    case 'other':
+    case 'category':
         switch($method){
             case 'GET':
                 
                 break;
             case 'POST':
-                
+                $json = file_get_contents('php://input');
+                echo addCategoryAndRefresh($json);
                 break;
             case 'PUT':
                 
