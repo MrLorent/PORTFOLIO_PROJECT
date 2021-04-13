@@ -11,9 +11,6 @@ document.addEventListener('DOMContentLoaded', function(){
     //getAllProjectsCategories();
     //getProject("1");
     //getAllSkillsByCategory();
-    document.getElementById('button').onclick = event => {
-        addCategoryAndRefresh();
-    }
 });
 
 // MODELS
