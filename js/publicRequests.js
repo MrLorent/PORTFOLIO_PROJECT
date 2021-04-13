@@ -1,6 +1,8 @@
 "use strict";
 
 // EXEMPLE :
+
+// Fonction de test de getAllProjects
 async function getCategoryProjects(idCategory){
     const response = await fetch('php/galleryRouter.php/category/'+idCategory);
     const projects = await response.json();
@@ -8,11 +10,6 @@ async function getCategoryProjects(idCategory){
     console.log(projects);
     return projects;
 }
-//     console.log(planets);
-//     return planets;
-// }
-
-// Fonction de test de getAllProjects
 async function getAllCategories(){
     const response = await fetch('php/categoriesRouter.php/categories/');
     const Allcategories = await response.json();

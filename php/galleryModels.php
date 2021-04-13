@@ -54,6 +54,8 @@ function getProjectMedia($idProject) {
 // de la BDD en règles générales
 // (commencent par "add..." ou "delete..." par exemple)
 
+
+//DELETE
 function deleteProject($idProject){
     $cnx = connection();
 
@@ -68,7 +70,7 @@ function deleteProject($idProject){
     
 }
 
-
+//ADD
 function addProject($titre, $date, $technique, $description, $miniature, $ordre){
     $cnx = connection();
     $rqt = $cnx->prepare('INSERT INTO projets VALUES( NULL, ?, ?, ?, ?, ?, ? )');

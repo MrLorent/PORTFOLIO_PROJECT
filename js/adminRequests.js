@@ -20,26 +20,16 @@ async function deleteProjectAndRefresh($idProject){
 
 async function addProjectAndRefresh(){
     const form={};
-    // form.titre = document.getElementById('titre').value;
-    // form.date = document.getElementById('date').value;
-    // form.technique = document.getElementById('technique').value;
-    // form.description = document.getElementById('description').value;
-    // form.miniature = document.getElementById('miniature').value;
-    // form.ordre = document.getElementById('ordre').value;
-    // form.source = document.getElementById('source').value;
-    // form.legende = document.getElementById('legende').value;
-    // form.type = document.getElementById('type').value;
-    // form.categorie = document.getElementById('categorie').value;
 
-    form.titre = "testBIS";
-    form.date = "test";
-    form.technique = "test";
-    form.description = "test";
-    form.miniature = "test";
+    form.titre = "titreTest";
+    form.date = "dateTest";
+    form.technique = "techniqueTest";
+    form.description = "desciptionTest";
+    form.miniature = "miniatureTest";
     form.ordre = 2;
-    form.source = "test";
-    form.legende = "test";
-    form.type = "test";
+    form.source = "sourceTest";
+    form.legende = "legendeTest";
+    form.type = "typeTest";
     form.categorie = "audiovisuel";
 
     const response = await fetch('php/galleryRouter.php/project/', { method: 'POST', body: JSON.stringify(form)});
