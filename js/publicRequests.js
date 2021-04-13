@@ -61,3 +61,11 @@ async function deleteSkillandRefresh($idSkill){
      console.log(skills);
      return skills;
 }
+
+async function deleteACategoryAndRefresh(idCategory){
+    const response = await fetch('php/categoriesRouter.php/category/' +idCategory,  { method: 'DELETE' });
+    const category = await response.json();
+    
+     console.log(category);
+     return category;
+}

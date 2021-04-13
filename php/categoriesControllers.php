@@ -9,6 +9,6 @@ function getAllCategoriesAsJson ()
     return json_encode(getAllCategories());
 }
 
-function deleteACategory($idCategory) {
+function deleteACategoryAndRefresh($idCategory) {
     return json_encode(deleteCategory($idCategory));
 }

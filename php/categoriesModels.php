@@ -23,7 +23,7 @@ function getAllCategories() {
 // (commencent par "add..." ou "delete..." par exemple)
 function deleteCategory($idCategory) {
     $cnx = connection();
-    $rqt = $cnx->prepare('delete from categories where name=?');
+    $rqt = $cnx->prepare('DELETE FROM categories WHERE idCategorie = ?');
     $rqt->execute(array($idCategory));
     return getAllCategories();
 }
