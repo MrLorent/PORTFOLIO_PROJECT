@@ -24,3 +24,8 @@ function getProjectAsJSON($idProject) {
         
     return json_encode($project);
 }
+
+function deleteProjectAndRefresh($idProject){
+    deleteProject($idProject);
+    return json_encode(getAllProjects());
+}
