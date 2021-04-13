@@ -1,5 +1,6 @@
 "use strict";
 
+// MODELS
 // EXEMPLE :
 async function getCategoryProjects(idCategory){
     const response = await fetch('php/galleryRouter.php/category/'+idCategory);
@@ -37,8 +38,8 @@ async function getAllProjectsCategories(){
     return categories;
 }
 
-async function getProject($idProject){
-    const response = await fetch('php/galleryRouter.php/project/'+$idProject);
+async function getProject(idProject){
+    const response = await fetch('php/galleryRouter.php/project/'+idProject);
     const projet = await response.json();
     
     console.log(projet);
@@ -54,8 +55,8 @@ async function getAllSkillsByCategory(){
      return skills;
 }
 
-async function deleteSkillandRefresh($idSkill){
-    const response = await fetch('php/skillsRouter.php/skill/' +$idSkill,  { method: 'DELETE' });
+async function deleteSkillandRefresh(idSkill){
+    const response = await fetch('php/skillsRouter.php/skill/' +idSkill,  { method: 'DELETE' });
     const skills = await response.json();
     
      console.log(skills);
