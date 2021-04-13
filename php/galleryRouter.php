@@ -14,7 +14,8 @@ switch($request[3]){
                 echo getAllProjectsAsJSON();
                 break;
             case 'POST':
-                
+                $json = file_get_contents('php://input');
+                echo addProjectAndRefresh($json);
                 break;
             case 'PUT':
                 

@@ -20,7 +20,7 @@ switch($request[3]){
                 
                 break;
             case 'DELETE':
-                deleteSkillAndRefresh($request[5]);
+                deleteSkillAndRefresh($request[4]);
                 echo getAllSkillsAsJSON();
                 break;
             default:

@@ -29,3 +29,10 @@ function deleteProjectAndRefresh($idProject){
     deleteProject($idProject);
     return json_encode(getAllProjects());
 }
+
+function addProjectAndRefresh($titre, $date, $technique, $description, $miniature, $ordre, $source, $legende, $type, $nomCategorie){
+    addProject($titre, $date, $technique, $description, $miniature, $ordre);
+    addMedia($source, $legende, $type, $titre);
+    linkProjectToCategory($titre, $nomCategorie); //faire un foreach ou on enverrait au lieu de $nomCategorie un tableau de noms de categories
+    return json_encode(getAllProjects());
+}

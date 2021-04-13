@@ -69,3 +69,21 @@ function deleteProject($idProject){
 }
 
 
+function addProject($titre, $date, $technique, $description, $miniature, $ordre){
+    $cnx = connection();
+    $rqt = $cnx->prepare('INSERT INTO projets VALUES( NULL, ?, ?, ?, ?, ?, ? )');
+    $rqt->execute(array($titre, $date, $technique, $description, $miniature, $ordre));
+}
+
+function addMedia($source, $legende, $type, $titre){
+    $cnx = connection();
+    $rqt = $cnx->prepare('INSERT INTO media VALUES( NULL, ?, ?, ?, (SELECT idProjet FROM projets WHERE titre=? )');
+    $rqt->execute(array($source, $legende, $type, $titre));
+
+}
+
+function linkProjectToCategory($titre, $nom){
+    $cnx = connection();
+    $rqt = $cnx->prepare('INSERT INTO concernet VALUES( (SELECT idProjet FROM projets WHERE titre=?),(SELECT idCategorie FROM categories WHERE nom=?)');
+    $rqt->execute(array($titre, $nom));
+}

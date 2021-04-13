@@ -6,6 +6,7 @@
  */
 document.addEventListener('DOMContentLoaded', function(){
     //deleteProjectAndRefresh();
+    addProjectAndRefresh();
 });
 
 // MODELS
