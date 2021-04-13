@@ -39,3 +39,10 @@ function addProjectAndRefresh($form){
     linkProjectToCategory($projet['titre'], $projet['categorie']);
     return json_encode(getAllProjects());
 }
+
+function updateProjectAndRefresh($idProject, $form, $formMedia, $idMedia){
+    $project = json_decode($form, true);
+    $medias = json_decode($formMedia, true);
+    updateProject($project['titre'],$project['date'],$project['technique'],$project['description'],$project['miniature'],$project['ordre'],$idProject);
+    updateMedia($medias['source'], $medias['legende'],$medias['type'],$idProject, $idMedia);
+}

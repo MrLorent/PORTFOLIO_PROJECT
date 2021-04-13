@@ -17,3 +17,9 @@ function getAllSkillsAsJSON(){
 function deleteSkillAndRefresh($idSkill) {
     deleteSkill($idSkill);
 }
+
+function addSkillAndRefresh($skillInfo) {
+    $skill = json_decode($skillInfo, true);
+    addSkill($skill['outil'], $skill['description'], $skill['icone'], $skill['categorie']);
+}
+
