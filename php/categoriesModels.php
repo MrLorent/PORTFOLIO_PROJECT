@@ -21,3 +21,10 @@ function getAllCategories() {
 // Fonctions permettant de manipuler les informations
 // de la BDD en règles générales
 // (commencent par "add..." ou "delete..." par exemple)
+
+function addCategory($nom){
+    $cnx = connection();
+    $rqt = $cnx->prepare('INSERT INTO categories(nom) values(?)');
+    $result = $rqt->execute(array($nom));
+    return getAllCategories();
+}
