@@ -53,3 +53,19 @@ function getProjectMedia($idProject) {
 // Fonctions permettant de manipuler les informations
 // de la BDD en règles générales
 // (commencent par "add..." ou "delete..." par exemple)
+
+function deleteProject($idProject){
+    $cnx = connection();
+
+    $rqt = $cnx->prepare('DELETE FROM concerner WHERE idProjet = ?');
+    $rqt->execute(array($idProject));
+
+    $rqtMedia = $cnx->prepare('DELETE FROM media WHERE idProjet = ?');
+    $rqtMedia->execute(array($idProject));
+
+    $rqtProject = $cnx->prepare('DELETE FROM projets WHERE idProjet = ?');
+    $rqtProject->execute(array($idProject));
+    
+}
+
+

@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function(){
     //getAllProjects();
     //getAllProjectsCategories();
     //getProject("1");
-    getAllSkillsByCategory();
+    //getAllSkillsByCategory();
+    //deleteSkillandRefresh("15");
 });
 
 // MODELS

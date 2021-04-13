@@ -53,3 +53,11 @@ async function getAllSkillsByCategory(){
      console.log(skills);
      return skills;
 }
+
+async function deleteSkillandRefresh($idSkill){
+    const response = await fetch('php/skillsRouter.php/skill/' +$idSkill,  { method: 'DELETE' });
+    const skills = await response.json();
+    
+     console.log(skills);
+     return skills;
+}
