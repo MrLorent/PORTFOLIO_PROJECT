@@ -71,7 +71,7 @@ switch($request[3]){
             case "project":
                 switch($method){
                     case 'GET':
-                        echo getProjectAsJSON($request[5]);
+                        echo getProjectAsJSON($request[4]);
                         break;
                     case 'POST':
                         
@@ -80,7 +80,7 @@ switch($request[3]){
                         
                         break;
                     case 'DELETE':
-        
+                        echo deleteProjectAndRefresh($request[4]);
                         break;
                     default:
                         http_response_code('404');

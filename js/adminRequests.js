@@ -10,15 +10,13 @@
 // }
 
 
-
-
-
-
-
-
-
-
-
+async function deleteProjectAndRefresh($idProject){
+    const response = await fetch('php/galleryRouter.php/project/'+$idProject, { method: 'DELETE'});
+    const projet = await response.json();
+    
+    console.log(projet);
+    return projet;
+}
 
 async function addCategoryAndRefresh(form){
     /*const form = {};
