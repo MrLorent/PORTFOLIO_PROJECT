@@ -6,9 +6,10 @@ require_once('categoriesControllers.php');
 
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
-
-switch($request[4]){
-    case 'categories' :
+    
+//var_dump($request);
+switch($request[5]){
+    case 'category' :
         switch($method){
             case 'GET':
                 echo getAllCategoriesAsJson();
@@ -21,6 +22,7 @@ switch($request[4]){
                 
                 break;
             case 'DELETE':
+                echo deleteACategoryAndRefresh($request[6]);
 
                 break;
             default:
