@@ -37,6 +37,8 @@ function getAllSkillsByCategory($name){
 // de la BDD en règles générales
 // (commencent par "add..." ou "delete..." par exemple)
 
-function deleteSkillAndRefresh($idSkill) {
-    
+function deleteSkill($idSkill) {
+    $cnx = connection();
+    $rqt = $cnx->prepare('DELETE FROM competences WHERE idComp = ?');
+    $rqt->execute(array($idSkill));
 }

@@ -20,8 +20,8 @@ switch($request[4]){
                 
                 break;
             case 'DELETE':
-              //  echo deleteSkillAndRefresh($request[4]);
-
+                deleteSkillAndRefresh($request[5]);
+                echo getAllSkillsAsJSON();
                 break;
             default:
                 http_response_code('404');

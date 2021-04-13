@@ -13,3 +13,7 @@ function getAllSkillsAsJSON(){
     }
     return json_encode($skills);
 }
+
+function deleteSkillAndRefresh($idSkill) {
+    deleteSkill($idSkill);
+}
