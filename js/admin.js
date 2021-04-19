@@ -13,8 +13,4 @@ document.addEventListener('DOMContentLoaded', function(){
     addCategoryAndRefresh(form);*/
 });
 
-// MODELS
-
 // CONTROLEURS
-
-// INJECTEURS

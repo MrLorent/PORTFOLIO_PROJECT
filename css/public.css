@@ -1,20 +1,21 @@
 /* ---------- GALLERY SECTION ----------- */
 #projectList {
-    width: 100%;
+    width: 1120px;
     display: flex;
     flex-wrap: wrap;
+    margin: 0 auto;
 }
 
 .project {
     cursor: pointer;
-    width: 275px;
-    height: 275px;
+    width: 250px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     align-content: flex-start;
     overflow: hidden;
     position: relative;
-    margin: 0 2.5% 2.5% 0;
+    margin: 15px;
 }
 
 .project .miniature {

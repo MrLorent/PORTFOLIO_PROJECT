@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     getAllProjectCategories().then(projectCategories => {
         GALLERY_SECTION.append(generateGalleryFilters(projectCategories));
+        document.querySelector('#gallery .filter:last-child').click();
     });
 
 
@@ -88,7 +89,7 @@ function displaySkill(){
         generateBackButton(SKILL_SECTION);
 
         // AFFICHAGE
-        SKILL_SECTION.classList.toggle('displayed');
+        displayOrHideSection(SKILL_SECTION);
     });
 }
 
@@ -187,8 +188,15 @@ function generateBackButton(currentSection){
     backButton.classList.add('back_button');
     backButton.innerHTML = '< BACK';
     backButton.addEventListener('click',()=>{
-        currentSection.classList.toggle('displayed');
+        displayOrHideSection(currentSection);
     });
     currentSection.append(backButton);
+}
+
+function displayOrHideSection(section){
+    let body = document.querySelector('body');
+
+    section.classList.toggle('displayed');
+    body.classList.toggle('locked');
 }
 
