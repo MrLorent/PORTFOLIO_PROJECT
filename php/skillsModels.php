@@ -8,7 +8,7 @@ require_once('connection.php');
 
 function getSkill($idSkill){
     $cnx = connection();
-    $stmt = $cnx->prepare("SELECT * FROM competences WHERE idComp=?");
+    $stmt = $cnx->prepare("SELECT idComp, idCategorie, outil AS nom, description, icone FROM competences WHERE idComp=?");
     $stmt->execute(array($idSkill));
     $skill = $stmt->fetch(PDO::FETCH_ASSOC);
 

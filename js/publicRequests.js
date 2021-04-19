@@ -1,23 +1,33 @@
 "use strict";
 
-// MODELS
+/*---------------------------------------*/
+/*--------------- REQUESTS --------------*/
+/*---------------------------------------*/
+
 // EXEMPLE :
-
-// Fonction de test de getAllProjects
-async function getCategoryProjects(idCategory){
-    const response = await fetch('php/galleryRouter.php/category/'+idCategory);
-    const projects = await response.json();
+// async function getPlanetDetails(planetId){
+//     const response = await fetch('./SERVER/router.php/planet/'+planetId);
+//     const planets = await response.json();
     
-    console.log(projects);
-    return projects;
-}
+//     console.log(planets);
+//     return planets;
+// }
 
+// CATEGORY
 async function getAllCategories(){
     const response = await fetch('php/categoriesRouter.php/categories/');
     const Allcategories = await response.json();
     
     console.log(Allcategories);
     return Allcategories;
+}
+
+async function getCategoryProjects(idCategory){
+    const response = await fetch('php/galleryRouter.php/category/'+idCategory);
+    const projects = await response.json();
+    
+    console.log(projects);
+    return projects;
 }
 
 async function getAllProjects(){
@@ -28,7 +38,7 @@ async function getAllProjects(){
     return projects;
 }
 
-async function getAllProjectsCategories(){
+async function getAllProjectCategories(){
     const response = await fetch('php/galleryRouter.php/categories/');
     const categories = await response.json();
     
@@ -68,16 +78,6 @@ async function deleteSkillandRefresh($idSkill){
     
     console.log(skills);
     return skills;
-}
-
-async function deleteACategoryAndRefresh(idCategory){
-    const response = await fetch('php/categoriesRouter.php/category/' +idCategory, {
-        method: 'DELETE'
-    });
-    const category = await response.json();
-    
-     console.log(category);
-     return category;
 }
 
 

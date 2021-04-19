@@ -13,9 +13,11 @@ body{
     background: #202020;
     color: #ffffff;
     font-family: Roboto;
+    overflow-x: hidden;
 }
 
 section{
+    width: 100%;
     height: 100vh;
     box-sizing: border-box;
     padding: calc(12vh + 1%) 1% 1% 1%;
@@ -34,11 +36,21 @@ a:hover{
     text-decoration: underline;
 }
 
+.back_button {
+    cursor: pointer;
+    font-size: 1em;
+    position: absolute;
+    left: 0;
+    bottom: 8vh;
+    padding: 10px 15px;
+    margin: 10px;
+}
+
 /* -------------- HEADER -------------- */
 header{
     background: #181818;
     display: flex;
-    width: 100vw;
+    width: 100%;
     height: 12vh;
     display: flex;
     justify-content: space-between;
@@ -47,6 +59,7 @@ header{
     top: 0;
     box-sizing: border-box;
     padding: 0 2.5%;
+    z-index: 1;
 }
 
 header h1{
@@ -63,8 +76,52 @@ nav li{
     margin: 0 0 0 20px;
 }
 
+/* ---------- SKILLS SECTION ----------- */
+#skills .skillCategoryList {
+    width: min-content;
+}
 
+/* ---------- SKILL SECTION ----------- */
+#skill {
+    background: #202020;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    box-sizing: border-box;
+    transform: translateX(100vw);
+    transition: 0.5s ease-out;
+}
 
+#skill.displayed {
+    transform: translateX(0);
+}
+
+/* ---------- GALLERY SECTION ----------- */
+#gallery .filterBar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+#gallery .filter {
+    cursor: pointer;
+    text-align: center;
+    padding: 15px;
+}
+
+#gallery .filter.selected,
+#gallery .filter.selected:hover {
+    color: #39CFAF;
+    border-bottom: 2px solid #39CFAF;
+}
+
+#gallery .filter:hover {
+    color: white;
+    border-bottom: 2px solid white;
+}
 
 /* -------------- FOOTER -------------- */
 footer{
