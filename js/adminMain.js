@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
     SKILL_FORM_SECTION = document.getElementById('skillForm');
     GALLERY_SECTION = document.getElementById('gallery');
     PROJECT_SECTION = document.getElementById('project');
+    PROJECT_FORM_SECTION = document.getElementById('projectForm');
 
     // NAV
     let navLinks = document.querySelectorAll('nav a');
@@ -189,7 +190,7 @@ function displayFilledSkillForm(idSkill){
             let description = document.getElementById('skillDescription');
             description.value = skillDetails['description'];
 
-            generateBackButton(SKILL_FORM_SECTION);
+            generateBackButton(SKIL_FORM_SECTION);
             displayOrHideSection(SKILL_FORM_SECTION);
         });
     });
@@ -236,9 +237,141 @@ function generateGalleryDashboard(projects){
 }
 
 function displayFilledProjectForm(idProject){
-    getProject(idProject).then(projectDetails => {
-        
+    getAllCategories().then(categories => {
+        removeAllChildren(PROJECT_FORM_SECTION);
+
+        getProject(idProject).then(projectDetails => {
+            let projectForm = generateProjectForm(categories);
+
+            projectForm.addEventListener('submit', () => {
+                updateProject(idProject);
+            });
+
+            PROJECT_FORM_SECTION.append(projectForm);
+
+            let projectInfos = projectDetails['infos'];
+            
+            document.querySelector('input#projectTitle').value = projectInfos['titre'];
+
+            document.querySelector('input#projectDate').value = projectInfos['date'];
+
+            document.querySelector('input#projectTechnique').value = projectInfos['technique'];
+
+            document.querySelector('textarea#projectDescription').value = projectInfos['description'];
+
+            let projectMedia = projectDetails['media'][0];
+
+            document.querySelector('input#projectMedia').value = projectMedia['source'];
+
+            generateBackButton(PROJECT_FORM_SECTION);
+            displayOrHideSection(PROJECT_FORM_SECTION);
+        });
     });
+    
+}
+
+function generateProjectForm(categories){
+    let form = document.createElement('form');
+
+    // CRÉATION D'UN INPUT
+    // Initialisation du label
+    let titleLabel = document.createElement('label');
+    titleLabel.htmlFor = 'title';
+    titleLabel.innerHTML = "Nom du projet :";
+    // Initialisation de l'input
+    let titleInput = document.createElement('input');
+    titleInput.id = 'projectTitle';
+    titleInput.type = 'text';
+    titleInput.name = 'title';
+    // Ajout au form
+    form.append(titleLabel);
+    form.append(titleInput);
+
+    // CRÉATION D'UN SELECT
+    // Initialisation du label
+    let selectLabel = document.createElement('label');
+    selectLabel.htmlFor = 'category';
+    selectLabel.innerHTML = "Choissisez la categorie du projet :";
+    // Initialisation de l'input
+    let categorySelector = document.createElement('select');
+    categorySelector.id = 'categorySelector';
+    categorySelector.name = 'category';
+    for(let current in categories){
+        let category = categories[current];
+        let option = document.createElement('option');
+        option.classList.add(category['idCategorie']);
+        option.value = category['idCategorie'];
+        option.innerHTML = category['nom'];
+        categorySelector.append(option);
+    }
+    // Ajout au form
+    form.append(selectLabel);
+    form.append(categorySelector);
+
+    // CRÉATION D'UN INPUT
+    // Initialisation du label
+    let dateLabel = document.createElement('label');
+    dateLabel.htmlFor = 'date';
+    dateLabel.innerHTML = "Date de réalisation :";
+    // Initialisation de l'input
+    let dateInput = document.createElement('input');
+    dateInput.id = 'projectDate';
+    dateInput.type = 'text';
+    dateInput.name = 'date';
+    // Ajout au form
+    form.append(dateLabel);
+    form.append(dateInput);
+
+    // CRÉATION D'UN INPUT
+    // Initialisation du label
+    let techniqueLabel = document.createElement('label');
+    techniqueLabel.htmlFor = 'technique';
+    techniqueLabel.innerHTML = "techniques utilisées :";
+    // Initialisation de l'input
+    let techniqueInput = document.createElement('input');
+    techniqueInput.id = 'projectTechnique';
+    techniqueInput.type = 'text';
+    techniqueInput.name = 'technique';
+    // Ajout au form
+    form.append(techniqueLabel);
+    form.append(techniqueInput);
+
+    // CRÉATION D'UN INPUT
+    // Initialisation du label
+    let descriptionLabel = document.createElement('label');
+    descriptionLabel.htmlFor = 'description';
+    descriptionLabel.innerHTML = "Description du projet :";
+    // Initialisation de l'input
+    let textarea = document.createElement('textarea');
+    textarea.id = 'projectDescription';
+    textarea.name = 'description';
+    // Ajout au form
+    form.append(descriptionLabel);
+    form.append(textarea);
+
+    // CRÉATION D'UN INPUT
+    // Initialisation du label
+    let mediaLabel = document.createElement('label');
+    mediaLabel.htmlFor = 'media';
+    mediaLabel.innerHTML = "[TEMPORAIRE] Chemin vers un media :";
+    // Initialisation de l'input
+    let mediaInput = document.createElement('input');
+    mediaInput.id = 'projectMedia';
+    mediaInput.type = 'text';
+    mediaInput.name = 'media';
+    // Ajout au form
+    form.append(mediaLabel);
+    form.append(mediaInput);
+
+    //CRÉATION DU SUBMIT BUTTON
+    let submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.classList.add('button');
+    submitButton.classList.add('submit');
+    submitButton.innerHTML = "Envoyer";
+    form.append(submitButton);
+
+    return form;
 }
 
 // GENERAL
