@@ -35,68 +35,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 // CONTROLEURS
-function generateSkillsAsList(skillsByCategories){
-    // On créer la liste principale
-    let ulCategories = document.createElement('ul');
-    ulCategories.classList.add('skillCategoryList');
-
-    // On créer les sous listes
-    for(let category in skillsByCategories){
-        let tabCategory = skillsByCategories[category];
-        let liCategory = document.createElement('li');
-        liCategory.classList.add('skillCategory');
-        liCategory.dataset.idCategory = tabCategory['idCategory'];
-        let categroyName = document.createElement('span');
-        categroyName.classList.add('categoryName');
-        categroyName.innerHTML = category;
-        liCategory.append(categroyName);
-
-        let ulSkills = document.createElement('ul');
-        ulSkills.classList.add('skillList');
-        for(let skill in tabCategory['skills']){
-            let tabSkill = tabCategory['skills'][skill];
-            let liSkill = document.createElement('li');
-            liSkill.classList.add('skill');
-            liSkill.dataset.idSkill = tabSkill['idSkill'];
-            liSkill.addEventListener('click', displaySkill);
-            liSkill.innerHTML = tabSkill['name'];
-            ulSkills.append(liSkill);
-        }
-        liCategory.append(ulSkills);
-        ulCategories.append(liCategory);
-    }
-
-    return ulCategories;
-}
-
-function displaySkill(){
-    getSkill(this.dataset.idSkill).then(skillDetails => {
-        // SUPPRESSION DES ÉLÉMENTS PRÉEXISTANTS
-        removeAllChildren(SKILL_SECTION);
-
-        // CRÉATION ET AJOUT DES NOUVEAUX ÉLÉMENTS
-        let skillTitle = document.createElement('h3');
-        skillTitle.classList.add('skillTitle');
-        skillTitle.innerHTML = skillDetails['nom'];
-        SKILL_SECTION.append(skillTitle);
-
-        let skillDescription = document.createElement('p');
-        skillDescription.classList.add('skillDescription');
-        skillDescription.innerHTML = skillDetails['description'];
-        SKILL_SECTION.append(skillDescription);
-
-        let skillIcone = document.createElement('img');
-        skillIcone.src = skillDetails['icone'];
-        skillIcone.alt = "Logo " + skillDetails['nom'];
-        SKILL_SECTION.append(skillIcone);
-
-        generateBackButton(SKILL_SECTION);
-
-        // AFFICHAGE
-        displayOrHideSection(SKILL_SECTION);
-    });
-}
-
 function generateGalleryFilters(categories){
     let filterBar = document.createElement('filterBar');
     filterBar.classList.add('filterBar');

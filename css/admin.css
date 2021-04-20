@@ -1,0 +1,27 @@
+/* -------------- GENERAL -------------- */
+.button.delete {
+    background: #CC0000;
+}
+
+.button.delete:hover {
+    background: #a00000;
+}
+
+.button.modify {
+    background: #202020;
+}
+
+.button.modify:hover {
+    background: #121212;
+}
+
+.button + .button {
+    margin: 0 0 0 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ----------- SKILL FORM SECTION ---------- */
