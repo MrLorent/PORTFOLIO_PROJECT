@@ -29,7 +29,19 @@
             
         </section>
         <section id="skillForm" class="modal">
-            
+            <form action="#">
+                <label for="nom">Nom de la compétence :</label>
+                <input id="skillName" type="text" name="nom" required="required">
+                <label for="icone">[TEMPORAIRE] Chemin vers l'icone :</label>
+                <input id="skillIcone" type="text" name="icone" required="required">
+                <label for="category">Choissisez le champ de la compétence :</label>
+                <select name="category" id="categorySelector">
+
+                </select>
+                <label for="description">Description de la compétence :</label>
+                <textarea name="description" id="skillDescription" cols="30" rows="10"></textarea>
+                <button type="submit" class="button submit">Envoyer</button>
+            </form>
         </section>
         <section id="gallery">
             <h2>GALERIE</h2>

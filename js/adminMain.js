@@ -29,67 +29,59 @@ function generateSkillsDashBoard(skillsByCategories) {
     });
 }
 
-function displaySkillFormSection(idSkill){
-    console.log(idSkill);
-    getSkill(idSkill).then(skillDetails => {
-        SKILL_FORM_SECTION.append(generateSkillForm());
+function prepareSkillForm(categories){
+    let skillName = document.querySelector('form #skillName');
+    skillName.value = "";
 
-        generateBackButton(SKILL_FORM_SECTION);
-        displayOrHideSection(SKILL_FORM_SECTION);
-    });
+    let skillIcone = document.querySelector('form #skillIcone');
+    skillIcone.value = "";
+
+    let categorySelector = document.getElementById('categorySelector');
+    removeAllChildren(categorySelector);
+    for(let current in categories){
+        let category = categories[current];
+        let option = document.createElement('option');
+        option.classList.add(category['idCategorie']);
+        option.value = category['idCategorie'];
+        option.innerHTML = category['nom'];
+        categorySelector.append(option);
+    }
+
+    let description = document.getElementById('skillDescription');
+    description.value = "";
 }
 
-function generateSkillForm(){
-    // CRÉATION DU FORM
-    let form = document.createElement('form');
+function displayFilledSkillForm(idSkill){
+    getAllCategories().then(categories => {
 
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let nameLabel = document.createElement('label');
-    nameLabel.htmlFor = 'nom';
-    nameLabel.innerHTML = "Nom de la compétence :";
-    // Initialisation de l'input
-    let nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.name = 'nom';
-    // Ajout au form
-    form.append(nameLabel);
-    form.append(nameInput);
+        prepareSkillForm(categories);
 
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let iconeLabel = document.createElement('label');
-    iconeLabel.htmlFor = 'icone';
-    iconeLabel.innerHTML = "[TEMPORAIRE] Chemin vers l'icone :";
-    // Initialisation de l'input
-    let iconeInput = document.createElement('input');
-    iconeInput.type = 'text';
-    iconeInput.name = 'icone';
-    // Ajout au form
-    form.append(iconeLabel);
-    form.append(iconeInput);
+        getSkill(idSkill).then(skillDetails => {
 
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let descriptionLabel = document.createElement('label');
-    descriptionLabel.htmlFor = 'description';
-    descriptionLabel.innerHTML = "Description de la compétence :";
-    // Initialisation de l'input
-    let textarea = document.createElement('textarea');
-    textarea.name = 'description';
-    // Ajout au form
-    form.append(descriptionLabel);
-    form.append(textarea);
+            let skillName = document.querySelector('form #skillName');
+            skillName.value = skillDetails['nom'];
+    
+            let skillIcone = document.querySelector('form #skillIcone');
+            skillIcone.value = skillDetails['icone'];
+    
+            let categorySelector = document.getElementById('categorySelector');
+            let count = 0;
+            let optionSelected = false;
+            while(!optionSelected){
+                if(categorySelector.options[count].value == skillDetails['idCategorie']){
+                    categorySelector.options[count].selected = true;
+                    optionSelected = true;
+                }
+                count++;
+            }
 
-    //CRÉATION DU SUBMIT BUTTON
-    let submitButton = document.createElement('button');
-    submitButton.type = 'submit';
-    submitButton.classList.add('button');
-    submitButton.classList.add('submit');
-    submitButton.innerHTML = "Envoyer";
-    form.append(submitButton);
+            let description = document.getElementById('skillDescription');
+            description.value = skillDetails['description'];
 
-    return form;
+            generateBackButton(SKILL_FORM_SECTION);
+            displayOrHideSection(SKILL_FORM_SECTION);
+        });
+    });
 }
 
 function generateModifyButton(idSkill){
@@ -99,7 +91,7 @@ function generateModifyButton(idSkill){
     modifyButton.dataset.idSkill = idSkill;
     modifyButton.innerHTML = "Modifier";
     modifyButton.addEventListener('click', function(){
-        displaySkillFormSection(this.dataset.idSkill);
+        displayFilledSkillForm(this.dataset.idSkill);
     });
 
     return modifyButton;

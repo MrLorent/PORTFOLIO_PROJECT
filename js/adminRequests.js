@@ -36,10 +36,10 @@ async function deleteACategoryAndRefresh(idCategory){
 
 async function getAllCategories(){
     const response = await fetch('php/categoriesRouter.php/categories/');
-    const Allcategories = await response.json();
+    const allCategories = await response.json();
     
-    console.log(Allcategories);
-    return Allcategories;
+    console.log(allCategories);
+    return allCategories;
 }
 
 // SKILLS
