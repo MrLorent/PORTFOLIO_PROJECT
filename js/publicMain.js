@@ -1,11 +1,5 @@
 "use strict";
 
-// CONSTANTES
-var SKILLS_SECTION;
-var SKILL_SECTION;
-var GALLERY_SECTION;
-var PROJECT_SECTION;
-
 /**
  * FONCTION MAIN
  * Fonction lancer dès que la page HTML est chargée
@@ -38,15 +32,6 @@ document.addEventListener('DOMContentLoaded', function(){
         GALLERY_SECTION.append(generateGalleryFilters(projectCategories));
         document.querySelector('#gallery .filter:last-child').click();
     });
-
-
-    //getAllCategories();
-    //getAllProjects();
-    //getAllProjectsCategories();
-    //getProject("1");
-    //deleteSkillandRefresh("15");
-    //deleteACategoryAndRefresh("15");
-
 });
 
 // CONTROLEURS
@@ -61,7 +46,10 @@ function generateSkillsAsList(skillsByCategories){
         let liCategory = document.createElement('li');
         liCategory.classList.add('skillCategory');
         liCategory.dataset.idCategory = tabCategory['idCategory'];
-        liCategory.innerHTML = category;
+        let categroyName = document.createElement('span');
+        categroyName.classList.add('categoryName');
+        categroyName.innerHTML = category;
+        liCategory.append(categroyName);
 
         let ulSkills = document.createElement('ul');
         ulSkills.classList.add('skillList');
@@ -259,30 +247,5 @@ function displayProject(){
         // AFFICHAGE
         displayOrHideSection(PROJECT_SECTION);
     });
-}
-
-function removeAllChildren(parent){
-    if(parent.firstElementChild){
-        do{
-            parent.removeChild(parent.firstElementChild);
-        }while(parent.firstElementChild);
-    }
-}
-
-function generateBackButton(currentSection){
-    var backButton = document.createElement('span');
-    backButton.classList.add('back_button');
-    backButton.innerHTML = '< BACK';
-    backButton.addEventListener('click',()=>{
-        displayOrHideSection(currentSection);
-    });
-    currentSection.append(backButton);
-}
-
-function displayOrHideSection(section){
-    let body = document.querySelector('body');
-
-    section.classList.toggle('displayed');
-    body.classList.toggle('locked');
 }
 

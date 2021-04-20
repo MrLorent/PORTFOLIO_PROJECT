@@ -10,7 +10,7 @@ body{
 }
 
 body{
-    background: #202020;
+    background: #181818;
     color: #ffffff;
     font-family: Roboto;
     overflow-x: hidden;
@@ -26,13 +26,13 @@ body.locked {
 
 section{
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
     padding: calc(12vh + 1%) 1% 1% 1%;
 }
 
 .modal {
-    background: #202020;
+    background: #181818;
     position: fixed;
     top: 0;
     transform: translateX(100vw);
@@ -69,7 +69,7 @@ a:hover{
 
 /* -------------- HEADER -------------- */
 header{
-    background: #181818;
+    background: #202020;
     display: flex;
     width: 100%;
     height: 12vh;
@@ -98,8 +98,34 @@ nav li{
 }
 
 /* ---------- SKILLS SECTION ----------- */
-#skills .skillCategoryList {
-    width: min-content;
+.skillCategoryList {
+    list-style: none;
+    padding: 0 2.5%;
+}
+
+.categoryName {
+    text-transform: capitalize;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    border-bottom: 2px solid white;
+    padding: 15px;
+}
+
+.skillList {
+    list-style: none;
+    padding: 0 0 0 15px;
+    margin: 0 0 50px 0;
+}
+
+li.skill {
+    border-bottom: 1px solid #323232;
+    padding: 15px 15px;
+}
+
+li.skill:hover {
+    background: #121212;
+    transition: 0.25s ease-in;
 }
 
 /* ---------- SKILL SECTION ----------- */
@@ -141,7 +167,7 @@ nav li{
 
 /* -------------- FOOTER -------------- */
 footer{
-    background: #181818;
+    background: #202020;
     font-size: 1em;
     width: 100vw;
     height: 8vh;
