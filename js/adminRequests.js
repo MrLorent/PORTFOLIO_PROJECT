@@ -93,10 +93,10 @@ async function addProjectAndRefresh(){
     return projet;	
 }
 
-async function deleteProjectAndRefresh($idProject){
-    const response = await fetch('php/galleryRouter.php/project/'+$idProject, { method: 'DELETE'});
-    const projet = await response.json();
+async function deleteProjectAndRefresh(idProject){
+    const response = await fetch('php/galleryRouter.php/project/' + idProject, { method: 'DELETE'});
+    const projects = await response.json();
     
-    console.log(projet);
-    return projet;
+    console.log(projects);
+    return projects;
 }

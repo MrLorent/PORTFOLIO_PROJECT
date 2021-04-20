@@ -16,10 +16,6 @@ body{
     overflow-x: hidden;
 }
 
-main {
-    padding: 0 0 8vh 0;
-}
-
 body.locked {
     overflow-y: hidden;
 }
@@ -33,6 +29,7 @@ section{
 
 .modal {
     background: #181818;
+    height: 100vh;
     position: fixed;
     top: 0;
     transform: translateX(100vw);
@@ -132,7 +129,6 @@ li.skill {
     align-items: center;
     border-bottom: 1px solid #323232;
     padding: 10px;
-    transition: 0.25s ease-in;
 }
 
 .skillName {
@@ -154,6 +150,7 @@ li.skill {
 /* ---------- GALLERY SECTION ----------- */
 #gallery {
     height: auto;
+    padding-bottom: 8vh;
 }
 
 #gallery .filterBar {
@@ -178,6 +175,30 @@ li.skill {
 #gallery .filter:hover {
     color: white;
     border-bottom: 2px solid white;
+}
+
+/* ---------- PROJECT SECTION ----------- */
+#project {
+    display: flex;
+}
+
+#project .infos {
+    width: 33%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 2.5%
+}
+
+#project .media {
+    width: 67%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.projectPicture {
+    width: 100%;
 }
 
 /* -------------- FOOTER -------------- */

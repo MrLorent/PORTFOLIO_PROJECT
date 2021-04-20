@@ -1,10 +1,10 @@
 /* -------------- GENERAL -------------- */
 .button.delete {
-    background: #CC0000;
+    background: #c72525;
 }
 
 .button.delete:hover {
-    background: #a00000;
+    background: #a51e1e;
 }
 
 .button.modify {
@@ -39,3 +39,30 @@ form {
 }
 
 /* ----------- SKILL FORM SECTION ---------- */
+
+/* ---------- GALLERY SECTION ----------- */
+.project .miniature {
+    display: none;
+}
+
+ul#projectList {
+    list-style: none;
+    padding: 2.5% 2.5% 0 2.5%;
+}
+
+li.project {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #323232;
+    padding: 10px;
+}
+
+li.project span.idProject,
+li.project span.projectTitle {
+    padding: 5px 15px 5px 0;
+}
+
+li.project span.projectTitle {
+    cursor: pointer;
+    flex-grow: 1;
+}

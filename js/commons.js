@@ -8,6 +8,7 @@ var GALLERY_SECTION;
 var PROJECT_SECTION;
 
 // CONTROLLERS
+// SKILLS
 function generateSkillsAsList(skillsByCategories){
     // SUPPRESSION DES ÉLÉMENTS PRÉCÉDENTS
     removeAllChildren(SKILLS_SECTION);
@@ -77,6 +78,125 @@ function displaySkill(){
     });
 }
 
+// GALLERY
+function generateGalleryFilters(categories){
+    let filterBar = document.createElement('filterBar');
+    filterBar.classList.add('filterBar');
+
+    for(let current in categories){
+        let categorie = categories[current];
+        let filter = document.createElement('span');
+        filter.classList.add('filter');
+        filter.dataset.idCategory = categorie['idCategorie'];
+        filter.addEventListener('click', filterProjects);
+        filter.innerHTML = categorie['nom'];
+
+        filterBar.append(filter);
+    }
+
+    let filterAll = document.createElement('span');
+    filterAll.classList.add('filter');
+    filterAll.dataset.idCategory = "all";
+    filterAll.addEventListener('click', filterProjects);
+    filterAll.innerHTML = "All";
+
+    filterBar.append(filterAll);
+    
+    return filterBar;
+}
+
+function filterProjects(evt){
+    if(!this.classList.contains('selected')){
+        let previous = document.querySelector('#gallery .filter.selected');
+
+        if(previous){
+            previous.classList.remove('selected');
+        }
+
+        this.classList.add('selected');
+
+        if(this.dataset.idCategory == "all"){
+            getAllProjects().then(projects => {
+                generateGallery(projects);
+            });
+        }else{
+            getAllProjectsFromACategory(this.dataset.idCategory).then(projects => {
+                generateGallery(projects);
+            });
+        }
+    }
+}
+
+function displayProject(){
+    getProject(this.dataset.idProject).then(projectDetails => {
+        // SUPPRESSION DES ANCIENS CONTENUS
+        removeAllChildren(PROJECT_SECTION);
+
+        // MEDIA
+        let projectMedia = projectDetails['media'];
+
+        let divMedia = document.createElement('div');
+        divMedia.classList.add('media');
+
+        for(let index in projectMedia){
+            let projectMedium = projectMedia[index];
+            switch(projectMedium['type']){
+                case 'photo':
+                    let picture = document.createElement('img');
+                    picture.src = projectMedium['source'];
+                    picture.alt = projectMedium['legende'];
+                    picture.classList.add('projectPicture');
+                    divMedia.append(picture);
+                    break;
+                case 'video':
+                    let video = document.createElement('iframe');
+                    video.src = projectMedium['source'];
+                    divMedia.append(video);
+                    break;
+                default:
+                    console.log("Le type de media " + projectMedia['type'] + "n'est pas géré");
+                    break;
+            }
+        }
+
+        PROJECT_SECTION.append(divMedia);
+
+        // TEXTUAL INFORMATIONS
+        let projectInfos = projectDetails['infos'];
+
+        let divText = document.createElement('div');
+        divText.classList.add('infos');
+        
+        let title = document.createElement('h3');
+        title.classList.add('title');
+        title.innerHTML = projectInfos['titre'];
+        divText.append(title);
+
+        let date = document.createElement('span');
+        date.classList.add('date');
+        date.innerHTML = projectInfos['date'];
+        divText.append(date);
+
+        let technique = document.createElement('span');
+        technique.classList.add('technique');
+        technique.innerHTML = projectInfos['technique'];
+        divText.append(technique);
+
+        let description = document.createElement('p');
+        description.classList.add('description');
+        description.innerHTML = projectInfos['description'];
+        divText.append(description);
+
+        PROJECT_SECTION.append(divText);
+
+        generateBackButton(PROJECT_SECTION);
+
+        // AFFICHAGE
+        displayOrHideSection(PROJECT_SECTION);
+    });
+}
+
+// GENERAL
 function removeAllChildren(parent){
     if(parent.firstElementChild){
         do{

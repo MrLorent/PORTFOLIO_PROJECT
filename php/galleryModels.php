@@ -75,6 +75,7 @@ function addProject($titre, $date, $technique, $description, $miniature, $ordre)
     $rqt = $cnx->prepare('INSERT INTO projets VALUES( NULL, ?, ?, ?, ?, ?, ? )');
     $rqt->execute(array($titre, $date, $technique, $description, $miniature, $ordre));
 }
+
 function updateProject($titre,$date,$technique,$description,$miniature,$ordre,$idProject){
     $cnx = connection();
     $rqtProject = $cnx->prepare('UPDATE projets

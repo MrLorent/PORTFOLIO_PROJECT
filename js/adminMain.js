@@ -11,13 +11,36 @@ document.addEventListener('DOMContentLoaded', function(){
     GALLERY_SECTION = document.getElementById('gallery');
     PROJECT_SECTION = document.getElementById('project');
 
+    // NAV
+    let navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(navLink => {
+        navLink.addEventListener('click', () => {
+            let modalDisplayed = document.querySelector('.modal.displayed');
+    
+            if(modalDisplayed){
+                displayOrHideSection(modalDisplayed);
+            }
+        });
+    })
+
     // SKILLS_SECTION
     getAllSkillsByCategory().then(skillsByCategories => {
         generateSkillsDashBoard(skillsByCategories);
     });
+
+    // GALLERY_SECTION
+    getAllProjectCategories().then(projectCategories => {
+        GALLERY_SECTION.append(generateGalleryFilters(projectCategories));
+        document.querySelector('#gallery .filter:last-child').classList.add('selected');
+        getAllProjects().then(projects => {
+            generateGalleryDashboard(projects);
+        });
+    });
+
 });
 
 // CONTROLEURS
+// SKILLS
 function generateSkillsDashBoard(skillsByCategories) {
     SKILLS_SECTION.append(generateSkillsAsList(skillsByCategories));
 
@@ -36,8 +59,8 @@ function generateSkillsDashBoard(skillsByCategories) {
     let skills = document.querySelectorAll('li.skill');
 
     skills.forEach(skill => {
-        skill.append(generateModifyButton(skill.dataset.idSkill));
-        skill.append(generateDeleteButton(skill.dataset.idSkill));
+        skill.append(generateModifySkillButton(skill.dataset.idSkill));
+        skill.append(generateDeleteSkillButton(skill.dataset.idSkill));
     });
 }
 
@@ -142,7 +165,7 @@ function displayFilledSkillForm(idSkill){
             updateSkill(idSkill);
         });
 
-        SKILL_FORM_SECTION.append(form);
+        SKILL_FORM_SECTION.append(skillForm);
 
         getSkill(idSkill).then(skillDetails => {
 
@@ -172,7 +195,54 @@ function displayFilledSkillForm(idSkill){
     });
 }
 
-function generateModifyButton(idSkill){
+// GALLERY
+function generateGalleryDashboard(projects){
+    let projectList = document.getElementById('projectList');
+
+    if(projectList){
+        projectList.remove();
+    }
+
+    projectList = document.createElement('ul');
+    projectList.id = "projectList";
+
+    for(let current in projects){
+        let project = projects[current];
+
+        let liProject = document.createElement('li');
+        liProject.classList.add('project');
+        liProject.dataset.idProject = project['idProjet'];
+
+        let idProject = document.createElement('span');
+        idProject.classList.add('idProject');
+        idProject.innerHTML = project['idProjet'];
+        liProject.append(idProject);
+
+        let projectTitle = document.createElement('span');
+        projectTitle.classList.add('projectTitle');
+        projectTitle.dataset.idProject = project['idProjet'];
+        projectTitle.innerHTML = project['titre'];
+        projectTitle.addEventListener('click', displayProject);
+        liProject.append(projectTitle);
+
+        liProject.append(generateModifyProjectButton(project['idProjet']));
+
+        liProject.append(generateDeleteProjectButton(project['idProjet']));
+
+        projectList.append(liProject);
+    }
+
+    GALLERY_SECTION.append(projectList);
+}
+
+function displayFilledProjectForm(idProject){
+    getProject(idProject).then(projectDetails => {
+        
+    });
+}
+
+// GENERAL
+function generateModifySkillButton(idSkill){
     let modifyButton = document.createElement('span');
     modifyButton.classList.add('button');
     modifyButton.classList.add('modify');
@@ -185,7 +255,7 @@ function generateModifyButton(idSkill){
     return modifyButton;
 }
 
-function generateDeleteButton(idSkill){
+function generateDeleteSkillButton(idSkill){
     let deleteButton = document.createElement('span');
     deleteButton.classList.add('button');
     deleteButton.classList.add('delete');
@@ -194,6 +264,34 @@ function generateDeleteButton(idSkill){
     deleteButton.addEventListener('click', function(){
         deleteSkillandRefresh(this.dataset.idSkill).then(skillsByCategories => {
            generateSkillsDashBoard(skillsByCategories);
+        });
+    });
+
+    return deleteButton;
+}
+
+function generateModifyProjectButton(idProject){
+    let modifyButton = document.createElement('span');
+    modifyButton.classList.add('button');
+    modifyButton.classList.add('modify');
+    modifyButton.dataset.idProject = idProject;
+    modifyButton.innerHTML = "Modifier";
+    modifyButton.addEventListener('click', function(){
+        displayFilledProjectForm(this.dataset.idProject);
+    });
+
+    return modifyButton;
+}
+
+function generateDeleteProjectButton(idProject){
+    let deleteButton = document.createElement('span');
+    deleteButton.classList.add('button');
+    deleteButton.classList.add('delete');
+    deleteButton.dataset.idProject = idProject;
+    deleteButton.innerHTML = "Supprimer";
+    deleteButton.addEventListener('click', function(){
+        deleteProjectAndRefresh(this.dataset.idProject).then(projects => {
+           generateGalleryDashboard(projects);
         });
     });
 
