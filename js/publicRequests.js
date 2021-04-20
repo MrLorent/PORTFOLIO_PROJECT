@@ -14,13 +14,6 @@
 // }
 
 // CATEGORY
-async function getAllCategories(){
-    const response = await fetch('php/categoriesRouter.php/categories/');
-    const Allcategories = await response.json();
-    
-    console.log(Allcategories);
-    return Allcategories;
-}
 
 // SKILLS
 async function getAllSkillsByCategory(){
@@ -40,7 +33,15 @@ async function getSkill(idSkill){
 }
 
 // GALLERY
-async function getCategoryProjects(idCategory){
+async function getProject(idProject){
+    const response = await fetch('php/galleryRouter.php/project/'+idProject);
+    const projet = await response.json();
+    
+    console.log(projet);
+    return projet;
+}
+
+async function getAllProjectsFromACategory(idCategory){
     const response = await fetch('php/galleryRouter.php/category/'+idCategory);
     const projects = await response.json();
     
@@ -62,12 +63,4 @@ async function getAllProjectCategories(){
     
     console.log(categories);
     return categories;
-}
-
-async function getProject(idProject){
-    const response = await fetch('php/galleryRouter.php/project/'+idProject);
-    const projet = await response.json();
-    
-    console.log(projet);
-    return projet;
 }

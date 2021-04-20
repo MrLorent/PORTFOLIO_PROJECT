@@ -8,6 +8,27 @@ $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch($request[4]){
+    case "project":
+        switch($method){
+            case 'GET':
+                echo getProjectAsJSON($request[5]);
+                break;
+            case 'POST':
+                $json = file_get_contents('php://input');
+                echo addProjectAndRefresh($json);
+                break;
+            case 'PUT':
+                
+                break;
+            case 'DELETE':
+                echo deleteProjectAndRefresh($request[5]);
+                break;
+            default:
+                http_response_code('404');
+                echo 'OUPSI !';
+                break;
+        }
+        break;
     case "projects":
         switch($method){
             case 'GET':
@@ -31,7 +52,7 @@ switch($request[4]){
     case "category":
         switch($method){
             case 'GET':
-                echo getCategoryProjectsAsJSON($request[5]);
+                echo getAllProjectsFromACategoryAsJSON($request[5]);
                 break;
             case 'POST':
                 
@@ -68,27 +89,6 @@ switch($request[4]){
                     break;
             }
             break;
-            case "project":
-                switch($method){
-                    case 'GET':
-                        echo getProjectAsJSON($request[5]);
-                        break;
-                    case 'POST':
-                        $json = file_get_contents('php://input');
-                        echo addProjectAndRefresh($json);
-                        break;
-                    case 'PUT':
-                        
-                        break;
-                    case 'DELETE':
-                        echo deleteProjectAndRefresh($request[5]);
-                        break;
-                    default:
-                        http_response_code('404');
-                        echo 'OUPSI !';
-                        break;
-                }
-                break;
     default :
         http_response_code('500');
         echo 'unknown endpoint';

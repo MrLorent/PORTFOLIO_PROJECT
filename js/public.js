@@ -4,6 +4,7 @@
 var SKILLS_SECTION;
 var SKILL_SECTION;
 var GALLERY_SECTION;
+var PROJECT_SECTION;
 
 /**
  * FONCTION MAIN
@@ -13,11 +14,26 @@ document.addEventListener('DOMContentLoaded', function(){
     SKILLS_SECTION = document.getElementById('skills');
     SKILL_SECTION = document.getElementById('skill');
     GALLERY_SECTION = document.getElementById('gallery');
+    PROJECT_SECTION = document.getElementById('project');
 
+    // NAV
+    let navLinks = document.querySelectorAll('nav a');
+    navLinks.forEach(navLink => {
+        navLink.addEventListener('click', () => {
+            let modalDisplayed = document.querySelector('.modal.displayed');
+    
+            if(modalDisplayed){
+                displayOrHideSection(modalDisplayed);
+            }
+        });
+    })
+
+    // SKILLS_SECTION
     getAllSkillsByCategory().then(skillsByCategories => {
         SKILLS_SECTION.append(generateSkillsAsList(skillsByCategories));
     });
 
+    // GALLERY_SECTION
     getAllProjectCategories().then(projectCategories => {
         GALLERY_SECTION.append(generateGalleryFilters(projectCategories));
         document.querySelector('#gallery .filter:last-child').click();
@@ -134,7 +150,7 @@ function filterProjects(evt){
                 generateGallery(projects);
             });
         }else{
-            getCategoryProjects(this.dataset.idCategory).then(projects => {
+            getAllProjectsFromACategory(this.dataset.idCategory).then(projects => {
                 generateGallery(projects);
             });
         }
@@ -157,6 +173,7 @@ function generateGallery(projects){
         let divProject = document.createElement('div');
         divProject.classList.add('project');
         divProject.dataset.idProject = project['idProjet'];
+        divProject.addEventListener('click', displayProject);
         
         let miniature = document.createElement('img');
         miniature.src = project['miniature'];
@@ -173,6 +190,75 @@ function generateGallery(projects){
     }
 
     GALLERY_SECTION.append(divGallery);
+}
+
+function displayProject(){
+    getProject(this.dataset.idProject).then(projectDetails => {
+        // SUPPRESSION DES ANCIENS CONTENUS
+        removeAllChildren(PROJECT_SECTION);
+
+        // MEDIA
+        let projectMedia = projectDetails['media'];
+
+        let divMedia = document.createElement('div');
+        divMedia.classList.add('media');
+
+        for(let index in projectMedia){
+            let projectMedium = projectMedia[index];
+            switch(projectMedium['type']){
+                case 'photo':
+                    let picture = document.createElement('img');
+                    picture.src = projectMedium['source'];
+                    picture.alt = projectMedium['legende'];
+                    picture.classList.add('projectPicture');
+                    divMedia.append(picture);
+                    break;
+                case 'video':
+                    let video = document.createElement('iframe');
+                    video.src = projectMedium['source'];
+                    divMedia.append(video);
+                    break;
+                default:
+                    console.log("Le type de media " + projectMedia['type'] + "n'est pas géré");
+                    break;
+            }
+        }
+
+        PROJECT_SECTION.append(divMedia);
+
+        // TEXTUAL INFORMATIONS
+        let projectInfos = projectDetails['infos'];
+
+        let divText = document.createElement('div');
+        divText.classList.add('infos');
+        
+        let title = document.createElement('h3');
+        title.classList.add('title');
+        title.innerHTML = projectInfos['titre'];
+        divText.append(title);
+
+        let date = document.createElement('span');
+        date.classList.add('date');
+        date.innerHTML = projectInfos['date'];
+        divText.append(date);
+
+        let technique = document.createElement('span');
+        technique.classList.add('technique');
+        technique.innerHTML = projectInfos['technique'];
+        divText.append(technique);
+
+        let description = document.createElement('p');
+        description.classList.add('description');
+        description.innerHTML = projectInfos['description'];
+        divText.append(description);
+
+        PROJECT_SECTION.append(divText);
+
+        generateBackButton(PROJECT_SECTION);
+
+        // AFFICHAGE
+        displayOrHideSection(PROJECT_SECTION);
+    });
 }
 
 function removeAllChildren(parent){

@@ -4,8 +4,8 @@ require_once('galleryModels.php');
 
 // CONTROLEURS
 
-function getCategoryProjectsAsJSON($idCategory){
-    return json_encode(getCategoryProjects($idCategory));
+function getAllProjectsFromACategoryAsJSON($idCategory){
+    return json_encode(getAllProjectsFromACategory($idCategory));
 }
 
 function getAllProjectsAsJSON() {
@@ -18,8 +18,8 @@ function getAllProjectsCategoriesAsJSON() {
 
 function getProjectAsJSON($idProject) {
     $project = array(
-        "Infos" => getProjectInfos($idProject),
-        "Media" => getProjectMedia($idProject),
+        "infos" => getProjectInfos($idProject),
+        "media" => getProjectMedia($idProject),
         );
         
     return json_encode($project);

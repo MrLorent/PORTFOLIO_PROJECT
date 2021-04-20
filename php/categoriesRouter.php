@@ -12,19 +12,20 @@ switch($request[4]){
     case 'category' :
         switch($method){
             case 'GET':
-                echo getAllCategoriesAsJson();
                 break;
 
             case 'POST':
-                
+                $json = file_get_contents('php://input');
+                echo addCategoryAndRefresh($json);
                 break;
+
             case 'PUT':
-                
                 break;
+
             case 'DELETE':
                 echo deleteACategoryAndRefresh($request[5]);
-
                 break;
+
             default:
                 http_response_code('404');
                 echo 'OUPSI !';
@@ -32,14 +33,13 @@ switch($request[4]){
         }
         break;
 
-    case 'category':
+    case 'categories':
         switch($method){
             case 'GET':
-                
+                echo getAllCategoriesAsJson();
                 break;
             case 'POST':
-                $json = file_get_contents('php://input');
-                echo addCategoryAndRefresh($json);
+                
                 break;
             case 'PUT':
                 

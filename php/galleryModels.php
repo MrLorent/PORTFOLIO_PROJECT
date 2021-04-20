@@ -6,14 +6,13 @@ require_once('connection.php');
 // Fonctions permettant de récupérer les informations
 // de la BDD (commencent par "get...")
 
-function getCategoryProjects($idCategory){
+function getAllProjectsFromACategory($idCategory){
     $cnx = connection();
-	$result = $cnx->query("SELECT p.miniature, p.titre FROM projets as p JOIN concerner as c ON c.idProjet=p.idProjet WHERE c.idCategorie=$idCategory");
-	/*if ($result!=false){
-		return $result->fetchall(PDO::FETCH_ASSOC);
-    }*/
-    return $result->fetchall();
+	$result = $cnx->query("SELECT p.idProjet, p.miniature, p.titre FROM projets as p JOIN concerner as c ON c.idProjet=p.idProjet WHERE c.idCategorie=$idCategory");
+	
+    return $result->fetchall(PDO::FETCH_ASSOC);
 }
+
 function getAllProjects() {
     $cnx = connection();
     $result = $cnx->query("SELECT idProjet, titre, miniature, ordre FROM `projets`");
@@ -28,9 +27,9 @@ function getAllProjectsCategories() {
 
 function getProjectInfos($idProject) {
     $cnx = connection();
-    $rqt = $cnx->prepare("SELECT * FROM `projets` WHERE idProjet=?");
+    $rqt = $cnx->prepare("SELECT titre, date, technique, description FROM `projets` WHERE idProjet=?");
 	$rqt->execute(array($idProject));
-    $infoProject = $rqt->fetchAll(PDO::FETCH_ASSOC);
+    $infoProject = $rqt->fetch(PDO::FETCH_ASSOC);
     return $infoProject;
 }
 

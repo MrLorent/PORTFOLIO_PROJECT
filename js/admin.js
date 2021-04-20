@@ -5,8 +5,9 @@
  * Fonction lancer dès que la page HTML est chargées
  */
 document.addEventListener('DOMContentLoaded', function(){
+    getAllCategories();
     //deleteProjectAndRefresh();
-    addProjectAndRefresh();
+    //addProjectAndRefresh();
     /** TEST AddCategory() 
     const form = {};
     form.nom = "salut";
