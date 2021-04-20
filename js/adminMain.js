@@ -29,15 +29,48 @@ function generateSkillsDashBoard(skillsByCategories) {
     });
 }
 
-function prepareSkillForm(categories){
-    let skillName = document.querySelector('form #skillName');
-    skillName.value = "";
+function generateSkillForm(categories){
+    // CRÉATION DU FORM
+    let form = document.createElement('form');
 
-    let skillIcone = document.querySelector('form #skillIcone');
-    skillIcone.value = "";
+    // CRÉATION D'UN INPUT
+    // Initialisation du label
+    let nameLabel = document.createElement('label');
+    nameLabel.htmlFor = 'nom';
+    nameLabel.innerHTML = "Nom de la compétence :";
+    // Initialisation de l'input
+    let nameInput = document.createElement('input');
+    nameInput.id = 'skillName';
+    nameInput.type = 'text';
+    nameInput.name = 'nom';
+    // Ajout au form
+    form.append(nameLabel);
+    form.append(nameInput);
 
-    let categorySelector = document.getElementById('categorySelector');
-    removeAllChildren(categorySelector);
+    // CRÉATION D'UN INPUT
+    // Initialisation du label
+    let iconeLabel = document.createElement('label');
+    iconeLabel.htmlFor = 'icone';
+    iconeLabel.innerHTML = "[TEMPORAIRE] Chemin vers l'icone :";
+    // Initialisation de l'input
+    let iconeInput = document.createElement('input');
+    iconeInput.id = 'skillIcone';
+    iconeInput.type = 'text';
+    iconeInput.name = 'icone';
+    // Ajout au form
+    form.append(iconeLabel);
+    form.append(iconeInput);
+
+    // CRÉATION D'UN SELECT
+    // Initialisation du label
+    let selectLabel = document.createElement('label');
+    selectLabel.htmlFor = 'category';
+    selectLabel.innerHTML = "Choissisez le champ de la compétence :";
+    // Initialisation de l'input
+    let categorySelector = document.createElement('select');
+    categorySelector.id = 'categorySelector';
+    categorySelector.name = 'category';
+    
     for(let current in categories){
         let category = categories[current];
         let option = document.createElement('option');
@@ -47,14 +80,39 @@ function prepareSkillForm(categories){
         categorySelector.append(option);
     }
 
-    let description = document.getElementById('skillDescription');
-    description.value = "";
+    // Ajout au form
+    form.append(selectLabel);
+    form.append(categorySelector);
+
+    // CRÉATION D'UN INPUT
+    // Initialisation du label
+    let descriptionLabel = document.createElement('label');
+    descriptionLabel.htmlFor = 'description';
+    descriptionLabel.innerHTML = "Description de la compétence :";
+    // Initialisation de l'input
+    let textarea = document.createElement('textarea');
+    textarea.id = 'skillDescription';
+    textarea.name = 'description';
+    // Ajout au form
+    form.append(descriptionLabel);
+    form.append(textarea);
+
+    //CRÉATION DU SUBMIT BUTTON
+    let submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.classList.add('button');
+    submitButton.classList.add('submit');
+    submitButton.innerHTML = "Envoyer";
+    form.append(submitButton);
+
+    return form;
 }
 
 function displayFilledSkillForm(idSkill){
     getAllCategories().then(categories => {
+        removeAllChildren(SKILL_FORM_SECTION);
 
-        prepareSkillForm(categories);
+        SKILL_FORM_SECTION.append(generateSkillForm(categories));
 
         getSkill(idSkill).then(skillDetails => {
 
