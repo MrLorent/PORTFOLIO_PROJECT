@@ -21,6 +21,18 @@ document.addEventListener('DOMContentLoaded', function(){
 function generateSkillsDashBoard(skillsByCategories) {
     SKILLS_SECTION.append(generateSkillsAsList(skillsByCategories));
 
+    let addSkillButton = document.createElement('span');
+    addSkillButton.classList.add('button');
+    addSkillButton.classList.add('add');
+    addSkillButton.addEventListener('click', () => {
+        getAllCategories().then(categories => {
+            displaySkillForm(categories);
+        });
+    });
+    addSkillButton.innerHTML = "Ajouter une nouvelle compétence"
+    SKILLS_SECTION.append(addSkillButton);
+
+
     let skills = document.querySelectorAll('li.skill');
 
     skills.forEach(skill => {
@@ -108,11 +120,29 @@ function generateSkillForm(categories){
     return form;
 }
 
+function displaySkillForm(categories){
+    removeAllChildren(SKILL_FORM_SECTION);
+    
+    let skillform = generateSkillForm(categories);
+    skillForm.addEventListener('submit', () => {
+        addSkillandRefresh(idSkill);
+    });
+    SKILL_FORM_SECTION.append(skillform);
+
+    generateBackButton(SKILL_FORM_SECTION);
+    displayOrHideSection(SKILL_FORM_SECTION);
+}
+
 function displayFilledSkillForm(idSkill){
     getAllCategories().then(categories => {
         removeAllChildren(SKILL_FORM_SECTION);
 
-        SKILL_FORM_SECTION.append(generateSkillForm(categories));
+        let skillForm = generateSkillForm(categories);
+        skillForm.addEventListener('submit', () => {
+            updateSkill(idSkill);
+        });
+
+        SKILL_FORM_SECTION.append(form);
 
         getSkill(idSkill).then(skillDetails => {
 

@@ -62,6 +62,7 @@ a:hover{
     font-size: 1em;
     width: min-content;
     display: flex;
+    justify-content: center;
     align-items: center;
     border-radius: 5px;
     padding: 10px 15px;

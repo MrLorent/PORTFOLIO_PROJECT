@@ -19,9 +19,23 @@
     margin: 0 0 0 10px;
 }
 
+.button.add {
+    background: #18CC5C;
+}
+
+.button.add:hover {
+    background: #14aa4d;
+}
+
 form {
     display: flex;
     flex-direction: column;
+}
+
+/* ------------ SKILLS SECTION ------------- */
+#skills .button.add {
+    width: auto;
+    padding: 15px;
 }
 
 /* ----------- SKILL FORM SECTION ---------- */
