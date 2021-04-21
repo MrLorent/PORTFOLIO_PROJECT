@@ -88,6 +88,8 @@ function addMedia($source, $legende, $type, $titre){
     $cnx = connection();
     $rqt = $cnx->prepare('INSERT INTO media VALUES( NULL, ?, ?, ?, (SELECT idProjet FROM projets WHERE titre=? ))');
     $rqt->execute(array($source, $legende, $type, $titre));
+}
+    
 function updateMedia($source, $legende,$type,$idProject, $idMedias){
     $cnx = connection();
     $rqtMedia = $cnx->prepare('UPDATE medias
@@ -95,8 +97,6 @@ function updateMedia($source, $legende,$type,$idProject, $idMedias){
                                 WHERE idProjet = ?
                                 AND idMedia = ?');
     $rqtMedia->execute(array($source, $legende,$type,$idProject, $idMedias));
-}
-
 }
 
 function linkProjectToCategory($titre, $nom){

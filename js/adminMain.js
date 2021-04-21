@@ -323,7 +323,9 @@ function displayFilledProjectForm(idProject){
 
             projectForm.addEventListener('submit', (evt) =>{
                 evt.preventDefault();
-                updateProjectAndRefresh()
+                let formUpdateProject = document.getElementById("projectForm").getElementsByTagName( 'form' )[0]
+                let formData = new FormData(formUpdateProject);
+                updateProjectAndRefresh(idProject, formData)
                 .then(projects => {
                     displaySkillsDashboard(projects);
                     displayOrHideSection(PROJECT_FORM_SECTION);

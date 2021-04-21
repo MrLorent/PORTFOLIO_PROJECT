@@ -105,6 +105,19 @@ async function updateSkillAndRefresh(idProject){
     
 }
 
-async function updateProjectAndRefresh(idProject){
-    
+async function updateProjectAndRefresh(idProject,dataform){
+    var object = {};
+    dataform.forEach(function(value, key){
+        object[key] = value;
+    });
+    var json = JSON.stringify(object);
+    /*for (var value of dataform.values()) {
+        console.log(value);
+     }*/
+     console.log(json);
+     const response = await fetch('php/galleryRouter.php/project/', { method: 'PUT', body: json});
+     const projetUpdated = await response.json();
+     
+     console.log(projetUpdated);
+     return projetUpdated;	
 }

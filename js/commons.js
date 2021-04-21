@@ -32,12 +32,12 @@ function generateSkillsAsList(skillsByCategories){
             let tabSkill = tabCategory['skills'][skill];
             let liSkill = document.createElement('li');
             liSkill.classList.add('skill');
-            liSkill.dataset.idSkill = tabSkill['idSkill'];
+            liSkill.dataset.idSkill = tabSkill['idComp'];
             let skillName = document.createElement('span');
             skillName.classList.add('skillName');
-            skillName.dataset.idSkill = tabSkill['idSkill'];
+            skillName.dataset.idSkill = tabSkill['idComp'];
             skillName.addEventListener('click', displaySkill);
-            skillName.innerHTML = tabSkill['name'];
+            skillName.innerHTML = tabSkill['outil'];
             liSkill.append(skillName);
             ulSkills.append(liSkill);
         }
