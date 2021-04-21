@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function(){
             displayGalleryDashboard(projects);
         });
     });
-
 });
 
 // CONTROLEURS
@@ -78,7 +77,7 @@ function displaySkillsDashboard(skillsByCategories) {
 function generateSkillForm(categories){
     // CRÉATION DU FORM
     let form = document.createElement('form');
-    form.id = 'skillForm';
+    form.classList.add('skillForm');
 
     // CRÉATION D'UN INPUT
     // Initialisation du label
@@ -193,13 +192,13 @@ function displayFilledSkillForm(idSkill){
 
         getSkill(idSkill).then(skillDetails => {
 
-            let skillName = document.querySelector('#skillForm .name');
+            let skillName = document.querySelector('.skillForm .name');
             skillName.value = skillDetails['nom'];
     
-            let skillIcone = document.querySelector('#skillForm .icone');
+            let skillIcone = document.querySelector('.skillForm .icone');
             skillIcone.value = skillDetails['icone'];
     
-            let categorySelector = document.querySelector('#skillForm .categorySelector');
+            let categorySelector = document.querySelector('.skillForm .categorySelector');
             let count = 0;
             let optionSelected = false;
             while(!optionSelected){
@@ -210,7 +209,7 @@ function displayFilledSkillForm(idSkill){
                 count++;
             }
 
-            let description = document.querySelector('#skillForm .description');
+            let description = document.querySelector('.skillForm .description');
             description.value = skillDetails['description'];
 
             generateBackButton(SKILL_FORM_SECTION);
@@ -334,19 +333,19 @@ function displayFilledProjectForm(idProject){
 
             let projectInfos = projectDetails['infos'];
             
-            document.querySelector('#projectForm .title').value = projectInfos['titre'];
+            document.querySelector('.projectForm .title').value = projectInfos['titre'];
 
-            document.querySelector('#projectForm .date').value = projectInfos['date'];
+            document.querySelector('.projectForm .date').value = projectInfos['date'];
 
-            document.querySelector('#projectForm .technique').value = projectInfos['technique'];
+            document.querySelector('.projectForm .technique').value = projectInfos['technique'];
 
-            document.querySelector('#projectForm .description').value = projectInfos['description'];
+            document.querySelector('.projectForm .description').value = projectInfos['description'];
 
             let projectMedia = projectDetails['media'][0];
 
             // IF TEMPORAIRE !!!
             if(projectMedia){
-                document.querySelector('#projectForm .media').value = projectMedia['source'];
+                document.querySelector('.projectForm .media').value = projectMedia['source'];
             }
 
             generateBackButton(PROJECT_FORM_SECTION);
@@ -358,7 +357,7 @@ function displayFilledProjectForm(idProject){
 
 function generateProjectForm(categories){
     let form = document.createElement('form');
-    form.id = 'projectForm';
+    form.classList.add('projectForm');
 
     // CRÉATION DE L'INPUT
     // Initialisation du label

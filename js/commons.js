@@ -172,10 +172,8 @@ function displayProject(){
 
 // GENERAL
 function removeAllChildren(parent){
-    if(parent.firstElementChild){
-        do{
-            parent.removeChild(parent.firstElementChild);
-        }while(parent.firstElementChild);
+    while(parent.firstElementChild){
+        parent.removeChild(parent.firstElementChild);
     }
 }
 

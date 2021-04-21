@@ -45,14 +45,10 @@ async function getAllCategories(){
 // SKILLS
 async function addSkillAndRefresh(){
     var skillForm = {};
-	skillForm.outil = document.querySelector('#skillForm .name').value;
-	skillForm.description = document.querySelector('#skillForm .description').value;
-	skillForm.icone = document.querySelector('#skillForm .icone').value;
-	skillForm.categorie = document.querySelector('#skillForm .categorySelector').value;
-    /*skillForm.outil = "coucou";
-	skillForm.description = "communication";
-	skillForm.icone = "src";
-	skillForm.categorie = "langues";*/
+	skillForm.outil = document.querySelector('.skillForm .name').value;
+	skillForm.description = document.querySelector('.skillForm .description').value;
+	skillForm.icone = document.querySelector('.skillForm .icone').value;
+	skillForm.categorie = document.querySelector('.skillForm .categorySelector').value;
 
     const response = await fetch('php/skillsRouter.php/skill/',  {method: 'POST', body: JSON.stringify(skillForm)});
     const skills = await response.json();
@@ -61,7 +57,7 @@ async function addSkillAndRefresh(){
     return skills;
 }
 
-async function deleteSkillandRefresh($idSkill){
+async function deleteSkillandRefresh(idSkill){
     const response = await fetch('php/skillsRouter.php/skill/' +$idSkill, {
          method: 'DELETE'
         });
@@ -86,7 +82,10 @@ async function addProjectAndRefresh(){
     form.type = "typeTest";
     form.categorie = "audiovisuel";
 
-    const response = await fetch('php/galleryRouter.php/project/', { method: 'POST', body: JSON.stringify(form)});
+    const response = await fetch('php/galleryRouter.php/project/', {
+        method: 'POST',
+        body: JSON.stringify(form)
+    });
     const projet = await response.json();
     
     console.log(projet);
