@@ -11,9 +11,6 @@ var PROJECT_FORM_SECTION;
 // CONTROLLERS
 // SKILLS
 function generateSkillsAsList(skillsByCategories){
-    // SUPPRESSION DES ÉLÉMENTS PRÉCÉDENTS
-    removeAllChildren(SKILLS_SECTION);
-
     // On créer la liste principale
     let ulCategories = document.createElement('ul');
     ulCategories.classList.add('skillCategoryList');
@@ -81,7 +78,7 @@ function displaySkill(){
 
 // GALLERY
 function generateGalleryFilters(categories){
-    let filterBar = document.createElement('filterBar');
+    let filterBar = document.createElement('div');
     filterBar.classList.add('filterBar');
 
     for(let current in categories){
@@ -89,7 +86,6 @@ function generateGalleryFilters(categories){
         let filter = document.createElement('span');
         filter.classList.add('filter');
         filter.dataset.idCategory = categorie['idCategorie'];
-        filter.addEventListener('click', filterProjects);
         filter.innerHTML = categorie['nom'];
 
         filterBar.append(filter);
@@ -98,34 +94,11 @@ function generateGalleryFilters(categories){
     let filterAll = document.createElement('span');
     filterAll.classList.add('filter');
     filterAll.dataset.idCategory = "all";
-    filterAll.addEventListener('click', filterProjects);
     filterAll.innerHTML = "All";
 
     filterBar.append(filterAll);
     
     return filterBar;
-}
-
-function filterProjects(evt){
-    if(!this.classList.contains('selected')){
-        let previous = document.querySelector('#gallery .filter.selected');
-
-        if(previous){
-            previous.classList.remove('selected');
-        }
-
-        this.classList.add('selected');
-
-        if(this.dataset.idCategory == "all"){
-            getAllProjects().then(projects => {
-                generateGallery(projects);
-            });
-        }else{
-            getAllProjectsFromACategory(this.dataset.idCategory).then(projects => {
-                generateGallery(projects);
-            });
-        }
-    }
 }
 
 function displayProject(){

@@ -21,6 +21,9 @@
 
 .button.add {
     background: #18CC5C;
+    white-space: nowrap;
+    width: auto;
+    padding: 15px;
 }
 
 .button.add:hover {
@@ -33,10 +36,6 @@ form {
 }
 
 /* ------------ SKILLS SECTION ------------- */
-#skills .button.add {
-    width: auto;
-    padding: 15px;
-}
 
 /* ----------- SKILL FORM SECTION ---------- */
 
@@ -48,6 +47,7 @@ form {
 ul#projectList {
     list-style: none;
     padding: 2.5% 2.5% 0 2.5%;
+    margin: 0 0 40px 0;
 }
 
 li.project {

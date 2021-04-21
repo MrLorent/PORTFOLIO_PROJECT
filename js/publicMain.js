@@ -28,25 +28,37 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // GALLERY_SECTION
-    getAllProjectCategories().then(projectCategories => {
-        GALLERY_SECTION.append(generateGalleryFilters(projectCategories));
+    getAllProjectCategories()
+    .then(projectCategories => generateGalleryFilters(projectCategories))
+    .then(galleryFilters => {
+        GALLERY_SECTION.append(galleryFilters);
+
+        let filters = document.querySelectorAll('.filter');
+        filters.forEach(filter => {
+            filter.addEventListener('click', updateGallery);
+        });
         document.querySelector('#gallery .filter:last-child').classList.add('selected');
 
         getAllProjects().then(projects => {
-            generateGallery(projects);
+            displayGallery(projects);
         });
     });
 });
 
 // GALLERY
-function generateGallery(projects){
+function displayGallery(projects){
     let divGallery = document.getElementById('projectList');
 
     if(divGallery){
         divGallery.remove();
     }
+
+    GALLERY_SECTION.append(generateGallery(projects));
     
-    divGallery = document.createElement('div');
+}
+
+function generateGallery(projects){
+    let divGallery = document.createElement('div');
     divGallery.id = 'projectList';
 
     for(let current in projects){
@@ -71,6 +83,23 @@ function generateGallery(projects){
         divGallery.append(divProject);
     }
 
-    GALLERY_SECTION.append(divGallery);
+    return divGallery;
+}
+
+function updateGallery(evt){
+    if(!this.classList.contains('selected')){
+        document.querySelector('#gallery .filter.selected').classList.remove('selected');
+        this.classList.add('selected');
+
+        if(this.dataset.idCategory == "all"){
+            getAllProjects().then(projects => {
+                displayGallery(projects);
+            });
+        }else{
+            getAllProjectsFromACategory(this.dataset.idCategory).then(projects => {
+                displayGallery(projects);
+            });
+        }
+    }
 }
 

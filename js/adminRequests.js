@@ -100,3 +100,11 @@ async function deleteProjectAndRefresh(idProject){
     console.log(projects);
     return projects;
 }
+
+async function updateSkillAndRefresh(idProject){
+    
+}
+
+async function updateProjectAndRefresh(idProject){
+    
+}
