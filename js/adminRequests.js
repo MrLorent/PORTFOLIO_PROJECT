@@ -43,16 +43,16 @@ async function getAllCategories(){
 }
 
 // SKILLS
-async function addSkillandRefresh(){
+async function addSkillAndRefresh(){
     var skillForm = {};
-	/*skillForm.outil = document.getElementById('input-outil').value;
-	skillForm.description = document.getElementById('input-description').value;
-	skillForm.icone = document.getElementById('input-icone').value;
-	skillForm.categories = document.getElementById('input-categories').value;*/
-    skillForm.outil = "coucou";
+	skillForm.outil = document.querySelector('#skillForm .name').value;
+	skillForm.description = document.querySelector('#skillForm .description').value;
+	skillForm.icone = document.querySelector('#skillForm .icone').value;
+	skillForm.categorie = document.querySelector('#skillForm .categorySelector').value;
+    /*skillForm.outil = "coucou";
 	skillForm.description = "communication";
 	skillForm.icone = "src";
-	skillForm.categorie = "langues";
+	skillForm.categorie = "langues";*/
 
     const response = await fetch('php/skillsRouter.php/skill/',  {method: 'POST', body: JSON.stringify(skillForm)});
     const skills = await response.json();
