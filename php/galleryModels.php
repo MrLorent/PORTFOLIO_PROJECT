@@ -76,28 +76,30 @@ function addProject($titre, $date, $technique, $description, $miniature, $ordre)
     $rqt->execute(array($titre, $date, $technique, $description, $miniature, $ordre));
 }
 
-function updateProject($titre,$date,$technique,$description,$miniature,$ordre,$idProject){
-    $cnx = connection();
-    $rqtProject = $cnx->prepare('UPDATE projets
-                                SET titre = ?, date = ?,technique = ?, description = ?,miniature = ?, ordre = ?
-                                WHERE idProjet = ?');
-    $rqtProject->execute(array($titre,$date,$technique,$description,$miniature,$ordre,$idProject));
-}
+// function updateProject($titre,$date,$technique,$description,$miniature,$ordre,$idProject){
+//     $cnx = connection();
+//     $rqtProject = $cnx->prepare('UPDATE projets
+//                                 SET titre = ?, date = ?,technique = ?, description = ?,miniature = ?, ordre = ?
+//                                 WHERE idProjet = ?');
+//     $rqtProject->execute(array($titre,$date,$technique,$description,$miniature,$ordre,$idProject));
+// }
 
 function addMedia($source, $legende, $type, $titre){
     $cnx = connection();
     $rqt = $cnx->prepare('INSERT INTO media VALUES( NULL, ?, ?, ?, (SELECT idProjet FROM projets WHERE titre=? ))');
     $rqt->execute(array($source, $legende, $type, $titre));
-function updateMedia($source, $legende,$type,$idProject, $idMedias){
-    $cnx = connection();
-    $rqtMedia = $cnx->prepare('UPDATE medias
-                                SET source = ?, legende = ?,type = ?
-                                WHERE idProjet = ?
-                                AND idMedia = ?');
-    $rqtMedia->execute(array($source, $legende,$type,$idProject, $idMedias));
 }
+  
+// function updateMedia($source, $legende,$type,$idProject, $idMedias){
+//     $cnx = connection();
+//     $rqtMedia = $cnx->prepare('UPDATE medias
+//                                 SET source = ?, legende = ?,type = ?
+//                                 WHERE idProjet = ?
+//                                 AND idMedia = ?');
+//     $rqtMedia->execute(array($source, $legende,$type,$idProject, $idMedias));
+// }
 
-}
+
 
 function linkProjectToCategory($titre, $nom){
     $cnx = connection();

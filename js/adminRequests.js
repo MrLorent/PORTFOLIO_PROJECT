@@ -70,17 +70,36 @@ async function deleteSkillandRefresh(idSkill){
 // GALLERY
 async function addProjectAndRefresh(){
     const form={};
+    const formCategory={};
+    const formMedia={};
 
-    form.titre = "titreTest";
-    form.date = "dateTest";
-    form.technique = "techniqueTest";
-    form.description = "desciptionTest";
+    form.titre = document.querySelector('.projectForm .title').value;
+    form.date = document.querySelector('.projectForm .date').value;
+    form.technique = document.querySelector('.projectForm .technique').value;
+    form.description = document.querySelector('.projectForm .description').value;
     form.miniature = "miniatureTest";
     form.ordre = 2;
-    form.source = "sourceTest";
-    form.legende = "legendeTest";
-    form.type = "typeTest";
-    form.categorie = "audiovisuel";
+
+    const firstMedia={};
+    firstMedia.source = "FIRSTsourceTest";
+    firstMedia.legende = "FIRSTlegendeTest";
+    firstMedia.type = "FIRSTtypeTest";
+    formMedia['0']=firstMedia;
+
+    const secondMedia={};
+    secondMedia.source = "SECONDsourceTest";
+    secondMedia.legende = "SECONDlegendeTest";
+    secondMedia.type = "SECONDtypeTest";
+    formMedia['2']=secondMedia;
+
+    form.media=formMedia;
+
+    formCategory['0'] ="audiovisuel";
+    formCategory['1'] ="programmation";
+    formCategory['2'] ="Installation";
+    formCategory['3'] ="Vidéo";
+    form.categorie=formCategory;
+    //form.categorie =document.querySelector('.projectForm .categorySelector').value; 
 
     const response = await fetch('php/galleryRouter.php/project/', {
         method: 'POST',

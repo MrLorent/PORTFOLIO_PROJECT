@@ -7,11 +7,11 @@ require_once('skillsControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch($request[4]){
+switch($request[3]){
     case "skill":
         switch($method){
             case 'GET':
-                echo getSkillAsJSON($request[5]);
+                echo getSkillAsJSON($request[4]);
                 break;
             case 'POST':
                 $json = file_get_contents('php://input');
@@ -22,7 +22,7 @@ switch($request[4]){
                 
                 break;
             case 'DELETE':
-                deleteSkillAndRefresh($request[5]);
+                deleteSkillAndRefresh($request[4]);
                 echo getAllSkillsByCategoryAsJSON();
                 break;
             default:
