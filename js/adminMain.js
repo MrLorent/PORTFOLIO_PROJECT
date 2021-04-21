@@ -78,6 +78,7 @@ function displaySkillsDashboard(skillsByCategories) {
 function generateSkillForm(categories){
     // CRÉATION DU FORM
     let form = document.createElement('form');
+    form.id = 'skillForm';
 
     // CRÉATION D'UN INPUT
     // Initialisation du label
@@ -86,7 +87,7 @@ function generateSkillForm(categories){
     nameLabel.innerHTML = "Nom de la compétence :";
     // Initialisation de l'input
     let nameInput = document.createElement('input');
-    nameInput.id = 'skillName';
+    nameInput.classList.add('name');
     nameInput.type = 'text';
     nameInput.name = 'nom';
     // Ajout au form
@@ -100,7 +101,7 @@ function generateSkillForm(categories){
     iconeLabel.innerHTML = "[TEMPORAIRE] Chemin vers l'icone :";
     // Initialisation de l'input
     let iconeInput = document.createElement('input');
-    iconeInput.id = 'skillIcone';
+    iconeInput.classList.add('icone');
     iconeInput.type = 'text';
     iconeInput.name = 'icone';
     // Ajout au form
@@ -114,7 +115,7 @@ function generateSkillForm(categories){
     selectLabel.innerHTML = "Choissisez le champ de la compétence :";
     // Initialisation de l'input
     let categorySelector = document.createElement('select');
-    categorySelector.id = 'categorySelector';
+    categorySelector.classList.add('categorySelector');
     categorySelector.name = 'category';
     
     for(let current in categories){
@@ -137,7 +138,7 @@ function generateSkillForm(categories){
     descriptionLabel.innerHTML = "Description de la compétence :";
     // Initialisation de l'input
     let textarea = document.createElement('textarea');
-    textarea.id = 'skillDescription';
+    textarea.classList.add('description');
     textarea.name = 'description';
     // Ajout au form
     form.append(descriptionLabel);
@@ -155,7 +156,6 @@ function generateSkillForm(categories){
 }
 
 function displaySkillForm(categories){
-    removeAllChildren(SKILL_FORM_SECTION);
     
     let skillform = generateSkillForm(categories);
     skillForm.addEventListener('submit', (evt) =>{
@@ -166,6 +166,8 @@ function displaySkillForm(categories){
             displayOrHideSection(SKILL_FORM_SECTION);
         })
     });
+
+    removeAllChildren(SKILL_FORM_SECTION);
     SKILL_FORM_SECTION.append(skillform);
 
     generateBackButton(SKILL_FORM_SECTION);
@@ -191,13 +193,13 @@ function displayFilledSkillForm(idSkill){
 
         getSkill(idSkill).then(skillDetails => {
 
-            let skillName = document.querySelector('form #skillName');
+            let skillName = document.querySelector('#skillForm .name');
             skillName.value = skillDetails['nom'];
     
-            let skillIcone = document.querySelector('form #skillIcone');
+            let skillIcone = document.querySelector('#skillForm .icone');
             skillIcone.value = skillDetails['icone'];
     
-            let categorySelector = document.getElementById('categorySelector');
+            let categorySelector = document.querySelector('#skillForm .categorySelector');
             let count = 0;
             let optionSelected = false;
             while(!optionSelected){
@@ -208,7 +210,7 @@ function displayFilledSkillForm(idSkill){
                 count++;
             }
 
-            let description = document.getElementById('skillDescription');
+            let description = document.querySelector('#skillForm .description');
             description.value = skillDetails['description'];
 
             generateBackButton(SKILL_FORM_SECTION);
@@ -332,19 +334,19 @@ function displayFilledProjectForm(idProject){
 
             let projectInfos = projectDetails['infos'];
             
-            document.querySelector('input#projectTitle').value = projectInfos['titre'];
+            document.querySelector('#projectForm .title').value = projectInfos['titre'];
 
-            document.querySelector('input#projectDate').value = projectInfos['date'];
+            document.querySelector('#projectForm .date').value = projectInfos['date'];
 
-            document.querySelector('input#projectTechnique').value = projectInfos['technique'];
+            document.querySelector('#projectForm .technique').value = projectInfos['technique'];
 
-            document.querySelector('textarea#projectDescription').value = projectInfos['description'];
+            document.querySelector('#projectForm .description').value = projectInfos['description'];
 
             let projectMedia = projectDetails['media'][0];
 
             // IF TEMPORAIRE !!!
             if(projectMedia){
-                document.querySelector('input#projectMedia').value = projectMedia['source'];
+                document.querySelector('#projectForm .media').value = projectMedia['source'];
             }
 
             generateBackButton(PROJECT_FORM_SECTION);
@@ -356,15 +358,16 @@ function displayFilledProjectForm(idProject){
 
 function generateProjectForm(categories){
     let form = document.createElement('form');
+    form.id = 'projectForm';
 
-    // CRÉATION D'UN INPUT
+    // CRÉATION DE L'INPUT
     // Initialisation du label
     let titleLabel = document.createElement('label');
     titleLabel.htmlFor = 'title';
     titleLabel.innerHTML = "Nom du projet :";
     // Initialisation de l'input
     let titleInput = document.createElement('input');
-    titleInput.id = 'projectTitle';
+    titleInput.classList.add('title');
     titleInput.type = 'text';
     titleInput.name = 'title';
     // Ajout au form
@@ -378,7 +381,7 @@ function generateProjectForm(categories){
     selectLabel.innerHTML = "Choissisez la categorie du projet :";
     // Initialisation de l'input
     let categorySelector = document.createElement('select');
-    categorySelector.id = 'categorySelector';
+    categorySelector.classList.add('categorySelector');;
     categorySelector.name = 'category';
     for(let current in categories){
         let category = categories[current];
@@ -399,7 +402,7 @@ function generateProjectForm(categories){
     dateLabel.innerHTML = "Date de réalisation :";
     // Initialisation de l'input
     let dateInput = document.createElement('input');
-    dateInput.id = 'projectDate';
+    dateInput.classList.add('date');
     dateInput.type = 'text';
     dateInput.name = 'date';
     // Ajout au form
@@ -413,7 +416,7 @@ function generateProjectForm(categories){
     techniqueLabel.innerHTML = "techniques utilisées :";
     // Initialisation de l'input
     let techniqueInput = document.createElement('input');
-    techniqueInput.id = 'projectTechnique';
+    techniqueInput.classList.add('technique');
     techniqueInput.type = 'text';
     techniqueInput.name = 'technique';
     // Ajout au form
@@ -427,7 +430,7 @@ function generateProjectForm(categories){
     descriptionLabel.innerHTML = "Description du projet :";
     // Initialisation de l'input
     let textarea = document.createElement('textarea');
-    textarea.id = 'projectDescription';
+    textarea.classList.add('description');
     textarea.name = 'description';
     // Ajout au form
     form.append(descriptionLabel);
@@ -440,7 +443,7 @@ function generateProjectForm(categories){
     mediaLabel.innerHTML = "[TEMPORAIRE] Chemin vers un media :";
     // Initialisation de l'input
     let mediaInput = document.createElement('input');
-    mediaInput.id = 'projectMedia';
+    mediaInput.classList.add('media');
     mediaInput.type = 'text';
     mediaInput.name = 'media';
     // Ajout au form
