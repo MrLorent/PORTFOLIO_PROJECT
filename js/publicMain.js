@@ -5,10 +5,12 @@
  * Fonction lancer dès que la page HTML est chargée
  */
 document.addEventListener('DOMContentLoaded', function(){
-    SKILLS_SECTION = document.getElementById('skills');
     SKILL_SECTION = document.getElementById('skill');
-    GALLERY_SECTION = document.getElementById('gallery');
+    SKILL_CONTAINER = document.querySelector('#skill .content');
+    SKILLS_CONTAINER = document.querySelector('#skills .content');
+    GALLERY_CONTAINER = document.querySelector('#gallery .content');
     PROJECT_SECTION = document.getElementById('project');
+    PROJECT_CONTAINER = document.querySelector('#project .content');
 
     // NAV
     let navLinks = document.querySelectorAll('nav a');
@@ -17,21 +19,31 @@ document.addEventListener('DOMContentLoaded', function(){
             let modalDisplayed = document.querySelector('.modal.displayed');
     
             if(modalDisplayed){
-                displayOrHideSection(modalDisplayed);
+                hideSection(modalDisplayed);
             }
         });
-    })
+    });
+
+    // BACK BUTTONS
+    let backButtons = document.querySelectorAll('.back.button');
+    backButtons.forEach(backButton => {
+        backButton.addEventListener('click', function(){
+            hideSection(document.getElementById(this.dataset.idSection));
+        });
+    });
 
     // SKILLS_SECTION
-    getAllSkillsByCategory().then(skillsByCategories => {
-        SKILLS_SECTION.append(generateSkillsAsList(skillsByCategories));
+    getAllSkillsByCategory()
+    .then(skillsByCategories => generateSkillsAsList(skillsByCategories))
+    .then(skillList => {
+        SKILLS_CONTAINER.append(skillList);
     });
 
     // GALLERY_SECTION
     getAllProjectCategories()
     .then(projectCategories => generateGalleryFilters(projectCategories))
     .then(galleryFilters => {
-        GALLERY_SECTION.append(galleryFilters);
+        GALLERY_CONTAINER.append(galleryFilters);
 
         let filters = document.querySelectorAll('.filter');
         filters.forEach(filter => {
@@ -53,7 +65,7 @@ function displayGallery(projects){
         divGallery.remove();
     }
 
-    GALLERY_SECTION.append(generateGallery(projects));
+    GALLERY_CONTAINER.append(generateGallery(projects));
     
 }
 
