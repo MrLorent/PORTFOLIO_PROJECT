@@ -183,8 +183,9 @@ li.skill {
 }
 
 /* ---------- PROJECT SECTION ----------- */
-#project {
+#project .content{
     display: flex;
+    height: 100%;
 }
 
 #project .infos {

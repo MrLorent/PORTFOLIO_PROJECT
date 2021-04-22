@@ -58,7 +58,7 @@ async function addSkillAndRefresh(){
 }
 
 async function deleteSkillandRefresh(idSkill){
-    const response = await fetch('php/skillsRouter.php/skill/' +$idSkill, {
+    const response = await fetch('php/skillsRouter.php/skill/' +idSkill, {
          method: 'DELETE'
         });
     const skills = await response.json();

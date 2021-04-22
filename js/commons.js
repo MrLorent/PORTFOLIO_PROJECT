@@ -1,11 +1,13 @@
 "use strict"
 
 // CONSTANTES
-var SKILLS_SECTION;
+var SKILLS_CONTAINER;
 var SKILL_SECTION;
+var SKILL_CONTAINER;
 var SKILL_FORM_SECTION;
-var GALLERY_SECTION;
+var GALLERY_CONTAINER;
 var PROJECT_SECTION;
+var PROJECT_CONTAINER;
 var PROJECT_FORM_SECTION;
 
 // CONTROLLERS
@@ -51,28 +53,26 @@ function generateSkillsAsList(skillsByCategories){
 function displaySkill(){
     getSkill(this.dataset.idSkill).then(skillDetails => {
         // SUPPRESSION DES ÉLÉMENTS PRÉEXISTANTS
-        removeAllChildren(SKILL_SECTION);
+        removeAllChildren(SKILL_CONTAINER);
 
         // CRÉATION ET AJOUT DES NOUVEAUX ÉLÉMENTS
         let skillTitle = document.createElement('h3');
         skillTitle.classList.add('skillTitle');
         skillTitle.innerHTML = skillDetails['nom'];
-        SKILL_SECTION.append(skillTitle);
+        SKILL_CONTAINER.append(skillTitle);
 
         let skillDescription = document.createElement('p');
         skillDescription.classList.add('skillDescription');
         skillDescription.innerHTML = skillDetails['description'];
-        SKILL_SECTION.append(skillDescription);
+        SKILL_CONTAINER.append(skillDescription);
 
         let skillIcone = document.createElement('img');
         skillIcone.src = skillDetails['icone'];
         skillIcone.alt = "Logo " + skillDetails['nom'];
-        SKILL_SECTION.append(skillIcone);
-
-        generateBackButton(SKILL_SECTION);
+        SKILL_CONTAINER.append(skillIcone);
 
         // AFFICHAGE
-        displayOrHideSection(SKILL_SECTION);
+        displaySection(SKILL_SECTION);
     });
 }
 
@@ -104,7 +104,7 @@ function generateGalleryFilters(categories){
 function displayProject(){
     getProject(this.dataset.idProject).then(projectDetails => {
         // SUPPRESSION DES ANCIENS CONTENUS
-        removeAllChildren(PROJECT_SECTION);
+        removeAllChildren(PROJECT_CONTAINER);
 
         // MEDIA
         let projectMedia = projectDetails['media'];
@@ -133,7 +133,7 @@ function displayProject(){
             }
         }
 
-        PROJECT_SECTION.append(divMedia);
+        PROJECT_CONTAINER.append(divMedia);
 
         // TEXTUAL INFORMATIONS
         let projectInfos = projectDetails['infos'];
@@ -161,12 +161,10 @@ function displayProject(){
         description.innerHTML = projectInfos['description'];
         divText.append(description);
 
-        PROJECT_SECTION.append(divText);
-
-        generateBackButton(PROJECT_SECTION);
+        PROJECT_CONTAINER.append(divText);
 
         // AFFICHAGE
-        displayOrHideSection(PROJECT_SECTION);
+        displaySection(PROJECT_SECTION);
     });
 }
 
@@ -177,20 +175,16 @@ function removeAllChildren(parent){
     }
 }
 
-function generateBackButton(currentSection){
-    var backButton = document.createElement('span');
-    backButton.classList.add('button');
-    backButton.classList.add('back');
-    backButton.innerHTML = 'Retour';
-    backButton.addEventListener('click',()=>{
-        displayOrHideSection(currentSection);
-    });
-    currentSection.append(backButton);
-}
-
-function displayOrHideSection(section){
+function displaySection(section){
     let body = document.querySelector('body');
 
-    section.classList.toggle('displayed');
-    body.classList.toggle('locked');
+    section.classList.add('displayed');
+    body.classList.add('locked');
+}
+
+function hideSection(section){
+    let body = document.querySelector('body');
+
+    section.classList.remove('displayed');
+    body.classList.remove('locked');
 }
