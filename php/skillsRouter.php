@@ -7,8 +7,7 @@ require_once('skillsControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-//changer en 4 , 5,5
-switch($request[5]){
+switch($request[4]){
     case "skill":
         switch($method){
             case 'GET':
