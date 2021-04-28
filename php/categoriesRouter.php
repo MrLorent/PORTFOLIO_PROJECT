@@ -23,7 +23,7 @@ switch($request[4]){
                 break;
 
             case 'DELETE':
-                echo deleteACategoryAndRefresh($request[5]);
+                echo deleteACategoryAndRefresh($request[6]);
                 break;
 
             default:

@@ -76,13 +76,14 @@ function addProject($titre, $date, $technique, $description, $miniature, $ordre)
     $rqt->execute(array($titre, $date, $technique, $description, $miniature, $ordre));
 }
 
-// function updateProject($titre,$date,$technique,$description,$miniature,$ordre,$idProject){
-//     $cnx = connection();
-//     $rqtProject = $cnx->prepare('UPDATE projets
-//                                 SET titre = ?, date = ?,technique = ?, description = ?,miniature = ?, ordre = ?
-//                                 WHERE idProjet = ?');
-//     $rqtProject->execute(array($titre,$date,$technique,$description,$miniature,$ordre,$idProject));
-// }
+function updateProject($titre,$date,$technique,$description/*,$miniature,$ordre*/,$idProject){
+   $cnx = connection();
+   $rqtProject = $cnx->prepare('UPDATE projets
+                                SET titre = ?, date = ?, technique = ?, description = ?
+                                WHERE idProjet = ?');
+    $rqtProject->execute(array($titre,$date,$technique,$description/*,$miniature,$ordre*/,$idProject));
+    //$rqtProject->DumpDebugParams;
+}
 
 function addMedia($source, $legende, $type, $titre){
     $cnx = connection();
@@ -90,19 +91,25 @@ function addMedia($source, $legende, $type, $titre){
     $rqt->execute(array($source, $legende, $type, $titre));
 }
   
-// function updateMedia($source, $legende,$type,$idProject, $idMedias){
-//     $cnx = connection();
-//     $rqtMedia = $cnx->prepare('UPDATE medias
-//                                 SET source = ?, legende = ?,type = ?
-//                                 WHERE idProjet = ?
-//                                 AND idMedia = ?');
-//     $rqtMedia->execute(array($source, $legende,$type,$idProject, $idMedias));
-// }
+function UpdateMedia($source,$idProject, $idMedias){
+     $cnx = connection();
+     $rqtMedia = $cnx->prepare('UPDATE media
+                                 SET source = ?
+                                 WHERE idProjet = ?
+                                 AND idMedia = ?');
+     $rqtMedia->execute(array($source,$idProject, $idMedias));
+}
 
 
 
-function linkProjectToCategory($titre, $nom){
+function linkProjectToCategory($titre, $idCategory){
     $cnx = connection();
-    $rqt = $cnx->prepare('INSERT INTO concerner VALUES( (SELECT idProjet FROM projets WHERE titre=?),(SELECT idCategorie FROM categories WHERE nom=?))');
-    $rqt->execute(array($titre, $nom));
+    $rqt = $cnx->prepare('INSERT INTO concerner VALUES( (SELECT idProjet FROM projets WHERE titre=?),?)');
+    $rqt->execute(array($titre, $idCategory));
+}
+
+function UpdateProjectToCategory($idProject, $idCategory){
+    $cnx = connection();
+    $rqt = $cnx->prepare('UPDATE concerner SET idCategorie = ? WHERE idProjet = ?');
+    $rqt->execute(array($idCategory, $idProject));
 }

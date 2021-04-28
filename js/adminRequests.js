@@ -120,10 +120,12 @@ async function addProjectAndRefresh(){
 
     form.media=formMedia;
 
-    formCategory['0'] ="audiovisuel";
-    formCategory['1'] ="programmation";
-    formCategory['2'] ="Installation";
-    formCategory['3'] ="Vidéo";
+
+    //?categorySelector.options[categorySelector.selectedIndex].value;
+    formCategory['0'] =1;
+    //formCategory['1'] =2;
+    //formCategory['2'] =3;
+    //formCategory['3'] =4;
     form.categorie=formCategory;
     //form.categorie =document.querySelector('.projectForm .categorySelector').value; 
 
@@ -145,24 +147,20 @@ async function deleteProjectAndRefresh(idProject){
     return projects;
 }
 
-async function updateProjectAndRefresh(idProject,dataform){
-    var object = {};
-    object["id"] = idProject;
-    dataform.forEach(function(value, key){
-        object[key] = value;
-    });
-    var json = JSON.stringify(object);
-    /*for (var value of dataform.values()) {
-        console.log(idProject + " " + value);
-     }*/
-     console.log(json);
-     fetch('php/galleryRouter.php/project/', { mode: "no-cors",
-     method: 'POST',  
-     headers: {
-       "content-type": "application/json"
-     }, body: json})
-     .then(response => console.log(response));
+async function updateProjectAndRefresh(idProject){
+    var projectForm = {};
+    var categorySelector = document.querySelector("#projectForm .categorySelector");
+    
+    projectForm.titre = document.querySelector("#projectForm .title").value;
+    projectForm.date = document.querySelector("#projectForm .date").value;
+	projectForm.description = document.querySelector("#projectForm .description").value;
+    projectForm.technique = document.querySelector("#projectForm .technique").value;
+	projectForm.categorie = categorySelector.options[categorySelector.selectedIndex].value;
+    projectForm.media = document.querySelector("#projectForm .media").value;
+    projectForm.mediaId = document.querySelector("#projectForm .media").dataset.id;
+     const response = await fetch('php/galleryRouter.php/project/'+ idProject, { method: 'PUT', body: JSON.stringify(projectForm)});
+     const projetUpdated = await response.json();
      
-     //console.log(projetUpdated);
-     //return projetUpdated;	
+     console.log(projetUpdated);
+     return projetUpdated;	
 }
