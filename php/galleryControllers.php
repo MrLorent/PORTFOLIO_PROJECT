@@ -47,6 +47,6 @@ function addProjectAndRefresh($form){
 function updateProjectAndRefresh($form){
     //echo $form;
     $project = json_decode($form, true);
-    updateProject($project['titre'],13);
+    //updateProject($project['titre'],13);
     return json_encode(getAllProjects());
 }
