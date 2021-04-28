@@ -102,10 +102,10 @@ function UpdateMedia($source,$idProject, $idMedias){
 
 
 
-function linkProjectToCategory($titre, $nom){
+function linkProjectToCategory($titre, $idCategory){
     $cnx = connection();
-    $rqt = $cnx->prepare('INSERT INTO concerner VALUES( (SELECT idProjet FROM projets WHERE titre=?),(SELECT idCategorie FROM categories WHERE nom=?))');
-    $rqt->execute(array($titre, $nom));
+    $rqt = $cnx->prepare('INSERT INTO concerner VALUES( (SELECT idProjet FROM projets WHERE titre=?),?)');
+    $rqt->execute(array($titre, $idCategory));
 }
 
 function UpdateProjectToCategory($idProject, $idCategory){

@@ -116,10 +116,12 @@ async function addProjectAndRefresh(){
 
     form.media=formMedia;
 
-    formCategory['0'] ="audiovisuel";
-    formCategory['1'] ="programmation";
-    formCategory['2'] ="Installation";
-    formCategory['3'] ="Vidéo";
+
+    //?categorySelector.options[categorySelector.selectedIndex].value;
+    formCategory['0'] =1;
+    //formCategory['1'] =2;
+    //formCategory['2'] =3;
+    //formCategory['3'] =4;
     form.categorie=formCategory;
     //form.categorie =document.querySelector('.projectForm .categorySelector').value; 
 
