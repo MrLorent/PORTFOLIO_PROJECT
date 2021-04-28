@@ -15,13 +15,11 @@ switch($request[4]){
                 break;
             case 'POST':
                 $json = file_get_contents('php://input');
-                addSkillAndRefresh($json);
-                echo getAllSkillsByCategoryAsJSON();
+                echo addSkillAndRefresh($json);
                 break;
             case 'PUT':
                 updateSkillAndRefresh($json, $request[5]);
                 echo getAllSkillsByCategoryAsJSON();
-                
                 break;
             case 'DELETE':
                 deleteSkillAndRefresh($request[5]);

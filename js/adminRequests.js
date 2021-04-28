@@ -47,10 +47,15 @@ async function addSkillAndRefresh(){
     var skillForm = {};
 	skillForm.outil = document.querySelector('.skillForm .name').value;
 	skillForm.description = document.querySelector('.skillForm .description').value;
-	skillForm.icone = document.querySelector('.skillForm .icone').value;
+	skillForm.icone = document.querySelector('.skillForm .icone').files[0];
 	skillForm.categorie = document.querySelector('.skillForm .categorySelector').value;
 
-    const response = await fetch('php/skillsRouter.php/skill/',  {method: 'POST', body: JSON.stringify(skillForm)});
+    console.log(skillForm);
+    
+    const response = await fetch('php/skillsRouter.php/skill/',  {
+        method: 'POST',
+        body: JSON.stringify(skillForm)
+    });
     const skills = await response.json();
     
     console.log(skills);

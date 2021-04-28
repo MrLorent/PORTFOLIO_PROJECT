@@ -11,7 +11,6 @@ function getAllSkillsByCategoryAsJSON(){
         $skillsByCategory[$category['nom']]['idCategory'] = $category['idCategorie'];
 
         $skills = getAllSkillsFromACategory($category['idCategorie']);
-        $count = 0;
         $skillsByCategory[$category['nom']]['skills'] = $skills;
 
     }
@@ -29,7 +28,14 @@ function deleteSkillAndRefresh($idSkill) {
 
 function addSkillAndRefresh($skillInfo) {
     $skill = json_decode($skillInfo, true);
-    addSkill($skill['outil'], $skill['description'], $skill['icone'], $skill['categorie']);
+
+    //move_uploaded_file($_FILES['icone']['tmp_name'], './img/skills/'.basename($_FILES['icone']['name']));
+    //$cheminfichier ='./img/skills/'.basename($_FILES['icone']['name']);
+    
+    //addSkill($skill['outil'], $skill['description'], $cheminfichier, $skill['categorie']);
+
+    return json_encode($_FILES);
+    //return getAllSkillsByCategoryAsJSON();
 }
 
 function updateSkillAndRefresh($skillInfo, $idSkill) {
