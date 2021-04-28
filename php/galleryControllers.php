@@ -30,6 +30,10 @@ function deleteProjectAndRefresh($idProject){
     return json_encode(getAllProjects());
 }
 
+function getAllCategoriesOfAProjectAsJSON($idProject) {
+    return json_encode(getAllCategoriesOfProject($idProject));
+}
+
 
 //V1 avec 1 catégorie et 1 media, il faudra ensuite faire des tableaux de tableaux et des foreach
 function addProjectAndRefresh($form){

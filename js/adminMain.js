@@ -346,6 +346,7 @@ function addProjectFormSubmitted(evt){
     });
 }
 
+
 function displayFilledProjectForm(idProject){
     getAllCategories()
     .then(categories => {
@@ -494,6 +495,19 @@ function generateProjectForm(categories){
     // Ajout au form
     form.append(mediaLabel);
     form.append(mediaInput);
+
+    // Test bouton image
+    // Label
+    let mediaBrowserLabel = document.createElement('label');
+    mediaBrowserLabel.htmlFor = 'parcourir';
+    mediaBrowserLabel.innerHTML = "Chercher un fichier :";
+    // Input
+    let mediaInputBrowser = document.createElement('input');
+    mediaInputBrowser.classList.add('parcourir');
+    mediaInputBrowser.type = 'file';
+    mediaInputBrowser.name = 'monfichier';
+    form.append(mediaBrowserLabel);
+    form.append(mediaInputBrowser);
 
     //CRÉATION DU SUBMIT BUTTON
     let submitButton = document.createElement('button');

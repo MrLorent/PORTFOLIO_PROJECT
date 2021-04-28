@@ -144,3 +144,12 @@ async function updateProjectAndRefresh(idProject,dataform){
      //console.log(projetUpdated);
      //return projetUpdated;	
 }
+
+// Test image parcourir
+asyncfunction sendMediaFile() {
+    const response = await fetch('php/sendFile.php', { method: 'POST'});
+    const file = await response.json();
+        
+    console.log(file);
+    return file;
+}

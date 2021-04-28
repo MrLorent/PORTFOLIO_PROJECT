@@ -41,6 +41,14 @@ function getProjectMedia($idProject) {
     return $mediaProject;
 }
 
+function getAllCategoriesOfProject($idProject) {
+    $cnx = connection();
+    $rqt = $cnx->prepare("SELECT idCategorie FROM `concerner` WHERE idProjet = ?");
+    $rqt->execute(array($idProject));
+    $categoriesProject = $rqt->fetchAll(PDO::FETCH_ASSOC);
+    return $categoriesProject;
+}
+
 
 // ACCESSEURS EN ÉCRITURE
 // Fonctions permettant de modifier les informations

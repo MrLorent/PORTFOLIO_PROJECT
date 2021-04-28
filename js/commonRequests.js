@@ -64,3 +64,11 @@ async function getAllProjectCategories(){
     console.log(categories);
     return categories;
 }
+
+async function getAllCategoriesOfAProject(idProject){
+    const response = await fetch('php/galleryRouter.php/ProjectCategories/'+idProject);
+    const projects = await response.json();
+    
+    console.log(projects);
+    return projects;
+}
