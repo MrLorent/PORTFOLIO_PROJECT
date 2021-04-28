@@ -219,10 +219,9 @@ function displayFilledSkillForm(idSkill){
         }
 
         getSkill(idSkill).then(skillDetails => {
-
             document.querySelector('.skillForm .name').value = skillDetails['nom'];
     
-            document.querySelector('.skillForm .icone').value = skillDetails['icone'];
+            //document.querySelector('.skillForm .icone').value = skillDetails['icone'];
     
             let categorySelector = document.querySelector('.skillForm .categorySelector');
             let count = 0;
@@ -358,7 +357,10 @@ function displayFilledProjectForm(idProject){
         projectForm.reset();
         projectForm.removeEventListener('submit', modifyProjectFormSubmitted);
         projectForm.removeEventListener('submit', addProjectFormSubmitted);
-        projectForm.addEventListener('submit', modifyProjectFormSubmitted);
+        projectForm.addEventListener('submit', function(evt){
+            evt.preventDefault();
+            modifyProjectFormSubmitted(idProject);
+        });
 
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
         let categorySelector = document.querySelector('#projectForm select.categorySelector');
@@ -394,10 +396,9 @@ function displayFilledProjectForm(idProject){
     });
 }
 
-function modifyProjectFormSubmitted(evt){
-    evt.preventDefault();
+function modifyProjectFormSubmitted(idProject){
     document.querySelector('form.projectForm .submit.button').disabled = true;
-    updateProjectAndRefresh()
+    updateProjectAndRefresh(idProject)
     .then(projects => {
         document.querySelector('form.projectForm .submit.button').disabled = false;
         displaySkillsDashboard(projects);

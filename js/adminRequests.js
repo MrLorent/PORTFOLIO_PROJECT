@@ -51,10 +51,14 @@ async function addSkillAndRefresh(){
 	skillForm.categorie = document.querySelector('.skillForm .categorySelector').value;
 
     console.log(skillForm);
-    
+
     const response = await fetch('php/skillsRouter.php/skill/',  {
         method: 'POST',
-        body: JSON.stringify(skillForm)
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/form-data'
+        },
+        body: skillForm
     });
     const skills = await response.json();
     

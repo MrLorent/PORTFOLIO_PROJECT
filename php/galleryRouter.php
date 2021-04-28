@@ -7,11 +7,11 @@ require_once('galleryControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch($request[5]){
+switch($request[4]){
     case "project":
         switch($method){
             case 'GET':
-                echo getProjectAsJSON($request[6]);
+                echo getProjectAsJSON($request[5]);
                 break;
             case 'POST':
                 $json = file_get_contents('php://input');
@@ -23,7 +23,7 @@ switch($request[5]){
                 echo updateProjectAndRefresh($jsonForm);
                 break;
             case 'DELETE':
-                echo deleteProjectAndRefresh($request[6]);
+                echo deleteProjectAndRefresh($request[5]);
                 break;
             default:
                 http_response_code('404');
@@ -54,7 +54,7 @@ switch($request[5]){
     case "category":
         switch($method){
             case 'GET':
-                echo getAllProjectsFromACategoryAsJSON($request[6]);
+                echo getAllProjectsFromACategoryAsJSON($request[5]);
                 break;
             case 'POST':
                 
