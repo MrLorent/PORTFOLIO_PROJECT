@@ -354,7 +354,11 @@ function displayFilledProjectForm(idProject){
         projectForm.reset();
         projectForm.removeEventListener('submit', modifyProjectFormSubmitted);
         projectForm.removeEventListener('submit', addProjectFormSubmitted);
-        projectForm.addEventListener('submit', modifyProjectFormSubmitted);
+        projectForm.addEventListener('submit', function(evt){
+            evt.preventDefault();
+            modifyProjectFormSubmitted(idProject);
+            }
+        );
 
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
         let categorySelector = document.querySelector('#projectForm select.categorySelector');
@@ -390,14 +394,16 @@ function displayFilledProjectForm(idProject){
     });
 }
 
-function modifyProjectFormSubmitted(evt){
-    evt.preventDefault();
+function modifyProjectFormSubmitted(idProject){
+    //evt.preventDefault();
     document.querySelector('form.projectForm .submit.button').disabled = true;
-    updateProjectAndRefresh()
+    let formUpdateProject = document.getElementById("projectForm").getElementsByTagName( 'form' )[0];
+    let formData = new FormData(formUpdateProject);
+    updateProjectAndRefresh(idProject, formData)
     .then(projects => {
         document.querySelector('form.projectForm .submit.button').disabled = false;
         displaySkillsDashboard(projects);
-        displayOrHideSection(PROJECT_FORM_SECTION);
+        //displayOrHideSection(PROJECT_FORM_SECTION);
     });
 }
 

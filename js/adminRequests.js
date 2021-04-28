@@ -150,8 +150,8 @@ async function updateProjectAndRefresh(idProject,dataform){
         console.log(idProject + " " + value);
      }*/
      console.log(json);
-     fetch('php/galleryRouter.php/project/', { mode: "no-cors",
-     method: 'POST',  
+     fetch('php/galleryRouter.php/project/', {
+     method: 'PUT',  
      headers: {
        "content-type": "application/json"
      }, body: json})

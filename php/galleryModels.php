@@ -76,13 +76,14 @@ function addProject($titre, $date, $technique, $description, $miniature, $ordre)
     $rqt->execute(array($titre, $date, $technique, $description, $miniature, $ordre));
 }
 
-// function updateProject($titre,$date,$technique,$description,$miniature,$ordre,$idProject){
-//     $cnx = connection();
-//     $rqtProject = $cnx->prepare('UPDATE projets
-//                                 SET titre = ?, date = ?,technique = ?, description = ?,miniature = ?, ordre = ?
-//                                 WHERE idProjet = ?');
-//     $rqtProject->execute(array($titre,$date,$technique,$description,$miniature,$ordre,$idProject));
-// }
+function updateProject($titre,$date,$technique,$description,$miniature,$ordre,$idProject){
+   $cnx = connection();
+   $rqtProject = $cnx->prepare('UPDATE projets
+                                SET titre = ?, date = ?,technique = ?, description = ?,miniature = ?, ordre = ?
+                                WHERE idProjet = ?');
+    $rqtProject->execute(array($titre,$date,$technique,$description,$miniature,$ordre,$idProject));
+    $rqtProject->DumpDebugParams;
+}
 
 function addMedia($source, $legende, $type, $titre){
     $cnx = connection();
