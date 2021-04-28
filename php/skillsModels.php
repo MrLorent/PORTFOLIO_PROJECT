@@ -47,6 +47,7 @@ function updateSkill($outil, $description, $icone, $idCategorie, $idSkill) {
                         SET outil = ?, description = ?, icone = ?, idCategorie = ?
                         WHERE idComp = ?');
     $rqt2->execute(array($outil, $description, $icone, $idCategorie, $idSkill));
+    //$rqt2->debugDumpParams();
 
 }
 

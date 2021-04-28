@@ -63,6 +63,7 @@ async function addSkillAndRefresh(){
 }
 
 async function updateSkillAndRefresh(idSkill){
+    //console.log(idSkill);
     var skillForm = {};
     var categorySelector = document.querySelector("#skillForm .categorySelector");
     
@@ -138,10 +139,6 @@ async function deleteProjectAndRefresh(idProject){
     
     console.log(projects);
     return projects;
-}
-
-async function updateSkillAndRefresh(idProject){
-    
 }
 
 async function updateProjectAndRefresh(idProject,dataform){
