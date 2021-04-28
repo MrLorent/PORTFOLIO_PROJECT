@@ -38,12 +38,14 @@
         <section id="skillForm" class="modal">
             <form class="skillForm">
                 <!--SKILL NAME-->
-                <label for="nom">Nom de la compétence :</label>
-                <input class="name" type="text" name="nom">
+                <label for="name">Nom de la compétence :</label>
+                <input class="name" type="text" name="name">
                 
                 <!--SKILL ICONE-->
-                <label for="icone">[TEMPORAIRE] Chemin vers l'icone :</label>
-                <input class="icone" type="text" name="icone">
+                <label for="icone"> Chercher un fichier : </label>
+                <input class="icone" type="file" name="icone">
+                <!-- <label for="icone">[TEMPORAIRE] Chemin vers l'icone :</label>
+                <input class="icone" type="text" name="icone"> -->
                 
                 <!--CATEGORY SELECTION-->
                 <label for="category">Choissisez le champ de la compétence :</label>
@@ -52,10 +54,6 @@
                 <!--SKILL DESCRIPTION-->
                 <label for="description">Description de la compétence :</label>
                 <textarea class="description" name="description"></textarea>
-
-                 <!--PARCOURIR-->
-                 <label for="parcourir"> Chercher un fichier : </label>
-                 <input class="parcourir" type="file" name="monfichier">
                 
                 <!--SUBMIT BUTTON-->
                 <button type="submit" class="button submit">Envoyer</button></form>
