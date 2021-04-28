@@ -202,7 +202,10 @@ function displayFilledSkillForm(idSkill){
         skillForm.reset();
         skillForm.removeEventListener('submit', modifySkillFormSubmitted);
         skillForm.removeEventListener('submit', addSkillFormSubmitted);
-        skillForm.addEventListener('submit', modifySkillFormSubmitted);
+        skillForm.addEventListener('submit', function(evt){
+            evt.preventDefault();
+            modifySkillFormSubmitted(idSkill);
+        });
 
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
         let categorySelector = document.querySelector('#skillForm select.categorySelector');
@@ -239,8 +242,9 @@ function displayFilledSkillForm(idSkill){
     });
 }
 
-function modifySkillFormSubmitted(evt){
-    evt.preventDefault();
+function modifySkillFormSubmitted(idSkill){
+    //evt.preventDefault();
+    console.log(idSkill);
     document.querySelector('form.skillForm .submit.button').disabled = true;
     updateSkillAndRefresh(idSkill)
     .then(skills => {
