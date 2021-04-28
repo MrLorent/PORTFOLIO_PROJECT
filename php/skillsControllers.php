@@ -32,3 +32,7 @@ function addSkillAndRefresh($skillInfo) {
     addSkill($skill['outil'], $skill['description'], $skill['icone'], $skill['categorie']);
 }
 
+function updateSkillAndRefresh($skillInfo, $idSkill) {
+    $skill = json_decode($skillInfo, true);
+    updateSkill($skill['outil'], $skill['description'], $skill['icone'], $skill['categorie'], $idSkill);
+}
