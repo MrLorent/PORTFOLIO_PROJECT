@@ -67,6 +67,22 @@ async function deleteSkillandRefresh(idSkill){
     return skills;
 }
 
+async function updateSkillAndRefresh(idSkill){
+    var skillForm = {};
+    var categorySelector = document.querySelector("#skillForm .categorySelector");
+    
+    skillForm.outil = document.querySelector("#skillForm .name").value;
+	skillForm.description = document.querySelector("#skillForm .description").value;
+	skillForm.icone = document.querySelector("#skillForm .icone").value;
+	skillForm.categorie = categorySelector.options[categorySelector.selectedIndex].value;
+
+    const response = await fetch('php/skillsRouter.php/skill/' +idSkill,  {method: 'PUT', body: JSON.stringify(skillForm)});
+    const skills = await response.json();
+    
+    console.log(skills);
+    return skills;
+}
+
 // GALLERY
 async function addProjectAndRefresh(){
     const form={};
@@ -119,9 +135,7 @@ async function deleteProjectAndRefresh(idProject){
     return projects;
 }
 
-async function updateSkillAndRefresh(idProject){
-    
-}
+
 
 async function updateProjectAndRefresh(idProject,dataform){
     var object = {};

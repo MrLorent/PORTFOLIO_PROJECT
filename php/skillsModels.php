@@ -41,7 +41,17 @@ function getAllSkillsFromACategory($idCategorie){
 // Fonctions permettant de modifier les informations
 // de la BDD (commencent par "set...")
 
+function updateSkill($outil, $description, $icone, $categorie, $idSkill) {
+    $cnx = connection();
+   $rqt = $cnx->prepare('ALTER TABLE competences DROP CONSTRAINT idCategorie WHERE idComp = ?'); 
+    $rqt->execute(array($idSkill));
 
+    $rqt2 = $cnx->prepare('UPDATE competences 
+                        SET outil = ?, description = ?, icone = ?, idCategorie = ?
+                        WHERE idComp = ?');
+    $rqt2->execute(array($outil, $description, $icone, $categorie, $idSkill));
+
+}
 
 // MÉTHODES
 // Fonctions permettant de manipuler les informations
