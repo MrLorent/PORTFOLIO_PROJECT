@@ -391,6 +391,7 @@ function displayFilledProjectForm(idProject){
             // IF TEMPORAIRE !!!
             if(projectMedia){
                 document.querySelector('.projectForm .media').value = projectMedia['source'];
+                document.querySelector('.projectForm .media').dataset.id = projectMedia['idMedia'];
             }
 
             displaySection(PROJECT_FORM_SECTION);
@@ -401,12 +402,11 @@ function displayFilledProjectForm(idProject){
 function modifyProjectFormSubmitted(idProject){
     //evt.preventDefault();
     document.querySelector('form.projectForm .submit.button').disabled = true;
-    let formUpdateProject = document.getElementById("projectForm").getElementsByTagName( 'form' )[0];
-    let formData = new FormData(formUpdateProject);
-    updateProjectAndRefresh(idProject, formData)
+    updateProjectAndRefresh(idProject)
     .then(projects => {
         document.querySelector('form.projectForm .submit.button').disabled = false;
         displaySkillsDashboard(projects);
+        hideSection(PROJECT_FORM_SECTION);
         //displayOrHideSection(PROJECT_FORM_SECTION);
     });
 }

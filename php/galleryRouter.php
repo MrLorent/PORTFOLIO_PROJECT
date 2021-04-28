@@ -20,7 +20,8 @@ switch($request[5]){
             case 'PUT':
                 $jsonForm = file_get_contents('php://input');
                 //echo $jsonForm;
-                echo updateProjectAndRefresh($jsonForm);
+                updateProjectAndRefresh($jsonForm, $request[6]);
+                echo getAllProjectsAsJSON();
                 break;
             case 'DELETE':
                 echo deleteProjectAndRefresh($request[6]);
