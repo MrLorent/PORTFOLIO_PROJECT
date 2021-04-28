@@ -327,8 +327,9 @@ function displayFilledProjectForm(idProject){
                 let formData = new FormData(formUpdateProject);
                 updateProjectAndRefresh(idProject, formData)
                 .then(projects => {
-                    displaySkillsDashboard(projects);
                     displayOrHideSection(PROJECT_FORM_SECTION);
+                    displaySkillsDashboard(projects);
+                    
                 })
             });
 

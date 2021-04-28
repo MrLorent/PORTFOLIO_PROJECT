@@ -13,13 +13,14 @@ switch($request[5]){
             case 'GET':
                 echo getProjectAsJSON($request[6]);
                 break;
-            case 'POST':
+            /*case 'POST':
                 $json = file_get_contents('php://input');
                 echo addProjectAndRefresh($json);
-                break;
-            case 'PUT':
+                break;*/
+            case 'POST':
                 $jsonForm = file_get_contents('php://input');
-                echo updateProjectAndRefresh($idProject, $jsonForm/*, $formMedia, $idMedia*/);
+                //echo $jsonForm;
+                echo updateProjectAndRefresh($jsonForm);
                 break;
             case 'DELETE':
                 echo deleteProjectAndRefresh($request[6]);

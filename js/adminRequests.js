@@ -107,17 +107,22 @@ async function updateSkillAndRefresh(idProject){
 
 async function updateProjectAndRefresh(idProject,dataform){
     var object = {};
+    object["id"] = idProject;
     dataform.forEach(function(value, key){
         object[key] = value;
     });
     var json = JSON.stringify(object);
     /*for (var value of dataform.values()) {
-        console.log(value);
+        console.log(idProject + " " + value);
      }*/
      console.log(json);
-     const response = await fetch('php/galleryRouter.php/project/', { method: 'PUT', body: json});
-     const projetUpdated = await response.json();
+     fetch('php/galleryRouter.php/project/', { mode: "no-cors",
+     method: 'POST',  
+     headers: {
+       "content-type": "application/json"
+     }, body: json})
+     .then(response => console.log(response));
      
-     console.log(projetUpdated);
-     return projetUpdated;	
+     //console.log(projetUpdated);
+     //return projetUpdated;	
 }

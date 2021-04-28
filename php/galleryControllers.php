@@ -40,11 +40,9 @@ function addProjectAndRefresh($form){
     return json_encode(getAllProjects());
 }
 
-function updateProjectAndRefresh($idProject, $form/*, $formMedia, $idMedia*/){
+function updateProjectAndRefresh($form){
+    //echo $form;
     $project = json_decode($form, true);
-    echo $project['titre'],$project['date'],$project['technique'],$project['description'],$project['miniature'],$project['ordre'],$idProject;
-    //$medias = json_decode($formMedia, true);
-    updateProject($project['titre'],$project['date'],$project['technique'],$project['description'],$project['miniature'],$project['ordre'],$idProject);
-    //updateMedia($medias['source'], $medias['legende'],$medias['type'],$idProject, $idMedia);
+    updateProject($project['titre'],13);
     return json_encode(getAllProjects());
 }
