@@ -56,6 +56,6 @@ function deleteSkill($idSkill) {
 
 function addSkill($outil, $description, $icone, $Categorie) {
     $cnx = connection();
-    $rqt = $cnx->prepare('INSERT INTO competences VALUES (NULL, ? ,? , ?, (SELECT idCategorie FROM categories WHERE nom=?));');
+    $rqt = $cnx->prepare('INSERT INTO competences VALUES (NULL, ? ,? , ?, ?);');
     $rqt->execute(array($outil, $description, $icone, $Categorie));
 }
