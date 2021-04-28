@@ -19,7 +19,7 @@ switch($request[4]){
                 echo getAllSkillsByCategoryAsJSON();
                 break;
             case 'PUT':
-                updateSkillAndRefresh($json, $request[6]);
+                updateSkillAndRefresh($json, $request[5]);
                 echo getAllSkillsByCategoryAsJSON();
                 
                 break;
