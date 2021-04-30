@@ -44,16 +44,17 @@ async function getAllCategories(){
 
 // SKILLS
 async function addSkillAndRefresh(){
-    var skillForm = {};
-	skillForm.outil = document.querySelector('.skillForm .name').value;
-	skillForm.description = document.querySelector('.skillForm .description').value;
-	skillForm.icone = document.querySelector('.skillForm .icone').files[0];
-	skillForm.categorie = document.querySelector('.skillForm .categorySelector').value;
+    var skillForm = new FormData();
+
+	skillForm.append('outil', document.querySelector('.skillForm .name').value);
+	skillForm.append('description', document.querySelector('.skillForm .description').value);
+	skillForm.append('icone',document.querySelector('.skillForm .icone').files[0]);
+	skillForm.append('categorie', document.querySelector('.skillForm .categorySelector').value);
 
     console.log(skillForm);
     const response = await fetch('php/skillsRouter.php/skill/',  {
         method: 'POST',
-        body: JSON.stringify(skillForm)
+        body: skillForm
     });
     const skills = await response.json();
     

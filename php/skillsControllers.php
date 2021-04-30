@@ -27,15 +27,15 @@ function deleteSkillAndRefresh($idSkill) {
 }
 
 function addSkillAndRefresh($skillInfo) {
-    $skill = json_decode($skillInfo, true);
+    $skill = $_POST;
 
-    //move_uploaded_file($_FILES['icone']['tmp_name'], './img/skills/'.basename($_FILES['icone']['name']));
-    //$cheminfichier ='./img/skills/'.basename($_FILES['icone']['name']);
+    move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.basename($_FILES['icone']['name']));
+    $cheminfichier ='./img/skills/'.basename($_FILES['icone']['name']);
     
-    //addSkill($skill['outil'], $skill['description'], $cheminfichier, $skill['categorie']);
+    addSkill($skill['outil'], $skill['description'], $cheminfichier, $skill['categorie']);
 
-    return json_encode($_FILES);
-    //return getAllSkillsByCategoryAsJSON();
+    //return json_encode($_FILES);
+    return getAllSkillsByCategoryAsJSON();
 }
 
 function updateSkillAndRefresh($skillInfo, $idSkill) {
