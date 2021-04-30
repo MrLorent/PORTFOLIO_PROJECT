@@ -51,14 +51,9 @@ async function addSkillAndRefresh(){
 	skillForm.categorie = document.querySelector('.skillForm .categorySelector').value;
 
     console.log(skillForm);
-
     const response = await fetch('php/skillsRouter.php/skill/',  {
         method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data'
-        },
-        body: skillForm
+        body: JSON.stringify(skillForm)
     });
     const skills = await response.json();
     
@@ -67,7 +62,6 @@ async function addSkillAndRefresh(){
 }
 
 async function updateSkillAndRefresh(idSkill){
-    //console.log(idSkill);
     var skillForm = {};
     var categorySelector = document.querySelector("#skillForm .categorySelector");
     
@@ -120,12 +114,10 @@ async function addProjectAndRefresh(){
 
     form.media=formMedia;
 
-
-    //?categorySelector.options[categorySelector.selectedIndex].value;
-    formCategory['0'] =1;
-    //formCategory['1'] =2;
-    //formCategory['2'] =3;
-    //formCategory['3'] =4;
+    formCategory['0'] ="audiovisuel";
+    formCategory['1'] ="programmation";
+    formCategory['2'] ="Installation";
+    formCategory['3'] ="Vidéo";
     form.categorie=formCategory;
     //form.categorie =document.querySelector('.projectForm .categorySelector').value; 
 
@@ -147,20 +139,28 @@ async function deleteProjectAndRefresh(idProject){
     return projects;
 }
 
-async function updateProjectAndRefresh(idProject){
-    var projectForm = {};
-    var categorySelector = document.querySelector("#projectForm .categorySelector");
+async function updateSkillAndRefresh(idProject){
     
-    projectForm.titre = document.querySelector("#projectForm .title").value;
-    projectForm.date = document.querySelector("#projectForm .date").value;
-	projectForm.description = document.querySelector("#projectForm .description").value;
-    projectForm.technique = document.querySelector("#projectForm .technique").value;
-	projectForm.categorie = categorySelector.options[categorySelector.selectedIndex].value;
-    projectForm.media = document.querySelector("#projectForm .media").value;
-    projectForm.mediaId = document.querySelector("#projectForm .media").dataset.id;
-     const response = await fetch('php/galleryRouter.php/project/'+ idProject, { method: 'PUT', body: JSON.stringify(projectForm)});
-     const projetUpdated = await response.json();
+}
+
+async function updateProjectAndRefresh(idProject,dataform){
+    var object = {};
+    object["id"] = idProject;
+    dataform.forEach(function(value, key){
+        object[key] = value;
+    });
+    var json = JSON.stringify(object);
+    /*for (var value of dataform.values()) {
+        console.log(idProject + " " + value);
+     }*/
+     console.log(json);
+     fetch('php/galleryRouter.php/project/', { mode: "no-cors",
+     method: 'POST',  
+     headers: {
+       "content-type": "application/json"
+     }, body: json})
+     .then(response => console.log(response));
      
-     console.log(projetUpdated);
-     return projetUpdated;	
+     //console.log(projetUpdated);
+     //return projetUpdated;	
 }
