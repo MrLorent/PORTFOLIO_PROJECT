@@ -34,6 +34,19 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
+    // CATEGORY FORM
+    let categoryForms = document.querySelectorAll('.categoryForm');
+    categoryForms.forEach(categoryForm => {
+        categoryForm.addEventListener('submit', (evt)=>{
+            evt.preventDefault();
+            addCategoryAndRefresh()
+            .then(categories => {
+                categoryForm.reset();
+                addCategoriesToForm(categories);
+            });
+        });
+    });
+
     // SKILL FORM
     let iconeInput = document.querySelector('.skillForm input.icone');
     iconeInput.addEventListener('change', () => {
@@ -110,17 +123,25 @@ function displaySkillForm(categories){
     iconePreview.append(defaultIconeText);
 
     // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
-    let categorySelector = document.querySelector('#skillForm select.categorySelector');
-    for(let current in categories){
-        let category = categories[current];
-        let option = document.createElement('option');
-        option.classList.add(category['idCategorie']);
-        option.value = category['idCategorie'];
-        option.innerHTML = category['nom'];
-        categorySelector.append(option);
-    }
+    addCategoriesToForm(categories);
 
     displaySection(SKILL_FORM_SECTION);
+}
+
+function addCategoriesToForm(categories){
+    let categorySelectors = document.querySelectorAll('select.categorySelector');
+
+    categorySelectors.forEach(categorySelector => {
+        removeAllChildren(categorySelector);
+        for(let current in categories){
+            let category = categories[current];
+            let option = document.createElement('option');
+            option.classList.add(category['idCategorie']);
+            option.value = category['idCategorie'];
+            option.innerHTML = category['nom'];
+            categorySelector.append(option);
+        }
+    });
 }
 
 function addSkillFormSubmitted(evt){
@@ -148,15 +169,7 @@ function displayFilledSkillForm(idSkill){
         });
 
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
-        let categorySelector = document.querySelector('#skillForm select.categorySelector');
-        for(let current in categories){
-            let category = categories[current];
-            let option = document.createElement('option');
-            option.classList.add(category['idCategorie']);
-            option.value = category['idCategorie'];
-            option.innerHTML = category['nom'];
-            categorySelector.append(option);
-        }
+        addCategoriesToForm(categories);
 
         getSkill(idSkill).then(skillDetails => {
             document.querySelector('.skillForm .name').value = skillDetails['nom'];
@@ -273,15 +286,7 @@ function displayProjectForm(){
         projectForm.addEventListener('submit', addProjectFormSubmitted);
 
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
-        let categorySelector = document.querySelector('#projectForm select.categorySelector');
-        for(let current in categories){
-            let category = categories[current];
-            let option = document.createElement('option');
-            option.classList.add(category['idCategorie']);
-            option.value = category['idCategorie'];
-            option.innerHTML = category['nom'];
-            categorySelector.append(option);
-        }
+        addCategoriesToForm(categories);
 
         displaySection(PROJECT_FORM_SECTION);
     });
@@ -313,15 +318,7 @@ function displayFilledProjectForm(idProject){
         );
 
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
-        let categorySelector = document.querySelector('#projectForm select.categorySelector');
-        for(let current in categories){
-            let category = categories[current];
-            let option = document.createElement('option');
-            option.classList.add(category['idCategorie']);
-            option.value = category['idCategorie'];
-            option.innerHTML = category['nom'];
-            categorySelector.append(option);
-        }
+        addCategoriesToForm(categories);
 
         getProject(idProject).then(projectDetails => {
             let projectInfos = projectDetails['infos'];

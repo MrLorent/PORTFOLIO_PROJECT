@@ -16,14 +16,19 @@
 /*###################################################*/
 /*#################### CATEGORIES ###################*/
 /*###################################################*/
-async function addCategoryAndRefresh(form){
-    /*const form = {};
-    form.nom = document.getElementById('input-name').value;*/
-    const send = await fetch('php/categoriesRouter.php/category/', { method: 'POST', body: JSON.stringify(form)});
-    const AllcategoriesAgain = await send.json();
+async function addCategoryAndRefresh(){
+    const form = {};
+    form.nom = document.querySelector('.categoryForm .name').value;
 
-    console.log(AllcategoriesAgain);
-    return AllcategoriesAgain;
+    const send = await fetch('php/categoriesRouter.php/category/', {
+        method: 'POST',
+        body: JSON.stringify(form)
+    });
+
+    const allCategories = await send.json();
+
+    console.log(allCategories);
+    return allCategories;
 }
 
 async function deleteACategoryAndRefresh(idCategory){
