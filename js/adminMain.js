@@ -170,8 +170,6 @@ function displayFilledSkillForm(idSkill){
 }
 
 function modifySkillFormSubmitted(idSkill){
-    //evt.preventDefault();
-    console.log(idSkill);
     document.querySelector('form.skillForm .submit.button').disabled = true;
     updateSkillAndRefresh(idSkill)
     .then(skills => {
@@ -331,15 +329,13 @@ function displayFilledProjectForm(idProject){
     });
 }
 
-function modifyProjectFormSubmitted(evt){
-    evt.preventDefault();
+function modifyProjectFormSubmitted(idProject){
     document.querySelector('form.projectForm .submit.button').disabled = true;
     updateProjectAndRefresh(idProject)
     .then(projects => {
         document.querySelector('form.projectForm .submit.button').disabled = false;
         displaySkillsDashboard(projects);
         hideSection(PROJECT_FORM_SECTION);
-        //displayOrHideSection(PROJECT_FORM_SECTION);
     });
 }
 
