@@ -38,6 +38,9 @@ form {
 /* ------------ SKILLS SECTION ------------- */
 
 /* ----------- SKILL FORM SECTION ---------- */
+#skillForm .preview img {
+    height: 100px;
+}
 
 /* ---------- GALLERY SECTION ----------- */
 .project .miniature {

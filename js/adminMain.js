@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
+    // SKILL FORM
+    let iconeInput = document.querySelector('.skillForm input.icone');
+    iconeInput.addEventListener('change', () => {
+        imageUploaded('skillForm');
+    });
+
     /*###################################################*/
     /*################## SKILLS SECTION #################*/
     /*###################################################*/
@@ -97,6 +103,12 @@ function displaySkillForm(categories){
     skillForm.removeEventListener('submit', addSkillFormSubmitted);
     skillForm.addEventListener('submit', addSkillFormSubmitted);
 
+    let iconePreview = document.querySelector('.skillForm .preview');
+    removeAllChildren(iconePreview);
+    let defaultIconeText = document.createElement('span');
+    defaultIconeText.textContent = "Aucun fichier sélectionné";
+    iconePreview.append(defaultIconeText);
+
     // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
     let categorySelector = document.querySelector('#skillForm select.categorySelector');
     for(let current in categories){
@@ -149,7 +161,13 @@ function displayFilledSkillForm(idSkill){
         getSkill(idSkill).then(skillDetails => {
             document.querySelector('.skillForm .name').value = skillDetails['nom'];
     
-            //document.querySelector('.skillForm .icone').value = skillDetails['icone'];
+            // PRÉVISUALISATION DE L'ICONE DE LA COMPÉTENCE
+            let divPreview = document.querySelector('.skillForm .preview');
+            removeAllChildren(divPreview);
+            let icone = document.createElement('img');
+            icone.src = skillDetails['icone'];
+            icone.alt = "Prévisualisation de l'icone de la compétence "+skillDetails['nom']+".";
+            divPreview.append(icone);
     
             let categorySelector = document.querySelector('.skillForm .categorySelector');
             let count = 0;
@@ -398,4 +416,24 @@ function generateDeleteProjectButton(idProject){
     });
 
     return deleteButton;
+}
+
+function imageUploaded(currentForm){
+    let divPreview = document.querySelector('.'+currentForm+' .preview');
+    removeAllChildren(divPreview);
+
+    let img = document.querySelector('.'+currentForm+' .icone').files[0];
+
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(img);
+
+    fileReader.onload = () => {
+        let fileURL = fileReader.result;
+
+        let img = document.createElement('img');
+        img.src = fileURL;
+        img.alt = "Prévisualisation de l'icone de compétence.";
+        divPreview.append(img);
+    }
+    
 }
