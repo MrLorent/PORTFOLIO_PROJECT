@@ -1,10 +1,10 @@
 "use strict";
 
-/*---------------------------------------*/
-/*--------------- REQUESTS --------------*/
-/*---------------------------------------*/
+/*###################################################*/
+/*##################### REQUESTS ####################*/
+/*###################################################*/
 
-// EXEMPLE :
+// EXAMPLE :
 // async function getPlanetDetails(planetId){
 //     const response = await fetch('./SERVER/router.php/planet/'+planetId);
 //     const planets = await response.json();
@@ -13,7 +13,9 @@
 //     return planets;
 // }
 
-// CATEGORY
+/*###################################################*/
+/*#################### CATEGORIES ###################*/
+/*###################################################*/
 async function addCategoryAndRefresh(form){
     /*const form = {};
     form.nom = document.getElementById('input-name').value;*/
@@ -42,7 +44,22 @@ async function getAllCategories(){
     return allCategories;
 }
 
-// SKILLS
+/*###################################################*/
+/*################## SKILL SECTIONS #################*/
+/*###################################################*/
+
+/*--------------------- SKILLS ---------------------*/
+async function deleteSkillandRefresh(idSkill){
+    const response = await fetch('php/skillsRouter.php/skill/' +idSkill, {
+         method: 'DELETE'
+        });
+    const skills = await response.json();
+    
+    console.log(skills);
+    return skills;
+}
+
+/*------------------ SKILL FORM ---------------------*/
 async function addSkillAndRefresh(){
     var skillForm = new FormData();
 
@@ -78,17 +95,20 @@ async function updateSkillAndRefresh(idSkill){
     return skills;
 }
 
-async function deleteSkillandRefresh(idSkill){
-    const response = await fetch('php/skillsRouter.php/skill/' +idSkill, {
-         method: 'DELETE'
-        });
-    const skills = await response.json();
+/*###################################################*/
+/*################# GALLERY SECTIONS ################*/
+/*###################################################*/
+
+/*--------------------- GALLERY ---------------------*/
+async function deleteProjectAndRefresh(idProject){
+    const response = await fetch('php/galleryRouter.php/project/' + idProject, { method: 'DELETE'});
+    const projects = await response.json();
     
-    console.log(skills);
-    return skills;
+    console.log(projects);
+    return projects;
 }
 
-// GALLERY
+/*------------------ PROJECT FORM -------------------*/
 async function addProjectAndRefresh(){
     const form={};
     const formCategory={};
@@ -130,18 +150,6 @@ async function addProjectAndRefresh(){
     
     console.log(projet);
     return projet;	
-}
-
-async function deleteProjectAndRefresh(idProject){
-    const response = await fetch('php/galleryRouter.php/project/' + idProject, { method: 'DELETE'});
-    const projects = await response.json();
-    
-    console.log(projects);
-    return projects;
-}
-
-async function updateSkillAndRefresh(idProject){
-    
 }
 
 async function updateProjectAndRefresh(idProject,dataform){

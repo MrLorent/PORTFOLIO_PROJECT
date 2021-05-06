@@ -1,10 +1,10 @@
 "use strict";
 
-/*---------------------------------------*/
-/*--------------- REQUESTS --------------*/
-/*---------------------------------------*/
+/*###################################################*/
+/*##################### REQUESTS ####################*/
+/*###################################################*/
 
-// EXEMPLE :
+// EXAMPLE :
 // async function getPlanetDetails(planetId){
 //     const response = await fetch('./SERVER/router.php/planet/'+planetId);
 //     const planets = await response.json();
@@ -13,9 +13,11 @@
 //     return planets;
 // }
 
-// CATEGORY
+/*###################################################*/
+/*################## SKILL SECTIONS #################*/
+/*###################################################*/
 
-// SKILLS
+/*--------------------- SKILLS ---------------------*/
 async function getAllSkillsByCategory(){
     const response = await fetch('php/skillsRouter.php/skills/');
     const skills = await response.json();
@@ -24,6 +26,7 @@ async function getAllSkillsByCategory(){
     return skills;
 }
 
+/*---------------------- SKILL ---------------------*/
 async function getSkill(idSkill){
     const response = await fetch('php/skillsRouter.php/skill/'+idSkill);
     const skills = await response.json();
@@ -32,13 +35,17 @@ async function getSkill(idSkill){
     return skills;
 }
 
-// GALLERY
-async function getProject(idProject){
-    const response = await fetch('php/galleryRouter.php/project/'+idProject);
-    const projet = await response.json();
+/*###################################################*/
+/*################# GALLERY SECTIONS ################*/
+/*###################################################*/
+
+/*----------------- GALLERY SECTION ----------------*/
+async function getAllProjects(){
+    const response = await fetch('php/galleryRouter.php/projects/');
+    const projects = await response.json();
     
-    console.log(projet);
-    return projet;
+    console.log(projects);
+    return projects;
 }
 
 async function getAllProjectsFromACategory(idCategory){
@@ -49,12 +56,13 @@ async function getAllProjectsFromACategory(idCategory){
     return projects;
 }
 
-async function getAllProjects(){
-    const response = await fetch('php/galleryRouter.php/projects/');
-    const projects = await response.json();
+/*----------------- PROJECT SECTION ----------------*/
+async function getProject(idProject){
+    const response = await fetch('php/galleryRouter.php/project/'+idProject);
+    const projet = await response.json();
     
-    console.log(projects);
-    return projects;
+    console.log(projet);
+    return projet;
 }
 
 async function getAllProjectCategories(){

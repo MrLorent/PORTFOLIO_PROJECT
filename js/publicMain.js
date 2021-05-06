@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', function(){
     let navLinks = document.querySelectorAll('nav a');
     navLinks.forEach(navLink => {
         navLink.addEventListener('click', () => {
-            let modalDisplayed = document.querySelector('.modal.displayed');
+            let modalsDisplayed = document.querySelectorAll('.modal.displayed');
     
-            if(modalDisplayed){
-                hideSection(modalDisplayed);
+            if(modalsDisplayed){
+                modalsDisplayed.forEach(modal => {
+                    hideSection(modal);
+                });
             }
         });
     });
@@ -32,14 +34,18 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    // SKILLS_SECTION
+    /*###################################################*/
+    /*################## SKILLS SECTION #################*/
+    /*###################################################*/
     getAllSkillsByCategory()
     .then(skillsByCategories => generateSkillsAsList(skillsByCategories))
     .then(skillList => {
         SKILLS_CONTAINER.append(skillList);
     });
 
-    // GALLERY_SECTION
+    /*###################################################*/
+    /*################# GALLERY SECTION #################*/
+    /*###################################################*/
     getAllProjectCategories()
     .then(projectCategories => generateGalleryFilters(projectCategories))
     .then(galleryFilters => {
@@ -57,7 +63,11 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 });
 
-// GALLERY
+/*###################################################*/
+/*################ GALLERY SECTIONS #################*/
+/*###################################################*/
+
+/*----------------- GALLERY SECTION ----------------*/
 function displayGallery(projects){
     let divGallery = document.getElementById('projectList');
 
@@ -98,7 +108,7 @@ function generateGallery(projects){
     return divGallery;
 }
 
-function updateGallery(evt){
+function updateGallery(){
     if(!this.classList.contains('selected')){
         document.querySelector('#gallery .filter.selected').classList.remove('selected');
         this.classList.add('selected');

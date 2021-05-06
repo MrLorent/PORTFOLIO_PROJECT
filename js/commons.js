@@ -1,6 +1,6 @@
 "use strict"
 
-// CONSTANTES
+// COMMON CONSTANTS
 var SKILLS_CONTAINER;
 var SKILL_SECTION;
 var SKILL_CONTAINER;
@@ -10,8 +10,11 @@ var PROJECT_SECTION;
 var PROJECT_CONTAINER;
 var PROJECT_FORM_SECTION;
 
-// CONTROLLERS
-// SKILLS
+/*###################################################*/
+/*################## SKILL SECTIONS #################*/
+/*###################################################*/
+
+/*--------------------- SKILLS ---------------------*/
 function generateSkillsAsList(skillsByCategories){
     // On créer la liste principale
     let ulCategories = document.createElement('ul');
@@ -76,7 +79,11 @@ function displaySkill(){
     });
 }
 
-// GALLERY
+/*###################################################*/
+/*################# GALLERY SECTIONS ################*/
+/*###################################################*/
+
+/*--------------------- GALLERY ---------------------*/
 function generateGalleryFilters(categories){
     let filterBar = document.createElement('div');
     filterBar.classList.add('filterBar');
@@ -168,7 +175,9 @@ function displayProject(){
     });
 }
 
-// GENERAL
+/*###################################################*/
+/*##################### GENERAL #####################*/
+/*###################################################*/
 function removeAllChildren(parent){
     while(parent.firstElementChild){
         parent.removeChild(parent.firstElementChild);

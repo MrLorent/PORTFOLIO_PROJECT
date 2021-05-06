@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * FONCTION MAIN
+ * MAIN
  * Fonction lancer dès que la page HTML est chargées
  */
 document.addEventListener('DOMContentLoaded', function(){
@@ -34,7 +34,9 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    // SKILLS_SECTION
+    /*###################################################*/
+    /*################## SKILLS SECTION #################*/
+    /*###################################################*/
     getAllSkillsByCategory().then(skillsByCategories => {
         let addSkillButton = document.querySelector('#skills .add.button');
         addSkillButton.addEventListener('click', () => {
@@ -45,7 +47,9 @@ document.addEventListener('DOMContentLoaded', function(){
         displaySkillsDashboard(skillsByCategories);
     });
 
-    // GALLERY_SECTION
+    /*###################################################*/
+    /*################# GALLERY SECTION #################*/
+    /*###################################################*/
     getAllProjectCategories()
     .then(projectCategories => generateGalleryFilters(projectCategories))
     .then(galleryFilters => {
@@ -65,8 +69,11 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 });
 
-// CONTROLEURS
-// SKILLS
+/*###################################################*/
+/*################## SKILL SECTIONS #################*/
+/*###################################################*/
+
+/*---------------- SKILLS DASHBOARD -----------------*/
 function displaySkillsDashboard(skillsByCategories) {
     // SUPPRESSION DES ÉLÉMENTS PRÉCÉDENTS
     removeAllChildren(SKILLS_CONTAINER);
@@ -81,86 +88,7 @@ function displaySkillsDashboard(skillsByCategories) {
     });
 }
 
-function generateSkillForm(categories){
-    // CRÉATION DU FORM
-    let form = document.createElement('form');
-    form.classList.add('skillForm');
-
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let nameLabel = document.createElement('label');
-    nameLabel.htmlFor = 'nom';
-    nameLabel.innerHTML = "Nom de la compétence :";
-    // Initialisation de l'input
-    let nameInput = document.createElement('input');
-    nameInput.classList.add('name');
-    nameInput.type = 'text';
-    nameInput.name = 'nom';
-    // Ajout au form
-    form.append(nameLabel);
-    form.append(nameInput);
-
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let iconeLabel = document.createElement('label');
-    iconeLabel.htmlFor = 'icone';
-    iconeLabel.innerHTML = "[TEMPORAIRE] Chemin vers l'icone :";
-    // Initialisation de l'input
-    let iconeInput = document.createElement('input');
-    iconeInput.classList.add('icone');
-    iconeInput.type = 'text';
-    iconeInput.name = 'icone';
-    // Ajout au form
-    form.append(iconeLabel);
-    form.append(iconeInput);
-
-    // CRÉATION D'UN SELECT
-    // Initialisation du label
-    let selectLabel = document.createElement('label');
-    selectLabel.htmlFor = 'category';
-    selectLabel.innerHTML = "Choissisez le champ de la compétence :";
-    // Initialisation de l'input
-    let categorySelector = document.createElement('select');
-    categorySelector.classList.add('categorySelector');
-    categorySelector.name = 'category';
-    
-    for(let current in categories){
-        let category = categories[current];
-        let option = document.createElement('option');
-        option.classList.add(category['idCategorie']);
-        option.value = category['idCategorie'];
-        option.innerHTML = category['nom'];
-        categorySelector.append(option);
-    }
-
-    // Ajout au form
-    form.append(selectLabel);
-    form.append(categorySelector);
-
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let descriptionLabel = document.createElement('label');
-    descriptionLabel.htmlFor = 'description';
-    descriptionLabel.innerHTML = "Description de la compétence :";
-    // Initialisation de l'input
-    let textarea = document.createElement('textarea');
-    textarea.classList.add('description');
-    textarea.name = 'description';
-    // Ajout au form
-    form.append(descriptionLabel);
-    form.append(textarea);
-
-    //CRÉATION DU SUBMIT BUTTON
-    let submitButton = document.createElement('button');
-    submitButton.type = 'submit';
-    submitButton.classList.add('button');
-    submitButton.classList.add('submit');
-    submitButton.innerHTML = "Envoyer";
-    form.append(submitButton);
-
-    return form;
-}
-
+/*-------------------- SKILL FORM -------------------*/
 function displaySkillForm(categories){
     // RÉINITIALISATION DU FORM
     let skillForm = document.querySelector('form.skillForm');
@@ -253,7 +181,11 @@ function modifySkillFormSubmitted(idSkill){
     });
 }
 
-// GALLERY
+/*###################################################*/
+/*################# GALLERY SECTIONS ################*/
+/*###################################################*/
+
+/*---------------- GALLERY DASHBOARD ----------------*/
 function displayGalleryDashboard(projects){
     let projectList = document.getElementById('projectList');
     if(projectList){
@@ -313,6 +245,7 @@ function generateGalleryDashboard(projects){
     return projectList;
 }
 
+/*------------------ PROJECT FORM ------------------*/
 function displayProjectForm(){
     getAllCategories()
     .then(categories => {
@@ -410,112 +343,10 @@ function modifyProjectFormSubmitted(evt){
     });
 }
 
-function generateProjectForm(categories){
-    let form = document.createElement('form');
-    form.classList.add('projectForm');
+/*###################################################*/
+/*##################### GENERAL #####################*/
+/*###################################################*/
 
-    // CRÉATION DE L'INPUT
-    // Initialisation du label
-    let titleLabel = document.createElement('label');
-    titleLabel.htmlFor = 'title';
-    titleLabel.innerHTML = "Nom du projet :";
-    // Initialisation de l'input
-    let titleInput = document.createElement('input');
-    titleInput.classList.add('title');
-    titleInput.type = 'text';
-    titleInput.name = 'title';
-    // Ajout au form
-    form.append(titleLabel);
-    form.append(titleInput);
-
-    // CRÉATION D'UN SELECT
-    // Initialisation du label
-    let selectLabel = document.createElement('label');
-    selectLabel.htmlFor = 'category';
-    selectLabel.innerHTML = "Choissisez la categorie du projet :";
-    // Initialisation de l'input
-    let categorySelector = document.createElement('select');
-    categorySelector.classList.add('categorySelector');;
-    categorySelector.name = 'category';
-    for(let current in categories){
-        let category = categories[current];
-        let option = document.createElement('option');
-        option.classList.add(category['idCategorie']);
-        option.value = category['idCategorie'];
-        option.innerHTML = category['nom'];
-        categorySelector.append(option);
-    }
-    // Ajout au form
-    form.append(selectLabel);
-    form.append(categorySelector);
-
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let dateLabel = document.createElement('label');
-    dateLabel.htmlFor = 'date';
-    dateLabel.innerHTML = "Date de réalisation :";
-    // Initialisation de l'input
-    let dateInput = document.createElement('input');
-    dateInput.classList.add('date');
-    dateInput.type = 'text';
-    dateInput.name = 'date';
-    // Ajout au form
-    form.append(dateLabel);
-    form.append(dateInput);
-
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let techniqueLabel = document.createElement('label');
-    techniqueLabel.htmlFor = 'technique';
-    techniqueLabel.innerHTML = "techniques utilisées :";
-    // Initialisation de l'input
-    let techniqueInput = document.createElement('input');
-    techniqueInput.classList.add('technique');
-    techniqueInput.type = 'text';
-    techniqueInput.name = 'technique';
-    // Ajout au form
-    form.append(techniqueLabel);
-    form.append(techniqueInput);
-
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let descriptionLabel = document.createElement('label');
-    descriptionLabel.htmlFor = 'description';
-    descriptionLabel.innerHTML = "Description du projet :";
-    // Initialisation de l'input
-    let textarea = document.createElement('textarea');
-    textarea.classList.add('description');
-    textarea.name = 'description';
-    // Ajout au form
-    form.append(descriptionLabel);
-    form.append(textarea);
-
-    // CRÉATION D'UN INPUT
-    // Initialisation du label
-    let mediaLabel = document.createElement('label');
-    mediaLabel.htmlFor = 'media';
-    mediaLabel.innerHTML = "[TEMPORAIRE] Chemin vers un media :";
-    // Initialisation de l'input
-    let mediaInput = document.createElement('input');
-    mediaInput.classList.add('media');
-    mediaInput.type = 'text';
-    mediaInput.name = 'media';
-    // Ajout au form
-    form.append(mediaLabel);
-    form.append(mediaInput);
-
-    //CRÉATION DU SUBMIT BUTTON
-    let submitButton = document.createElement('button');
-    submitButton.type = 'submit';
-    submitButton.classList.add('button');
-    submitButton.classList.add('submit');
-    submitButton.innerHTML = "Envoyer";
-    form.append(submitButton);
-
-    return form;
-}
-
-// GENERAL
 function generateModifySkillButton(idSkill){
     let modifyButton = document.createElement('span');
     modifyButton.classList.add('button');
