@@ -184,6 +184,10 @@ async function updateProjectAndRefresh(idProject,dataform){
      //return projetUpdated;	
 }
 
-async function getCategoriesFromAProject(idProject){
-
+async function getAllCategoriesOfAProject(idProject){
+    const response = await fetch('php/galleryRouter.php/ProjectCategories/'+idProject);
+    const projects = await response.json();
+    
+    console.log(projects);
+    return projects;
 }

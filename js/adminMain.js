@@ -334,8 +334,7 @@ function displayFilledProjectForm(idProject){
         addCategoriesToAForm(categories, 'projectForm');
         
         // AFFICHAGE DES DIFFÉRENTES CATÉGORIES DU PROJET
-        // getCategoriesFromAProject(idProject)
-        getAllProjectsCategories(idProject)
+        getCategoriesOfAProject(idProject)
         .then(categories => {
             let categorySelector = document.querySelector('.projectForm .categorySelector');
             let addCategoryButton = document.querySelector('.categories .button.add');
