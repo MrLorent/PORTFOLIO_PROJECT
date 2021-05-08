@@ -334,7 +334,7 @@ function displayFilledProjectForm(idProject){
         addCategoriesToAForm(categories, 'projectForm');
         
         // AFFICHAGE DES DIFFÉRENTES CATÉGORIES DU PROJET
-        getCategoriesOfAProject(idProject)
+        getAllCategoriesOfAProject(idProject)
         .then(categories => {
             let categorySelector = document.querySelector('.projectForm .categorySelector');
             let addCategoryButton = document.querySelector('.categories .button.add');
@@ -345,7 +345,7 @@ function displayFilledProjectForm(idProject){
                 let count = 0;
                 let categoryFound = false;
                 while(!categoryFound){
-                    if(categorySelector.options[count].innerHTML == category['nom']){
+                    if(categorySelector.options[count].value == category['idCategorie']){
                         categorySelector.options[count].selected = true;
                         categoryFound = true;
                     }
