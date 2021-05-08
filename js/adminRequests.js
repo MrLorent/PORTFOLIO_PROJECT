@@ -126,6 +126,17 @@ async function addProjectAndRefresh(){
     form.miniature = "miniatureTest";
     form.ordre = 2;
 
+    let categories = document.querySelectorAll('.categoriesList .category');
+    categories.forEach((categorie, index) => {
+        formCategory[index] = categorie.dataset.idCategory;
+    });
+    form.categorie=formCategory;
+    // formCategory['0'] ="audiovisuel";
+    // formCategory['1'] ="programmation";
+    // formCategory['2'] ="Installation";
+    // formCategory['3'] ="Vidéo";
+    //form.categorie =document.querySelector('.projectForm .categorySelector').value;
+
     const firstMedia={};
     firstMedia.source = "FIRSTsourceTest";
     firstMedia.legende = "FIRSTlegendeTest";
@@ -136,25 +147,19 @@ async function addProjectAndRefresh(){
     secondMedia.source = "SECONDsourceTest";
     secondMedia.legende = "SECONDlegendeTest";
     secondMedia.type = "SECONDtypeTest";
-    formMedia['2']=secondMedia;
+    formMedia['1']=secondMedia;
 
-    form.media=formMedia;
+    form.media=formMedia; 
 
-    formCategory['0'] ="audiovisuel";
-    formCategory['1'] ="programmation";
-    formCategory['2'] ="Installation";
-    formCategory['3'] ="Vidéo";
-    form.categorie=formCategory;
-    //form.categorie =document.querySelector('.projectForm .categorySelector').value; 
-
+    console.log(form);
     const response = await fetch('php/galleryRouter.php/project/', {
         method: 'POST',
         body: JSON.stringify(form)
     });
-    const projet = await response.json();
+    const allProjets = await response.json();
     
-    console.log(projet);
-    return projet;	
+    console.log(allProjets);
+    return allProjets;	
 }
 
 async function updateProjectAndRefresh(idProject,dataform){

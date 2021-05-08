@@ -34,6 +34,12 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
+    // FORMS
+    getAllCategories()
+    .then(categories => {
+        addCategoriesToForms(categories);
+    });
+
     // CATEGORY FORM
     let categoryForms = document.querySelectorAll('.categoryForm');
     categoryForms.forEach(categoryForm => {
@@ -42,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function(){
             addCategoryAndRefresh()
             .then(categories => {
                 categoryForm.reset();
-                addCategoriesToForm(categories);
+                addCategoriesToForms(categories);
             });
         });
     });
@@ -53,16 +59,16 @@ document.addEventListener('DOMContentLoaded', function(){
         imageUploaded('skillForm');
     });
 
+    // PROJECT FORM
+    let addCategorieButton = document.querySelector('.categories .button.add');
+    addCategorieButton.addEventListener('click', addCategoryToProject);
+
     /*###################################################*/
     /*################## SKILLS SECTION #################*/
     /*###################################################*/
     getAllSkillsByCategory().then(skillsByCategories => {
         let addSkillButton = document.querySelector('#skills .add.button');
-        addSkillButton.addEventListener('click', () => {
-            getAllCategories().then(categories => {
-                displaySkillForm(categories);
-            });
-        });
+        addSkillButton.addEventListener('click', displaySkillForm);
         displaySkillsDashboard(skillsByCategories);
     });
 
@@ -108,7 +114,7 @@ function displaySkillsDashboard(skillsByCategories) {
 }
 
 /*-------------------- SKILL FORM -------------------*/
-function displaySkillForm(categories){
+function displaySkillForm(){
     // RÉINITIALISATION DU FORM
     let skillForm = document.querySelector('form.skillForm');
     skillForm.reset();
@@ -122,27 +128,10 @@ function displaySkillForm(categories){
     defaultIconeText.textContent = "Aucun fichier sélectionné";
     iconePreview.append(defaultIconeText);
 
-    // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
-    addCategoriesToForm(categories);
-
     displaySection(SKILL_FORM_SECTION);
 }
 
-function addCategoriesToForm(categories){
-    let categorySelectors = document.querySelectorAll('select.categorySelector');
 
-    categorySelectors.forEach(categorySelector => {
-        removeAllChildren(categorySelector);
-        for(let current in categories){
-            let category = categories[current];
-            let option = document.createElement('option');
-            option.classList.add(category['idCategorie']);
-            option.value = category['idCategorie'];
-            option.innerHTML = category['nom'];
-            categorySelector.append(option);
-        }
-    });
-}
 
 function addSkillFormSubmitted(evt){
     evt.preventDefault();
@@ -156,47 +145,41 @@ function addSkillFormSubmitted(evt){
 }
 
 function displayFilledSkillForm(idSkill){
-    getAllCategories()
-    .then(categories => {
-        // RÉINITIALISATION DU FORM
-        let skillForm = document.querySelector('form.skillForm');
-        skillForm.reset();
-        skillForm.removeEventListener('submit', modifySkillFormSubmitted);
-        skillForm.removeEventListener('submit', addSkillFormSubmitted);
-        skillForm.addEventListener('submit', function(evt){
-            evt.preventDefault();
-            modifySkillFormSubmitted(idSkill);
-        });
+    // RÉINITIALISATION DU FORM
+    let skillForm = document.querySelector('form.skillForm');
+    skillForm.reset();
+    skillForm.removeEventListener('submit', modifySkillFormSubmitted);
+    skillForm.removeEventListener('submit', addSkillFormSubmitted);
+    skillForm.addEventListener('submit', function(evt){
+        evt.preventDefault();
+        modifySkillFormSubmitted(idSkill);
+    });
 
-        // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
-        addCategoriesToForm(categories);
+    getSkill(idSkill).then(skillDetails => {
+        document.querySelector('.skillForm .name').value = skillDetails['nom'];
 
-        getSkill(idSkill).then(skillDetails => {
-            document.querySelector('.skillForm .name').value = skillDetails['nom'];
-    
-            // PRÉVISUALISATION DE L'ICONE DE LA COMPÉTENCE
-            let divPreview = document.querySelector('.skillForm .preview');
-            removeAllChildren(divPreview);
-            let icone = document.createElement('img');
-            icone.src = skillDetails['icone'];
-            icone.alt = "Prévisualisation de l'icone de la compétence "+skillDetails['nom']+".";
-            divPreview.append(icone);
-    
-            let categorySelector = document.querySelector('.skillForm .categorySelector');
-            let count = 0;
-            let optionSelected = false;
-            while(!optionSelected){
-                if(categorySelector.options[count].value == skillDetails['idCategorie']){
-                    categorySelector.options[count].selected = true;
-                    optionSelected = true;
-                }
-                count++;
+        // PRÉVISUALISATION DE L'ICONE DE LA COMPÉTENCE
+        let divPreview = document.querySelector('.skillForm .preview');
+        removeAllChildren(divPreview);
+        let icone = document.createElement('img');
+        icone.src = skillDetails['icone'];
+        icone.alt = "Prévisualisation de l'icone de la compétence "+skillDetails['nom']+".";
+        divPreview.append(icone);
+
+        let categorySelector = document.querySelector('.skillForm .categorySelector');
+        let count = 0;
+        let optionSelected = false;
+        while(!optionSelected){
+            if(categorySelector.options[count].value == skillDetails['idCategorie']){
+                categorySelector.options[count].selected = true;
+                optionSelected = true;
             }
+            count++;
+        }
 
-            document.querySelector('.skillForm .description').value = skillDetails['description'];
+        document.querySelector('.skillForm .description').value = skillDetails['description'];
 
-            displaySection(SKILL_FORM_SECTION);
-        });
+        displaySection(SKILL_FORM_SECTION);
     });
 }
 
@@ -224,7 +207,7 @@ function displayGalleryDashboard(projects){
     GALLERY_CONTAINER.append(generateGalleryDashboard(projects));
 }
 
-function updateGalleryDashboard(evt){
+function updateGalleryDashboard(){
     if(!this.classList.contains('selected')){
         document.querySelector('#gallery .filter.selected').classList.remove('selected');
         this.classList.add('selected');
@@ -276,6 +259,9 @@ function generateGalleryDashboard(projects){
 
 /*------------------ PROJECT FORM ------------------*/
 function displayProjectForm(){
+    let categoriesList = document.querySelector('.categoriesList');
+    removeAllChildren(categoriesList);
+
     getAllCategories()
     .then(categories => {
         // RÉINITIALISATION DU FORM
@@ -286,10 +272,33 @@ function displayProjectForm(){
         projectForm.addEventListener('submit', addProjectFormSubmitted);
 
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
-        addCategoriesToForm(categories);
+        addCategoriesToAForm(categories, 'projectForm');
 
         displaySection(PROJECT_FORM_SECTION);
     });
+}
+
+function addCategoryToProject(){
+    let categorieList = document.querySelector('.categoriesList');
+    let categorySelector = document.querySelector('#projectForm .categorySelector');
+    let categorySelected = categorySelector.options[categorySelector.selectedIndex];
+
+    let category = document.createElement('span');
+    category.classList.add('category');
+    category.dataset.idCategory = categorySelected.value;
+    category.innerHTML = categorySelected.innerHTML;
+    categorySelected.remove();
+    
+    let cross = document.createElement('img');
+    cross.src = "./css/img/cross.png";
+    cross.alt = "Icone de croix";
+    cross.addEventListener('click', () => {
+        categorySelector.append(categorySelected);
+        category.remove();
+    });
+    category.append(cross);
+
+    categorieList.append(category);
 }
 
 function addProjectFormSubmitted(evt){
@@ -298,14 +307,13 @@ function addProjectFormSubmitted(evt){
     addProjectAndRefresh()
     .then(projects => {
         document.querySelector('form.projectForm .submit.button').disabled = false;
-        displaySkillsDashboard(projects);
-        displayOrHideSection(PROJECT_FORM_SECTION);
+        displayGalleryDashboard(projects);
+        hideSection(PROJECT_FORM_SECTION);
     });
 }
 
 function displayFilledProjectForm(idProject){
-    getAllCategories()
-    .then(categories => {
+    getAllCategories().then(categories => {
         // RÉINITIALISATION DU FORM
         let projectForm = document.querySelector('form.projectForm');
         projectForm.reset();
@@ -317,8 +325,11 @@ function displayFilledProjectForm(idProject){
             }
         );
 
+        let categoriesList = document.querySelector('.categoriesList');
+        removeAllChildren(categoriesList);
+
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
-        addCategoriesToForm(categories);
+        addCategoriesToAForm(categories, 'projectForm');
 
         getProject(idProject).then(projectDetails => {
             let projectInfos = projectDetails['infos'];
@@ -342,6 +353,7 @@ function displayFilledProjectForm(idProject){
             displaySection(PROJECT_FORM_SECTION);
         });
     });
+    
 }
 
 function modifyProjectFormSubmitted(idProject){
@@ -433,4 +445,53 @@ function imageUploaded(currentForm){
         divPreview.append(img);
     }
     
+}
+
+function addCategoriesToForms(categories){
+    let categorySelectors = document.querySelectorAll('select.categorySelector');
+
+    categorySelectors.forEach(categorySelector => {
+        removeAllChildren(categorySelector);
+        for(let current in categories){
+            let category = categories[current];
+            let option = document.createElement('option');
+            option.classList.add(category['idCategorie']);
+            option.value = category['idCategorie'];
+            option.innerHTML = category['nom'];
+            categorySelector.append(option);
+        }
+    });
+
+    let projectCategories = document.querySelectorAll('.categoriesList .category');
+
+    if(projectCategories){
+        let projectCategorySelector = document.querySelector('.categories .categorySelector');
+
+        projectCategories.forEach(category => {
+            let remove = false;
+            let count = 0;
+            
+            while(!remove){
+                if(projectCategorySelector.options[count].value == category.dataset.idCategory){
+                    projectCategorySelector.options[count].remove();
+                    remove = true;
+                }
+                count++;
+            }
+        });
+    }
+}
+
+function addCategoriesToAForm(categories, idForm){
+    let categorySelector = document.querySelector('#'+idForm+' .categorySelector');
+
+    removeAllChildren(categorySelector);
+    for(let current in categories){
+        let category = categories[current];
+        let option = document.createElement('option');
+        option.classList.add(category['idCategorie']);
+        option.value = category['idCategorie'];
+        option.innerHTML = category['nom'];
+        categorySelector.append(option);
+    }
 }

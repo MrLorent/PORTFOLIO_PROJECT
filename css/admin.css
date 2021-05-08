@@ -91,3 +91,12 @@ li.project span.projectTitle {
     cursor: pointer;
     flex-grow: 1;
 }
+
+/* ---------- PROJECT FORM SECTION ----------- */
+.categories .button.add {
+    width: min-content;
+}
+
+.categories .addCategoryForm {
+    display: flex;
+}

@@ -127,8 +127,17 @@
                 <input class="title" type="text" name="title">
 
                 <!--CATEGORIE DU PROJET-->
-                <label for="category">[TEMPORAIRE] Choissisez la categorie du projet :</label>
-                <select class="categorySelector" name="category"></select>
+                <fieldset class="categories">
+                    <legend>Catégorie(s) du projet</legend>
+                    <div class="addCategoryForm">
+                        <label for="category">Choissisez une categorie à ajouter :</label>
+                        <select class="categorySelector" name="category"></select>
+                        <span class="button add">Ajouter</span>
+                    </div>
+                    <div class="categoriesList">
+                        
+                    </div>
+                </fieldset>
                 
                 <!--DATE DE RÉALISATION DU PROJET-->
                 <label for="date">Date de réalisation :</label>
