@@ -183,3 +183,7 @@ async function updateProjectAndRefresh(idProject,dataform){
      //console.log(projetUpdated);
      //return projetUpdated;	
 }
+
+async function getCategoriesFromAProject(idProject){
+
+}

@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // PROJECT FORM
-    let addCategorieButton = document.querySelector('.categories .button.add');
-    addCategorieButton.addEventListener('click', addCategoryToProject);
+    let addCategoryButton = document.querySelector('.categories .button.add');
+    addCategoryButton.addEventListener('click', addCategoryToProject);
 
     /*###################################################*/
     /*################## SKILLS SECTION #################*/
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function(){
     /*###################################################*/
     /*################# GALLERY SECTION #################*/
     /*###################################################*/
-    getAllProjectCategories()
+    getAllProjectsCategories()
     .then(projectCategories => generateGalleryFilters(projectCategories))
     .then(galleryFilters => {
         GALLERY_CONTAINER.append(galleryFilters);
@@ -165,6 +165,7 @@ function displayFilledSkillForm(idSkill){
         icone.alt = "Prévisualisation de l'icone de la compétence "+skillDetails['nom']+".";
         divPreview.append(icone);
 
+        // AFFICHAGE DE LA CATÉGORIE DU PROJET
         let categorySelector = document.querySelector('.skillForm .categorySelector');
         let count = 0;
         let optionSelected = false;
@@ -331,6 +332,31 @@ function displayFilledProjectForm(idProject){
 
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
         addCategoriesToAForm(categories, 'projectForm');
+        
+        // AFFICHAGE DES DIFFÉRENTES CATÉGORIES DU PROJET
+        // getCategoriesFromAProject(idProject)
+        getAllProjectsCategories(idProject)
+        .then(categories => {
+            let categorySelector = document.querySelector('.projectForm .categorySelector');
+            let addCategoryButton = document.querySelector('.categories .button.add');
+
+            for(let index in categories){
+                let category = categories[index];
+
+                let count = 0;
+                let categoryFound = false;
+                while(!categoryFound){
+                    if(categorySelector.options[count].innerHTML == category['nom']){
+                        categorySelector.options[count].selected = true;
+                        categoryFound = true;
+                    }
+                    count++;
+                }
+
+                addCategoryButton.click();
+
+            }
+        });
 
         getProject(idProject).then(projectDetails => {
             let projectInfos = projectDetails['infos'];

@@ -65,7 +65,7 @@ async function getProject(idProject){
     return projet;
 }
 
-async function getAllProjectCategories(){
+async function getAllProjectsCategories(){
     const response = await fetch('php/galleryRouter.php/categories/');
     const categories = await response.json();
     
