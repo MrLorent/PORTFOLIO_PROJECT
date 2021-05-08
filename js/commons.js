@@ -196,4 +196,10 @@ function hideSection(section){
 
     section.classList.remove('displayed');
     body.classList.remove('locked');
+
+    let categoryForm = document.querySelector('#categoryForm.displayed');
+
+    if(categoryForm){
+        categoryForm.classList.remove('displayed');
+    }
 }

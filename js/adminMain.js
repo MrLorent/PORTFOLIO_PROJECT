@@ -129,9 +129,8 @@ function displaySkillForm(){
     iconePreview.append(defaultIconeText);
 
     displaySection(SKILL_FORM_SECTION);
+    document.querySelector('#categoryForm').classList.add('displayed');
 }
-
-
 
 function addSkillFormSubmitted(evt){
     evt.preventDefault();
@@ -180,6 +179,7 @@ function displayFilledSkillForm(idSkill){
         document.querySelector('.skillForm .description').value = skillDetails['description'];
 
         displaySection(SKILL_FORM_SECTION);
+        document.querySelector('#categoryForm').classList.add('displayed');
     });
 }
 
@@ -275,6 +275,7 @@ function displayProjectForm(){
         addCategoriesToAForm(categories, 'projectForm');
 
         displaySection(PROJECT_FORM_SECTION);
+        document.querySelector('#categoryForm').classList.add('displayed');
     });
 }
 
@@ -351,6 +352,7 @@ function displayFilledProjectForm(idProject){
             }
 
             displaySection(PROJECT_FORM_SECTION);
+            document.querySelector('#categoryForm').classList.add('displayed');
         });
     });
     
