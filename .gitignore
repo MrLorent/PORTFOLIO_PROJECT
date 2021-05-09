@@ -7,3 +7,9 @@ php/connection.php
 >>>>>>> VERSION_1.0
 
 php/skillsRouter.php
+
+php/categoriesRouter.php
+
+php/galleryRouter.php
+
+php/mediaRouter.php

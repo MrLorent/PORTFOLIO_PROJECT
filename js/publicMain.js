@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function(){
     /*###################################################*/
     /*################# GALLERY SECTION #################*/
     /*###################################################*/
-    getAllProjectCategories()
+    getAllProjectsCategories()
     .then(projectCategories => generateGalleryFilters(projectCategories))
     .then(galleryFilters => {
         GALLERY_CONTAINER.append(galleryFilters);
