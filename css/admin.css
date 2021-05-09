@@ -64,8 +64,8 @@ form {
     fill: #ffffff;
 }
 
-/* ----------- SKILL FORM SECTION ---------- */
-#skillForm .preview img {
+/* ----------- PICTURE UPLOAD ---------- */
+.preview img {
     height: 100px;
 }
 

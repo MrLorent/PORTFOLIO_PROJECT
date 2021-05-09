@@ -55,13 +55,18 @@ document.addEventListener('DOMContentLoaded', function(){
 
     // SKILL FORM
     let iconeInput = document.querySelector('.skillForm input.icone');
-    iconeInput.addEventListener('change', () => {
-        imageUploaded('skillForm');
+    iconeInput.addEventListener('change', function(){
+        imageUploaded('skillForm', this);
     });
 
     // PROJECT FORM
     let addCategoryButton = document.querySelector('.categories .button.add');
     addCategoryButton.addEventListener('click', addCategoryToProject);
+
+    let miniatureInput = document.querySelector('.projectForm input.miniature');
+    miniatureInput.addEventListener('change', function() {
+        imageUploaded('projectForm', this);
+    });
 
     /*###################################################*/
     /*################## SKILLS SECTION #################*/
@@ -370,12 +375,6 @@ function displayFilledProjectForm(idProject){
 
             let projectMedia = projectDetails['media'][0];
 
-            // IF TEMPORAIRE !!!
-            if(projectMedia){
-                document.querySelector('.projectForm .media').value = projectMedia['source'];
-                document.querySelector('.projectForm .media').dataset.id = projectMedia['idMedia'];
-            }
-
             displaySection(PROJECT_FORM_SECTION);
             document.querySelector('#categoryForm').classList.add('displayed');
         });
@@ -454,11 +453,11 @@ function generateDeleteProjectButton(idProject){
     return deleteButton;
 }
 
-function imageUploaded(currentForm){
+function imageUploaded(currentForm, input){
     let divPreview = document.querySelector('.'+currentForm+' .preview');
     removeAllChildren(divPreview);
 
-    let img = document.querySelector('.'+currentForm+' .icone').files[0];
+    let img = input.files[0];
 
     let fileReader = new FileReader();
     fileReader.readAsDataURL(img);
