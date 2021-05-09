@@ -39,10 +39,11 @@ function deleteProjectAndRefresh($idProject){
 function addProjectAndRefresh(){
     $projet=$_POST;
     $files=$_FILES;
+    $categories = json_decode($projet['categorie']);
     move_uploaded_file($files['miniature']['tmp_name'], '../img/gallery/miniatures/'.basename($files['miniature']['name']));
     $cheminfichier='./img/gallery/miniatures/'.basename($files['miniature']['name']);
     addProject($projet['titre'], $projet['date'], $projet['technique'], $projet['description'], $cheminfichier, $projet['ordre']);
-    foreach($projet['categorie'] as $value){
+    foreach($categories as $value){
         linkProjectToCategory($projet['titre'], $value);
     }
     return json_encode(getAllProjects());
