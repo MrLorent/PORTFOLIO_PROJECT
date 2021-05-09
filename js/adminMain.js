@@ -98,8 +98,7 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    
-   getMediabyProject(2);
+
 });
 
 /*###################################################*/

@@ -36,18 +36,19 @@ function deleteProjectAndRefresh($idProject){
 }
 
 
-//V1 avec 1 catégorie et 1 media, il faudra ensuite faire des tableaux de tableaux et des foreach
-function addProjectAndRefresh($form){
-    $projet=json_decode($form, true);
-    addProject($projet['titre'], $projet['date'], $projet['technique'], $projet['description'], $projet['miniature'], $projet['ordre']);
-    foreach($projet['media'] as $media){
-        addMedia($media['source'], $media['legende'], $media['type'], $projet['titre']);
-    }
+function addProjectAndRefresh(){
+    $projet=$_POST;
+    $files=$_FILES;
+    move_uploaded_file($files['miniature']['tmp_name'], '../img/gallery/miniatures/'.basename($files['miniature']['name']));
+    $cheminfichier='./img/gallery/miniatures/'.basename($files['miniature']['name']);
+    addProject($projet['titre'], $projet['date'], $projet['technique'], $projet['description'], $cheminfichier, $projet['ordre']);
     foreach($projet['categorie'] as $value){
         linkProjectToCategory($projet['titre'], $value);
     }
     return json_encode(getAllProjects());
 }
+
+
 
 function updateProjectAndRefresh($form, $idProject){
     //echo $form;
