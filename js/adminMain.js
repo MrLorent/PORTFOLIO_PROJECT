@@ -466,10 +466,6 @@ function generateProjectMediaDashboard(projectDetails){
 
         liMedia.append(generateDeleteMediaButton(media['idMedia']));
 
-        liMedia.append(generateModifyMediaButton(media['idMedia']));
-
-        //liMedia.append(generateDeleteMediaButton(media['idMedia']));
-
         mediaList.append(liMedia);
     }
 

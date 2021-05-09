@@ -62,8 +62,28 @@ function deleteMedium($idMedium) {
     return $idProjet[0];
 }
 
-function updateMedium($legende,$idMedium){
+function updateMedium($typefichier, $extension_upload, $legende, $idMedium){
+    $cnx = connection();
+
+    move_uploaded_file($_FILES['medium']['tmp_name'], '../img/gallery/'.$_POST['idProjet']."/".$idMedium.".".$extension_upload);
+    $cheminfichier = './img/gallery/'.$_POST['idProjet']."/".$idMedium.".".$extension_upload;
+
+    //correction de la bdd
+    $rqt = $cnx->prepare( 'UPDATE media SET source = ?, legende = ?, type = ? WHERE idMedia = ?');
+    $rqt->execute(array($cheminfichier,$legende, $typefichier, $idMedium));
+}
+
+function updateLegend($legende,$idMedium){
     $cnx = connection();
     $rqt = $cnx->prepare( 'UPDATE media SET legende = ? WHERE idMedia = ?');
     $rqt->execute(array($legende, $idMedium));
+}
+
+function getIDprojectByIDMedia($idMedium){
+    $cnx = connection();
+    $rqt = $cnx->prepare('SELECT `idProjet` FROM `media` WHERE `idMedia`=?');
+    $rqt->execute(array($idMedium));
+    $idProjet = $rqt->fetch();
+
+    return $idProjet[0];
 }

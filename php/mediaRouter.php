@@ -14,11 +14,13 @@ switch($request[5]){
                 echo getMediumAsJSONByIDMedium($request[6]);
                 break;
             case 'POST':
-                echo updateMediumAndRefresh($request[6]);
-                // if(isset($request[6]) != 0){
-                //     echo updateMediumAndRefresh($request[6]);
-                // }
-                //echo addMediumToAProject();
+                
+                if($request[6] == "newMedium"){
+                     echo addMediumToAProject();
+                }
+                else{
+                    echo updateMediumAndRefresh($request[6]);
+                }
                 break;
             case 'PUT':
                 //$json = file_get_contents('php://input');

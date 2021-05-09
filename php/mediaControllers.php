@@ -48,7 +48,7 @@ function deleteMediumAndRefresh($idMedium) {
 }
 
 function updateMediumAndRefresh($idMedium){
-       if (isset($_FILES['medium']) AND $_FILES['medium']['error'] == 0) {
+       if (isset($_FILES['medium'])) {
               // Testons si l'extension est autorisée
               $infosfichier = pathinfo($_FILES['medium']['name']);
               $extension_upload = $infosfichier['extension'];
@@ -63,15 +63,15 @@ function updateMediumAndRefresh($idMedium){
               if (in_array($extension_upload, $extensions_videos)) {
                      $typefichier = 'video';
               }
-              addMedium($typefichier, $extension_upload);
-       } else {
+              updateMedium($typefichier, $extension_upload, $_POST['legende'], $idMedium);
+       } 
+       else{
               echo "Type (extension) non conforme. Extensions acceptées : jpg, jpeg, gif, png, mp4.";
        }
-       }else if(isset($_FILES['medium']) == 0 AND $_FILES['medium']['error'] == 0){
-              updateMedium($_POST['legende'], $idMedium);
+       }else{
+              updateLegend($_POST['legende'], $idMedium);
        }
-
-       
-
-       return getProjectAsJSON($_POST['idProjet']);
+       $idProject = getIDprojectByIDMedia($idMedium);
+       return getProjectAsJSON($idProject);
 }
+

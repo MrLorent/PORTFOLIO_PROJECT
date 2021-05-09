@@ -199,7 +199,7 @@ async function addMediumAndRefresh(idProject){
 	mediaForm.append('idProjet', idProject);
 
     console.log(mediaForm);
-    const response = await fetch('php/mediaRouter.php/medium/',  {
+    const response = await fetch('php/mediaRouter.php/medium/newMedium',  {
         method: 'POST',
         body: mediaForm
     });
