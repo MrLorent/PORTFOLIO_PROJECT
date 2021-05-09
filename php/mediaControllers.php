@@ -1,6 +1,7 @@
 <?php
 // IMPORTATION DES MODELS
 require_once('mediaModels.php');
+require_once('galleryControllers.php');
 
 // CONTROLEURS
 
@@ -37,7 +38,7 @@ function addMediumToAProject() {
 
        addMedium($typefichier);
 
-       return json_encode(getProjectMedia($_POST['idProjet']));
+       return json_encode(getProjectAsJSON($_POST['idProjet']));
 }
 
 function deleteMediumAndRefresh($idMedium) {
