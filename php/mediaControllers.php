@@ -44,5 +44,5 @@ function addMediumToAProject() {
 function deleteMediumAndRefresh($idMedium) {
        $idProjet = deleteMedium($idMedium);
 
-       return json_encode(getProjectMedia($idProjet));
+       return getProjectAsJSON($idProjet);
 }

@@ -462,9 +462,9 @@ function generateProjectMediaDashboard(projectDetails){
         mediaPreview.append(img);
         liMedia.append(mediaPreview);
 
-        liMedia.append(generateModifyProjectButton(project['idProjet']));
+        liMedia.append(generateModifyMediaButton(media['idMedia']));
 
-        liMedia.append(generateDeleteProjectButton(project['idProjet']));
+        liMedia.append(generateDeleteMediaButton(media['idMedia']));
 
         mediaList.append(liMedia);
     }
@@ -496,7 +496,7 @@ function addMediaFormSubmitted(idProject){
     .then(projects => {
         document.querySelector('form.mediaForm .submit.button').disabled = false;
         displayProjectMediaDashboard(projects);
-        hideSection(PROJECT_FORM_SECTION);
+        hideSection(MEDIA_FORM_SECTION);
     });
 }
 
@@ -584,10 +584,26 @@ function generateModifyMediaButton(idMedia){
     modifyButton.dataset.idMedia = idMedia;
     modifyButton.innerHTML = "Modifier";
     modifyButton.addEventListener('click', function(){
-        displayFilledSkillForm(this.dataset.idMedia);
+        displayFilledMediaForm(this.dataset.idMedia);
     });
 
     return modifyButton;
+}
+
+function generateDeleteMediaButton(idMedia){
+    let deleteButton = document.createElement('span');
+    deleteButton.classList.add('button');
+    deleteButton.classList.add('delete');
+    deleteButton.dataset.idMedia = idMedia;
+    deleteButton.innerHTML = "Supprimer";
+    deleteButton.addEventListener('click', function(){
+        deleteMediaAndRefresh(this.dataset.idMedia)
+        .then(projectDetails => {
+           displayProjectMediaDashboard(projectDetails);
+        });
+    });
+
+    return deleteButton;
 }
 
 function imageUploaded(currentForm, input){
