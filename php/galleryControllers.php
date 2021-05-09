@@ -21,7 +21,7 @@ function getProjectAsJSON($idProject) {
     $project = array(
         "infos" => getProjectInfos($idProject),
         "media" => getProjectMedia($idProject),
-        );
+    );
         
     return json_encode($project);
 }
