@@ -26,35 +26,24 @@ function deleteSkillAndRefresh($idSkill) {
     deleteSkill($idSkill);
 }
 
-function addSkillAndRefresh($skillInfo) {
-    $skill = $_POST;
+function addSkillAndRefresh() {
 
-    move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.basename($_FILES['icone']['name']));
-    $cheminfichier ='./img/skills/'.basename($_FILES['icone']['name']);
-    
-    addSkill($skill['outil'], $skill['description'], $cheminfichier, $skill['categorie']);
+    addSkill();
 
-    //return json_encode($_FILES);
     return getAllSkillsByCategoryAsJSON();
 }
 
-function updateSkillAndRefresh($skillInfo, $idSkill) {
-    $skill = json_decode($skillInfo, true);
 
-    move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.basename($_FILES['icone']['name']));
-    $cheminfichier ='./img/skills/'.basename($_FILES['icone']['name']);
+function updateSkillAndRefresh($idSkill) {
+    if(isset($_FILES['icone'])){
+        $infosfichier = pathinfo($_FILES['icone']['name']);
+        $extension = $infosfichier['extension'];
 
-    $directory = "./img/skills";
-    $images = glob($directory . "/*.png");
+        move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.$idSkill.".".$extension);
+        $cheminfichier ='./img/skills/'.$idSkill.".".$extension;
 
-    foreach($images as $image)
-    {
-        if ($cheminfichier==$image)
-        {
-            // delete image écraser image ac la nvle 
-            
-        }
-     
-    }    
-    updateSkill($skill['outil'], $skill['description'], $cheminfichier['icone'], $skill['categorie'], $idSkill);
+        updateSkill($_POST['outil'], $_POST['description'], $cheminfichier, $_POST['categorie'], $idSkill);
+    }else{
+        updateSkillInfos($_POST['outil'], $_POST['description'], $_POST['categorie'], $idSkill);
+    }
 }

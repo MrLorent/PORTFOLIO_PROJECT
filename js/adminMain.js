@@ -462,9 +462,9 @@ function generateProjectMediaDashboard(projectDetails){
         mediaPreview.append(img);
         liMedia.append(mediaPreview);
 
-        //liMedia.append(generateModifyProjectButton(project['idProjet']));
+        liMedia.append(generateModifyMediaButton(media['idMedia']));
 
-        //liMedia.append(generateDeleteProjectButton(project['idProjet']));
+        liMedia.append(generateDeleteMediaButton(media['idMedia']));
 
         liMedia.append(generateModifyMediaButton(media['idMedia']));
 
@@ -636,6 +636,22 @@ function generateModifyMediaButton(idMedia){
     });
 
     return modifyButton;
+}
+
+function generateDeleteMediaButton(idMedia){
+    let deleteButton = document.createElement('span');
+    deleteButton.classList.add('button');
+    deleteButton.classList.add('delete');
+    deleteButton.dataset.idMedia = idMedia;
+    deleteButton.innerHTML = "Supprimer";
+    deleteButton.addEventListener('click', function(){
+        deleteMediaAndRefresh(this.dataset.idMedia)
+        .then(projectDetails => {
+           displayProjectMediaDashboard(projectDetails);
+        });
+    });
+
+    return deleteButton;
 }
 
 function imageUploaded(currentForm, input){
