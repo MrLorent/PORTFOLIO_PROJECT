@@ -16,11 +16,6 @@ document.addEventListener('DOMContentLoaded', function(){
     MEDIA_SECTION = document.getElementById('projectMedia');
     MEDIA_CONTAINER = document.querySelector('#projectMedia .content');
 
-    MEDIA_CONTAINER = document.querySelector('#media .content');
-    MEDIA_SECTION = document.getElementById('media');
-    // MEDIUM_CONTAINER = document.querySelector('#medium .content');
-    // MEDIA_FORM_SECTION = document.getElementById('mediaForm');
-
     // NAV
     let navLinks = document.querySelectorAll('nav a');
     navLinks.forEach(navLink => {
@@ -261,8 +256,6 @@ function generateGalleryDashboard(projects){
         projectTitle.addEventListener('click', displayProject);
         liProject.append(projectTitle);
 
-        liProject.append(generateMediaButton(project['idProjet']));
-
         liProject.append(generateModifyProjectButton(project['idProjet']));
 
         liProject.append(generateDeleteProjectButton(project['idProjet']));
@@ -470,18 +463,6 @@ function generateProjectMediaDashboard(projectDetails){
 }
 
 /*###################################################*/
-/*##################### MEDIA #####################*/
-/*###################################################*/ 
-
-/*---------------- MEDIA DASHBOARD -----------------*/
-function displayMediaDashboard(idProject) {
-    // SUPPRESSION DES ÉLÉMENTS PRÉCÉDENTS
-    removeAllChildren(MEDIA_CONTAINER);
-
-    MEDIA_CONTAINER.append(displayMediaByProject(idProject));
-}
-
-/*###################################################*/
 /*##################### GENERAL #####################*/
 /*###################################################*/
 
@@ -529,19 +510,6 @@ function generateDeleteSkillButton(idSkill){
     return deleteButton;
 }
 
-function generateMediaProjectButton(idProject){
-    let mediaButton = document.createElement('span');
-    mediaButton.classList.add('button');
-    mediaButton.classList.add('media');
-    mediaButton.dataset.idProject = idProject;
-    mediaButton.innerHTML = "Gérer les média";
-    mediaButton.addEventListener('click', function(){
-        displayMediaDashboard(this.dataset.idProject);
-    });
-
-    return mediaButton;
-}
-
 function generateModifyProjectButton(idProject){
     let modifyButton = document.createElement('span');
     modifyButton.classList.add('button');
@@ -565,35 +533,6 @@ function generateDeleteProjectButton(idProject){
         deleteProjectAndRefresh(this.dataset.idProject)
         .then(projects => {
            displayGalleryDashboard(projects);
-        });
-    });
-
-    return deleteButton;
-}
-
-function generateModifyMediumButton(idMedium){
-    let modifyButton = document.createElement('span');
-    modifyButton.classList.add('button');
-    modifyButton.classList.add('modify');
-    modifyButton.dataset.idMedium = idMedium;
-    modifyButton.innerHTML = "Modifier";
-    modifyButton.addEventListener('click', function(){
-        displayFilledMediumForm(this.dataset.idMedium);
-    });
-
-    return modifyButton;
-}
-
-function generateDeleteMediumButton(idMedium){
-    let deleteButton = document.createElement('span');
-    deleteButton.classList.add('button');
-    deleteButton.classList.add('delete');
-    deleteButton.dataset.idMedium = idMedium;
-    deleteButton.innerHTML = "Supprimer";
-    deleteButton.addEventListener('click', function(){
-        deleteMediumAndRefresh(this.dataset.idMedium)
-        .then(media => {
-           displayMediaDashboard(media);
         });
     });
 
