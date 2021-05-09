@@ -105,3 +105,20 @@ li.project span.projectTitle {
 .categories .addCategoryForm {
     display: flex;
 }
+
+/* ---------- MEDIA SECTION ----------- */
+
+li.medium{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #323232;
+    padding: 10px;
+    height:20vh;
+}
+
+img.imgMedium{
+    max-height:100%;
+    flex-grow: 1;
+    padding: 5px 150px 5px 0;
+}

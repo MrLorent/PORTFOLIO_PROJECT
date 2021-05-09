@@ -10,6 +10,11 @@ var PROJECT_SECTION;
 var PROJECT_CONTAINER;
 var PROJECT_FORM_SECTION;
 
+var MEDIA_CONTAINER;
+var MEDIA_SECTION;
+var MEDIUM_CONTAINER;
+var MEDIA_FORM_SECTION;
+
 /*###################################################*/
 /*################## SKILL SECTIONS #################*/
 /*###################################################*/
@@ -174,6 +179,72 @@ function displayProject(){
         displaySection(PROJECT_SECTION);
     });
 }
+
+/*###################################################*/
+/*##################### MEDIA #####################*/
+/*###################################################*/
+
+/*--------------------- MEDIA ---------------------*/
+function displayMediaByProject(idProject){
+    getProject(idProject).then(projectDetails => {
+        // SUPPRESSION DES ANCIENS CONTENUS
+        removeAllChildren(MEDIA_CONTAINER);
+        
+        // MEDIA
+        let projectMedia = projectDetails['media'];
+
+        generateMediaAsList(projectMedia);
+    });
+}
+
+function generateMediaAsList(mediaByProject){
+    let ulMedia = document.createElement('ul');
+        ulMedia.classList.add('mediaList');
+        for(let index in mediaByProject){
+            let medium = mediaByProject[index];
+
+            let liMedium= document.createElement('li');
+            liMedium.classList.add('medium');
+            liMedium.dataset.idMedium = medium['idMedia'];
+
+            switch(medium['type']){
+                case 'photo':
+                    let picture = document.createElement('img');
+                    picture.src = medium['source'];
+                    picture.alt = medium['legende'];
+                    picture.classList.add('imgMedium');
+                    picture.dataset.idMedium = medium['idMedia'];
+                    liMedium.append(picture);
+                    break;
+                case 'video':
+                    let video = document.createElement('iframe');
+                    video.src = medium['source'];
+                    video.classList.add('videoMedium');
+                    video.dataset.idMedium = medium['idMedia'];
+                    liMedium.append(video);
+                    break;
+                default:
+                    console.log("Le type de media " + medium['type'] + "n'est pas géré");
+                    break;
+            }
+
+            ulMedia.append(liMedium);
+        }
+
+        
+        MEDIA_CONTAINER.append(ulMedia);
+ 
+        displaySection(MEDIA_SECTION); 
+
+        let media = document.querySelectorAll('li.medium');
+
+        media.forEach(medium => {
+            medium.append(generateModifyMediumButton(medium.dataset.idMedium));
+            medium.append(generateDeleteMediumButton(medium.dataset.idMedium));
+        });
+}
+
+
 
 /*###################################################*/
 /*##################### GENERAL #####################*/

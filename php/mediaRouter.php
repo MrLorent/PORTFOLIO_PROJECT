@@ -18,7 +18,7 @@ switch($request[5]){
                 break;
             case 'PUT':
                 $json = file_get_contents('php://input');
-                updateMediumAndRefresh($json, $request[5]);
+                updateMediumAndRefresh($json,$request[6]);
                 break;
             case 'DELETE':
                 
@@ -32,7 +32,7 @@ switch($request[5]){
     case 'media':
         switch($method){
             case 'GET':
-                echo getMediaAsJSONbyIDProject($request[5]);
+                echo getMediaAsJSONbyIDProject($request[6]);
                 break;
             case 'POST':
                 

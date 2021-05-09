@@ -179,3 +179,20 @@ async function getMediabyProject(idProject){
     console.log(media);
     return media;
 }
+
+async function updateMediumAndRefresh(){
+    var mediumForm = new FormData();
+
+	mediumForm.append('description', document.querySelector('.mediumForm .description').value);
+	mediumForm.append('icone',document.querySelector('.mediumForm .icone').files[0]);
+
+    console.log(mediumForm);
+    const response = await fetch('php/mediaRouter.php/medium/'+idMedia,  {
+        method: 'PUT',
+        body: mediumForm
+    });
+    const medium = await response.json();
+    
+    console.log(medium);
+    return medium;
+}
