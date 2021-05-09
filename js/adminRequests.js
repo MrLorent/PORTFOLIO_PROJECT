@@ -180,3 +180,36 @@ async function getMediabyProject(idProject){
     console.log(media);
     return media;
 }
+
+async function getMediumByID(idMedium){
+    const response = await fetch('php/mediaRouter.php/medium/'+idMedium);
+    const medium = await response.json();
+    console.log(medium);
+    return medium;
+}
+
+async function addMediumAndRefresh(idProject){
+    var mediaForm = new FormData();
+
+    mediaForm.append('medium',document.querySelector('.mediaForm .media').files[0]);
+	mediaForm.append('legende', document.querySelector('.mediaForm .legende').value);
+	mediaForm.append('idProjet', idProject);
+
+    console.log(mediaForm);
+    const response = await fetch('php/mediaRouter.php/medium/',  {
+        method: 'POST',
+        body: mediaForm
+    });
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
+}
+
+async function deleteMedium(idMedium) {
+    const response = await fetch('php/mediaRouter.php/medium/' + idMedium, { method: 'DELETE'});
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
+}
