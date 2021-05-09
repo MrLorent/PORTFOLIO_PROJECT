@@ -418,7 +418,7 @@ function displayProjectMediaDashboard(projectDetails){
     MEDIA_CONTAINER.append(generateProjectMediaDashboard(projectDetails));
 
     let addMediumButton = document.querySelector('#projectMedia .add.button');
-    addMediumButton.dataset.idProject = projectDetails['infos']['idProject'];
+    addMediumButton.dataset.idProject = projectDetails['infos']['idProjet'];
 
     displaySection(MEDIA_SECTION);
 }
@@ -575,6 +575,19 @@ function generateDeleteProjectButton(idProject){
     });
 
     return deleteButton;
+}
+
+function generateModifyMediaButton(idMedia){
+    let modifyButton = document.createElement('span');
+    modifyButton.classList.add('button');
+    modifyButton.classList.add('modify');
+    modifyButton.dataset.idMedia = idMedia;
+    modifyButton.innerHTML = "Modifier";
+    modifyButton.addEventListener('click', function(){
+        displayFilledSkillForm(this.dataset.idMedia);
+    });
+
+    return modifyButton;
 }
 
 function imageUploaded(currentForm, input){
