@@ -74,13 +74,19 @@ form {
     display: none;
 }
 
-ul#projectList {
+.mediaPreview img{
+    height: 100px;
+}
+
+ul#projectList,
+ul#mediaList {
     list-style: none;
     padding: 2.5% 2.5% 0 2.5%;
     margin: 0 0 40px 0;
 }
 
-li.project {
+li.project,
+li.media {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #323232;
@@ -88,7 +94,9 @@ li.project {
 }
 
 li.project span.idProject,
-li.project span.projectTitle {
+li.project span.projectTitle,
+li.media span.idMedia,
+li.media span.mediaPreview {
     padding: 5px 15px 5px 0;
 }
 

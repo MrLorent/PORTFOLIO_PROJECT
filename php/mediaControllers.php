@@ -8,15 +8,40 @@ function getMediaAsJSONbyIDProject($idProject) {
        return json_encode(getProjectMedia($idProject));
 }
 
-function UpdateMediumAndRefresh($form, $idMedium){
-    $medium = $_POST;
-    $idProject = $medium['idProject'];
-    move_uploaded_file($_FILES['icone']['tmp_name'], '../img/gallery/'. $idProject . '/' .basename($_FILES['icone']['name']));
-    $cheminfichier ='./img/gallery/'. $idProject . '/' .basename($_FILES['icone']['name']);
-    
-    //UpdateMedia($project['media'],$idProject, $project['mediaId']);
-    UpdateMedium($cheminfichier, $idProject, $idMedium);
+function getMediumAsJSONByIDMedium($idMedium) {
+       return json_encode(getMedium($idMedium));
+}
 
-    //return json_encode($_FILES);
-    return getMediaAsJSONbyIDProject($idProject);
+function addMediumToAProject() {
+
+       //detection du type de fichier
+       if (isset($_FILES['medium']) AND $_FILES['medium']['error'] == 0) {
+              // Testons si l'extension est autorisée
+              $infosfichier = pathinfo($_FILES['medium']['name']);
+              $extension_upload = $infosfichier['extension'];
+              $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png', 'mp4');
+              $extensions_images = array('jpg', 'jpeg', 'gif', 'png');
+              $extensions_videos = array('mp4');
+
+       if (in_array($extension_upload, $extensions_autorisees)) {
+              if (in_array($extension_upload, $extensions_images)) {
+                     $typefichier = 'photo';
+              }
+              if (in_array($extension_upload, $extensions_videos)) {
+                     $typefichier = 'video';
+              }
+       } else {
+              echo "Type (extension) non conforme. Extensions acceptées : jpg, jpeg, gif, png, mp4.";
+       }
+       }
+
+       addMedium($typefichier);
+
+       return json_encode(getProjectMedia($_POST['idProjet']));
+}
+
+function deleteMediumAndRefresh($idMedium) {
+       $idProjet = deleteMedium($idMedium);
+
+       return json_encode(getProjectMedia($idProjet));
 }

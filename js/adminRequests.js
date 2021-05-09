@@ -131,7 +131,8 @@ async function addProjectAndRefresh(){
     categories.forEach((categorie, index) => {
         formCategory[index] = categorie.dataset.idCategory;
     });
-    formProject.append('categorie',formCategory);
+    let formCategories = JSON.stringify(formCategory);
+    formProject.append('categorie',formCategories);
     console.log(formProject);
    
     const response = await fetch('php/galleryRouter.php/project/', {
@@ -180,19 +181,35 @@ async function getMediabyProject(idProject){
     return media;
 }
 
-async function updateMediumAndRefresh(){
-    var mediumForm = new FormData();
-
-	mediumForm.append('description', document.querySelector('.mediumForm .description').value);
-	mediumForm.append('icone',document.querySelector('.mediumForm .icone').files[0]);
-
-    console.log(mediumForm);
-    const response = await fetch('php/mediaRouter.php/medium/'+idMedia,  {
-        method: 'PUT',
-        body: mediumForm
-    });
+async function getMediumByID(idMedium){
+    const response = await fetch('php/mediaRouter.php/medium/'+idMedium);
     const medium = await response.json();
-    
     console.log(medium);
     return medium;
+}
+
+async function addMedium(idProject){
+    var mediaForm = new FormData();
+
+    mediaForm.append('medium',document.querySelector('.mediumForm .medium').files[0]);
+	mediaForm.append('legende', document.querySelector('.mediumForm .legende').value);
+	mediaForm.append('idProjet', idProject);
+
+    console.log(mediaForm);
+    const response = await fetch('php/mediaRouter.php/medium/',  {
+        method: 'POST',
+        body: mediaForm
+    });
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
+}
+
+async function deleteMedium(idMedium) {
+    const response = await fetch('php/mediaRouter.php/medium/' + idMedium, { method: 'DELETE'});
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
 }
