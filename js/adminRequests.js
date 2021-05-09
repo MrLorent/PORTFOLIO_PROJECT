@@ -168,11 +168,12 @@ async function updateProjectAndRefresh(idProject,dataform){
         console.log(idProject + " " + value);
      }*/
      console.log(json);
-     fetch('php/galleryRouter.php/project/', { mode: "no-cors",
-     method: 'POST',  
-     headers: {
-       "content-type": "application/json"
-     }, body: json})
+     fetch('php/galleryRouter.php/project/', {
+        mode: "no-cors",
+        method: 'POST',  
+        headers: {
+            "content-type": "application/json"
+        }, body: json})
      .then(response => console.log(response));
      
      //console.log(projetUpdated);
