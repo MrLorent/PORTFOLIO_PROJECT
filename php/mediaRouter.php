@@ -21,7 +21,7 @@ switch($request[4]){
                 //updateMediumAndRefresh($json, $request[5]);
                 break;
             case 'DELETE':
-                
+                echo deleteMediumAndRefresh($request[5]);
                 break;
             default:
                 http_response_code('404');

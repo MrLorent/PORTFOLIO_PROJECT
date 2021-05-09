@@ -33,5 +33,11 @@ function addMediumToAProject() {
 
        addMedium($typefichier);
 
-       return json_encode(getProjectMedia($_POST['idProjet'])));
+       return json_encode(getProjectMedia($_POST['idProjet']));
+}
+
+function deleteMediumAndRefresh($idMedium) {
+       $idProjet = deleteMedium($idMedium);
+
+       return json_encode(getProjectMedia($idProjet);
 }

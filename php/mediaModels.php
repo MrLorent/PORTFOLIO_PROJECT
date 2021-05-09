@@ -29,3 +29,15 @@ function addMedium($typefichier) {
        $rqt = $cnx->prepare( 'UPDATE media SET source = ?, WHERE idMedia = ?');
        $rqt->execute(array($cheminfichier, $idMedium));
 }
+
+function deleteMedium($idMedium) {
+    // Récupération l'id
+
+    // Récupération de la source
+
+    // Suppression du document medium
+
+    // Suppression de la ligne medium de la bdd
+
+    
+}

@@ -198,3 +198,11 @@ async function addMedium(idProject){
     console.log(media);
     return media;
 }
+
+async function deleteMedium(idMedium) {
+    const response = await fetch('php/mediaRouter.php/medium/' + idMedium, { method: 'DELETE'});
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
+}
