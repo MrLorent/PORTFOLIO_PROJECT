@@ -7,7 +7,7 @@ require_once('mediaControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch($request[5]){
+switch($request[4]){
     case "medium":
         switch($method){
             case 'GET':

@@ -131,7 +131,8 @@ async function addProjectAndRefresh(){
     categories.forEach((categorie, index) => {
         formCategory[index] = categorie.dataset.idCategory;
     });
-    formProject.append('categorie',formCategory);
+    let formCategories = JSON.stringify(formCategory);
+    formProject.append('categorie',formCategories);
     console.log(formProject);
    
     const response = await fetch('php/galleryRouter.php/project/', {
