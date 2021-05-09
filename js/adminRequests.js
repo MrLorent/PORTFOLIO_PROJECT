@@ -115,51 +115,33 @@ async function deleteProjectAndRefresh(idProject){
 
 /*------------------ PROJECT FORM -------------------*/
 async function addProjectAndRefresh(){
-    const form={};
     const formCategory={};
-    const formMedia={};
+    var formProject = new FormData();
 
-    form.titre = document.querySelector('.projectForm .title').value;
-    form.date = document.querySelector('.projectForm .date').value;
-    form.technique = document.querySelector('.projectForm .technique').value;
-    form.description = document.querySelector('.projectForm .description').value;
-    form.miniature = "miniatureTest";
-    form.ordre = 2;
+    formProject.append('date', document.querySelector('.projectForm .date').value);
+    formProject.append('titre', document.querySelector('.projectForm .title').value);
+    formProject.append('technique', document.querySelector('.projectForm .technique').value);
+    formProject.append('description', document.querySelector('.projectForm .description').value);
+    formProject.append('miniature', document.querySelector('.projectForm .miniature').files[0]);
+    formProject.append('ordre', 2);
+
+    console.log(formProject);
 
     let categories = document.querySelectorAll('.categoriesList .category');
     categories.forEach((categorie, index) => {
         formCategory[index] = categorie.dataset.idCategory;
     });
-    form.categorie=formCategory;
-    // formCategory['0'] ="audiovisuel";
-    // formCategory['1'] ="programmation";
-    // formCategory['2'] ="Installation";
-    // formCategory['3'] ="Vidéo";
-    //form.categorie =document.querySelector('.projectForm .categorySelector').value;
-
-    const firstMedia={};
-    firstMedia.source = "FIRSTsourceTest";
-    firstMedia.legende = "FIRSTlegendeTest";
-    firstMedia.type = "FIRSTtypeTest";
-    formMedia['0']=firstMedia;
-
-    const secondMedia={};
-    secondMedia.source = "SECONDsourceTest";
-    secondMedia.legende = "SECONDlegendeTest";
-    secondMedia.type = "SECONDtypeTest";
-    formMedia['1']=secondMedia;
-
-    form.media=formMedia; 
-
-    console.log(form);
+    formProject.append('categorie',formCategory);
+    console.log(formProject);
+   
     const response = await fetch('php/galleryRouter.php/project/', {
         method: 'POST',
-        body: JSON.stringify(form)
+        body: formProject
     });
-    const allProjets = await response.json();
+    const allProjects = await response.json();
     
-    console.log(allProjets);
-    return allProjets;	
+    console.log(allProjects);
+    return allProjects;	
 }
 
 async function updateProjectAndRefresh(idProject,dataform){
