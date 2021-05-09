@@ -7,7 +7,7 @@ require_once('mediaControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch($request[4]){
+switch($request[5]){
     case "medium":
         switch($method){
             case 'GET':
@@ -17,7 +17,8 @@ switch($request[4]){
                 
                 break;
             case 'PUT':
-                
+                $json = file_get_contents('php://input');
+                updateMediumAndRefresh($json, $request[5]);
                 break;
             case 'DELETE':
                 
