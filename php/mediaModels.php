@@ -48,12 +48,16 @@ function deleteMedium($idMedium) {
     $rqt->execute(array($idMedium));
     $idProjet = $rqt->fetch();
 
+    $rqt = $cnx->prepare('SELECT `source` FROM `media` WHERE `idMedia`=?');
+    $rqt->execute(array($idMedium));
+    $pathImg = $rqt->fetch();
+
     // Suppression du document medium
-    unlink('./img/gallery/'.$idProjet."/".$idMedium);
+    unlink('.'.$pathImg[0]);
 
     // Suppression de la ligne medium de la bdd
     $rqt = $cnx->prepare('DELETE FROM media WHERE idMedia = ?');
-    $rqt->execute($idMedium);
+    $rqt->execute(array($idMedium));
 
-    return $idProjet;
+    return $idProjet[0];
 }

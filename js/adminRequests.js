@@ -206,8 +206,10 @@ async function addMediumAndRefresh(idProject){
     return media;
 }
 
-async function deleteMedium(idMedium) {
-    const response = await fetch('php/mediaRouter.php/medium/' + idMedium, { method: 'DELETE'});
+async function deleteMediaAndRefresh(idMedium) {
+    const response = await fetch('php/mediaRouter.php/medium/' + idMedium, {
+        method: 'DELETE'
+    });
     const media = await response.json();
     
     console.log(media);
