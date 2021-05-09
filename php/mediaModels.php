@@ -18,7 +18,7 @@ function getMedium($idMedium) {
     return $medium;
 }
 
-function addMedium($typefichier) {
+function addMedium($typefichier, $extension) {
        // creation du medium
        $cnx = connection();
        $rqt = $cnx->prepare('INSERT INTO media VALUES( NULL, ?, ?, ?, ?)');
@@ -26,23 +26,26 @@ function addMedium($typefichier) {
 
        //recuperation de l'id du medium
        $rqt = $cnx->prepare('SELECT `idMedia` FROM `media` WHERE `idProjet`=? AND `source`="chemin temporaire"');
-       $rqt->execute($_POST['idProjet']);
+       $rqt->execute(array($_POST['idProjet']));
        $idMedium = $rqt->fetch();
 
        //insertion de l'image dans les dossiers
-       move_uploaded_file($_FILES['medium']['tmp_name'], './img/gallery/'.$_POST['idProjet']."/".$idMedium);
-       $cheminfichier = './img/gallery/'.$_POST['idProjet']."/".$idMedium;
+       if (!file_exists('../img/gallery/'.$_POST['idProjet'])){
+           mkdir('../img/gallery/'.$_POST['idProjet'], 0700);
+       }
+       move_uploaded_file($_FILES['medium']['tmp_name'], '../img/gallery/'.$_POST['idProjet']."/".$idMedium[0].".".$extension);
+       $cheminfichier = './img/gallery/'.$_POST['idProjet']."/".$idMedium[0].".".$extension;
 
        //correction de la bdd
-       $rqt = $cnx->prepare( 'UPDATE media SET source = ?, WHERE idMedia = ?');
-       $rqt->execute(array($cheminfichier, $idMedium));
+       $rqt = $cnx->prepare( 'UPDATE media SET source = ? WHERE idMedia = ?');
+       $rqt->execute(array($cheminfichier, $idMedium[0]));
 }
 
 function deleteMedium($idMedium) {
     // Récupération l'idProjet
     $cnx = connection();
     $rqt = $cnx->prepare('SELECT `idProjet` FROM `media` WHERE `idMedia`=?');
-    $rqt->execute($idMedium);
+    $rqt->execute(array($idMedium));
     $idProjet = $rqt->fetch();
 
     // Suppression du document medium
