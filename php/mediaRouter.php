@@ -11,7 +11,7 @@ switch($request[4]){
     case "medium":
         switch($method){
             case 'GET':
-                
+                echo getMediumAsJSONByIDMedium($request[5]);
                 break;
             case 'POST':
                 echo addMediumToAProject();

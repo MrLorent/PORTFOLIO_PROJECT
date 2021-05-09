@@ -181,6 +181,13 @@ async function getMediabyProject(idProject){
     return media;
 }
 
+async function getMediumByID(idMedium){
+    const response = await fetch('php/mediaRouter.php/medium/'+idMedium);
+    const medium = await response.json();
+    console.log(medium);
+    return medium;
+}
+
 async function addMedium(idProject){
     var mediaForm = new FormData();
 

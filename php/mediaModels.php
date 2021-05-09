@@ -10,6 +10,14 @@ function getProjectMedia($idProject) {
     return $mediaProject;
 }
 
+function getMedium($idMedium) {
+    $cnx = connection();
+    $rqt = $cnx->prepare("SELECT * FROM `media` WHERE idMedia=?");
+	$rqt->execute(array($idMedium));
+    $medium = $rqt->fetchAll(PDO::FETCH_ASSOC);
+    return $medium;
+}
+
 function addMedium($typefichier) {
        // creation du medium
        $cnx = connection();

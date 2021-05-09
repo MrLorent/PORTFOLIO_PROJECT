@@ -8,6 +8,10 @@ function getMediaAsJSONbyIDProject($idProject) {
        return json_encode(getProjectMedia($idProject));
 }
 
+function getMediumAsJSONByIDMedium($idMedium) {
+       return json_encode(getMedium($idMedium));
+}
+
 function addMediumToAProject() {
 
        //detection du type de fichier
