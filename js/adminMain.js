@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function(){
     PROJECT_SECTION = document.getElementById('project');
     PROJECT_CONTAINER = document.querySelector('#project .content');
     PROJECT_FORM_SECTION = document.getElementById('projectForm');
+    MEDIA_SECTION = document.getElementById('projectMedia');
+    MEDIA_CONTAINER = document.querySelector('#projectMedia .content');
 
     // NAV
     let navLinks = document.querySelectorAll('nav a');
@@ -255,6 +257,8 @@ function generateGalleryDashboard(projects){
         projectTitle.addEventListener('click', displayProject);
         liProject.append(projectTitle);
 
+        liProject.append(generateMediaButton(project['idProjet']));
+
         liProject.append(generateModifyProjectButton(project['idProjet']));
 
         liProject.append(generateDeleteProjectButton(project['idProjet']));
@@ -383,8 +387,6 @@ function displayFilledProjectForm(idProject){
 
             document.querySelector('.projectForm .description').value = projectInfos['description'];
 
-            let projectMedia = projectDetails['media'][0];
-
             displaySection(PROJECT_FORM_SECTION);
             document.querySelector('#categoryForm').classList.add('displayed');
         });
@@ -402,9 +404,86 @@ function modifyProjectFormSubmitted(idProject){
     });
 }
 
+/*------------------ MEDIA ------------------*/
+function displayProjectMediaDashboard(projectDetails){
+    let mediaList = document.getElementById('mediaList');
+    if(mediaList){
+        mediaList.remove();
+    }
+
+    MEDIA_CONTAINER.append(generateProjectMediaDashboard(projectDetails));
+
+    displaySection(MEDIA_SECTION);
+}
+
+function generateProjectMediaDashboard(projectDetails){
+    let sectionTitle = document.querySelector('#projectMedia h2');
+    sectionTitle.innerHTML = "Média du projet "+projectDetails['infos']['titre'];
+
+    let mediaList = document.createElement('ul');
+    mediaList.id = "mediaList";
+
+    for(let current in projectDetails['media']){
+        let media = projectDetails['media'][current];
+
+        let liMedia = document.createElement('li');
+        liMedia.classList.add('media');
+        liMedia.dataset.idMedia = media['idMedia'];
+
+        let idMedia = document.createElement('span');
+        idMedia.classList.add('idMedia');
+        idMedia.innerHTML = media['idMedia'];
+        liMedia.append(idMedia);
+
+        let mediaPreview = document.createElement('span');
+        mediaPreview.classList.add('mediaPreview');
+        let img = document.createElement('img');
+        switch(media['type']){
+            case "photo":
+                img.src = media['source'];
+                img.alt = media['legende'];
+                break;
+            case "video":
+                img.src = projectDetails['infos']['miniature'];
+                img.alt = "Miniature de la vidéo du projet "+projectDetails['infos']['titre'];
+                break;
+            default:
+                img.src = "néan";
+                img.alt = "aucune image pour ce projet";
+                break;
+        }
+        mediaPreview.append(img);
+        liMedia.append(mediaPreview);
+
+        liMedia.append(generateModifyProjectButton(project['idProjet']));
+
+        liMedia.append(generateDeleteProjectButton(project['idProjet']));
+
+        mediaList.append(liMedia);
+    }
+
+    return mediaList;
+}
+
 /*###################################################*/
 /*##################### GENERAL #####################*/
 /*###################################################*/
+
+function generateMediaButton(idProject){
+    let MediaButton = document.createElement('span');
+    MediaButton.classList.add('button');
+    MediaButton.classList.add('manage');
+    MediaButton.dataset.idProject = idProject;
+    MediaButton.innerHTML = "Gérer les média";
+    MediaButton.addEventListener('click', function(){
+        getProject(this.dataset.idProject)
+        .then(projectDetails => {
+           displayProjectMediaDashboard(projectDetails);
+        });
+    });
+
+    return MediaButton;
+}
 
 function generateModifySkillButton(idSkill){
     let modifyButton = document.createElement('span');
