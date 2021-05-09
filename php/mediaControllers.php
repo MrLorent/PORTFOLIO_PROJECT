@@ -36,9 +36,9 @@ function addMediumToAProject() {
        }
        }
 
-       addMedium($typefichier);
+       addMedium($typefichier, $extension_upload);
 
-       return json_encode(getProjectAsJSON($_POST['idProjet']));
+       return getProjectAsJSON($_POST['idProjet']);
 }
 
 function deleteMediumAndRefresh($idMedium) {
