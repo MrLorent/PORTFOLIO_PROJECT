@@ -31,13 +31,18 @@ function addMedium($typefichier) {
 }
 
 function deleteMedium($idMedium) {
-    // Récupération l'id
-
-    // Récupération de la source
+    // Récupération l'idProjet
+    $cnx = connection();
+    $rqt = $cnx->prepare('SELECT `idProjet` FROM `media` WHERE `idMedia`=?');
+    $rqt->execute($idMedium);
+    $idProjet = $rqt->fetch();
 
     // Suppression du document medium
+    unlink('./img/gallery/'.$idProjet."/".$idMedium);
 
     // Suppression de la ligne medium de la bdd
+    $rqt = $cnx->prepare('DELETE FROM media WHERE idMedia = ?');
+    $rqt->execute($idMedium);
 
-    
+    return $idProjet;
 }
