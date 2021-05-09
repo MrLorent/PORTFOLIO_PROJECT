@@ -93,7 +93,7 @@ async function updateSkillAndRefresh(idSkill){
 	skillForm.append('categorie', document.querySelector('.skillForm .categorySelector').value);
 
     const response = await fetch('php/skillsRouter.php/skill/'+idSkill,  {
-        method: 'PUT', 
+        method: 'POST', 
         body: skillForm
     });
 

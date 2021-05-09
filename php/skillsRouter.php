@@ -14,11 +14,14 @@ switch($request[4]){
                 echo getSkillAsJSON($request[5]);
                 break;
             case 'POST':
-                echo addSkillAndRefresh();
+                if (isset($request[5])) {
+                    updateSkillAndRefresh($request[5]);
+                    echo getAllSkillsByCategoryAsJSON();
+                } else {
+                    echo addSkillAndRefresh();
+                }
                 break;
             case 'PUT':
-                updateSkillAndRefresh($request[5]);
-                echo getAllSkillsByCategoryAsJSON();
                 break;
             case 'DELETE':
                 deleteSkillAndRefresh($request[5]);
