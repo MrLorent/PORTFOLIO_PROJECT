@@ -32,7 +32,7 @@ switch($request[5]){
     case 'media':
         switch($method){
             case 'GET':
-                
+                echo getMediaAsJSONbyIDProject($request[5]);
                 break;
             case 'POST':
                 
