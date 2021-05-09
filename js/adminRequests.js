@@ -85,15 +85,18 @@ async function addSkillAndRefresh(){
 }
 
 async function updateSkillAndRefresh(idSkill){
-    var skillForm = {};
-    var categorySelector = document.querySelector("#skillForm .categorySelector");
-    
-    skillForm.outil = document.querySelector("#skillForm .name").value;
-	skillForm.description = document.querySelector("#skillForm .description").value;
-	skillForm.icone = document.querySelector("#skillForm .icone").value;
-	skillForm.categorie = categorySelector.options[categorySelector.selectedIndex].value;
+    var skillForm = new FormData();
 
-    const response = await fetch('php/skillsRouter.php/skill/' +idSkill,  {method: 'PUT', body: JSON.stringify(skillForm)});
+    skillForm.append('outil', document.querySelector('.skillForm .name').value);
+	skillForm.append('description', document.querySelector('.skillForm .description').value);
+	skillForm.append('icone',document.querySelector('.skillForm .icone').files[0]);
+	skillForm.append('categorie', document.querySelector('.skillForm .categorySelector').value);
+
+    const response = await fetch('php/skillsRouter.php/skill/'+idSkill,  {
+        method: 'PUT', 
+        body: skillForm
+    });
+
     const skills = await response.json();
     
     console.log(skills);

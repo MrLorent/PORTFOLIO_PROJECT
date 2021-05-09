@@ -62,8 +62,24 @@ function deleteSkill($idSkill) {
     $rqt->execute(array($idSkill));
 }
 
-function addSkill($outil, $description, $icone, $Categorie) {
+function addSkill() {
+    $infosfichier = pathinfo($_FILES['icone']['name']);
+    $extension = $infosfichier['extension'];
+
+    // ajout skill
     $cnx = connection();
     $rqt = $cnx->prepare('INSERT INTO competences VALUES (NULL, ? ,? , ?, ?);');
-    $rqt->execute(array($outil, $description, $icone, $Categorie));
+    $rqt->execute(array($_POST['outil'], $_POST['description'], 'chemin temporaire', $_POST['categorie']));
+
+    //recup id skill
+    $rqt = $cnx->query('SELECT `idComp` FROM `competences` WHERE `icone`="chemin temporaire"');
+    $idSkill = $rqt->fetch();
+
+    //insertion de l'icone dans les documents
+    move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.$idSkill[0].".".$extension);
+    $cheminfichier ='./img/skills/'.$idSkill[0].".".$extension;
+
+    //correction de la bdd
+    $rqt = $cnx->prepare( 'UPDATE competences SET icone = ? WHERE idComp = ?');
+    $rqt->execute(array($cheminfichier, $idSkill[0]));     
 }
