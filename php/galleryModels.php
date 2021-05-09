@@ -33,14 +33,6 @@ function getProjectInfos($idProject) {
     return $infoProject;
 }
 
-function getProjectMedia($idProject) {
-    $cnx = connection();
-    $rqt = $cnx->prepare("SELECT * FROM `media` WHERE idProjet=?");
-	$rqt->execute(array($idProject));
-    $mediaProject = $rqt->fetchAll(PDO::FETCH_ASSOC);
-    return $mediaProject;
-}
-
 function getAllCategoriesOfProject($idProject) {
     $cnx = connection();
     $rqt = $cnx->prepare("SELECT idCategorie FROM `concerner` WHERE idProjet = ?");

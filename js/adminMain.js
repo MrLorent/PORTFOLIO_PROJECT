@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', function(){
             displayGalleryDashboard(projects);
         });
     });
+
+    
+   getMediabyProject(2);
 });
 
 /*###################################################*/

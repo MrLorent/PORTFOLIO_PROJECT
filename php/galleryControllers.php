@@ -1,6 +1,7 @@
 <?php
 // IMPORTATION DES MODELS
 require_once('galleryModels.php');
+require_once('mediaModels.php');
 
 // CONTROLEURS
 

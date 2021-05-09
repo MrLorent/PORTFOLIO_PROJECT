@@ -191,3 +191,12 @@ async function getAllCategoriesOfAProject(idProject){
     console.log(projects);
     return projects;
 }
+
+/*------------------ MEDIA -------------------*/
+
+async function getMediabyProject(idProject){
+    const response = await fetch('php/mediaRouter.php/media/'+idProject);
+    const media = await response.json();
+    console.log(media);
+    return media;
+}
