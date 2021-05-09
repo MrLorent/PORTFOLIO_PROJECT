@@ -131,11 +131,6 @@ async function addProjectAndRefresh(){
         formCategory[index] = categorie.dataset.idCategory;
     });
     form.categorie=formCategory;
-    // formCategory['0'] ="audiovisuel";
-    // formCategory['1'] ="programmation";
-    // formCategory['2'] ="Installation";
-    // formCategory['3'] ="Vidéo";
-    //form.categorie =document.querySelector('.projectForm .categorySelector').value;
 
     const firstMedia={};
     firstMedia.source = "FIRSTsourceTest";

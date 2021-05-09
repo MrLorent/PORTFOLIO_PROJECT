@@ -367,6 +367,14 @@ function displayFilledProjectForm(idProject){
             
             document.querySelector('.projectForm .title').value = projectInfos['titre'];
 
+            // PRÉVISUALISATION DE L'ICONE DE LA COMPÉTENCE
+            let divPreview = document.querySelector('.projectForm .preview');
+            removeAllChildren(divPreview);
+            let miniature = document.createElement('img');
+            miniature.src = projectInfos['miniature'];
+            miniature.alt = "Prévisualisation de l'icone de la compétence "+projectInfos['titre']+".";
+            divPreview.append(miniature);
+
             document.querySelector('.projectForm .date').value = projectInfos['date'];
 
             document.querySelector('.projectForm .technique').value = projectInfos['technique'];
