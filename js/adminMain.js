@@ -496,7 +496,7 @@ function addMediaFormSubmitted(idProject){
     .then(projects => {
         document.querySelector('form.mediaForm .submit.button').disabled = false;
         displayProjectMediaDashboard(projects);
-        hideSection(PROJECT_FORM_SECTION);
+        hideSection(MEDIA_FORM_SECTION);
     });
 }
 
