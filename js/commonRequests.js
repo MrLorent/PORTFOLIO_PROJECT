@@ -72,3 +72,13 @@ async function getAllProjectsCategories(){
     console.log(categories);
     return categories;
 }
+
+/*----------------- MEDIA SECTION ----------------*/
+
+async function getMedium(idMedium){
+    const response = await fetch('php/mediaRouter.php/medium/'+idMedium);
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
+}

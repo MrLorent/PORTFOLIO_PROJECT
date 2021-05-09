@@ -57,3 +57,9 @@ function deleteMedium($idMedium) {
 
     return $idProjet;
 }
+
+function updateMedium($legende,$idMedium){
+    $cnx = connection();
+    $rqt = $cnx->prepare( 'UPDATE media SET legende = ? WHERE idMedia = ?');
+    $rqt->execute(array($legende, $idMedium));
+}

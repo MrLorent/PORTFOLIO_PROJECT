@@ -462,9 +462,13 @@ function generateProjectMediaDashboard(projectDetails){
         mediaPreview.append(img);
         liMedia.append(mediaPreview);
 
-        liMedia.append(generateModifyProjectButton(project['idProjet']));
+        //liMedia.append(generateModifyProjectButton(project['idProjet']));
 
-        liMedia.append(generateDeleteProjectButton(project['idProjet']));
+        //liMedia.append(generateDeleteProjectButton(project['idProjet']));
+
+        liMedia.append(generateModifyMediaButton(media['idMedia']));
+
+        //liMedia.append(generateDeleteMediaButton(media['idMedia']));
 
         mediaList.append(liMedia);
     }
@@ -490,6 +494,37 @@ function displayMediaForm(){
     displaySection(MEDIA_FORM_SECTION);
 }
 
+function displayFilledMediaForm(idMedium){
+    // RÉINITIALISATION DU FORM
+    let mediaForm = document.querySelector('form.mediaForm');
+    mediaForm.reset();
+    mediaForm.removeEventListener('submit', modifyMediumFormSubmitted);
+    mediaForm.removeEventListener('submit', addMediaFormSubmitted);
+    mediaForm.addEventListener('submit', function(evt){
+        evt.preventDefault();
+        modifyMediumFormSubmitted(idMedium);
+    });
+
+    getMedium(idMedium).then(mediumDetails => {
+        console.log(mediumDetails[0]['legende']);
+        let medium = mediumDetails[0];
+        //document.querySelector('.skillForm .name').value = mediumDetails['nom'];
+
+        // PRÉVISUALISATION DE L'IMAGE
+        //let divPreview = document.querySelector('.mediaForm .preview');
+        //removeAllChildren(divPreview);
+        //let image = document.createElement('img');
+        //image.src = mediumDetails['source'];
+        //image.alt = mediumDetails['legend'];
+        //divPreview.append(image);
+
+        document.querySelector('.mediaForm .legende').value = medium['legende'];
+
+        displaySection(MEDIA_FORM_SECTION);
+        document.querySelector('#mediaForm').classList.add('displayed');
+    });
+}
+
 function addMediaFormSubmitted(idProject){
     document.querySelector('form.mediaForm .submit.button').disabled = true;
     addMediumAndRefresh(idProject)
@@ -499,6 +534,19 @@ function addMediaFormSubmitted(idProject){
         hideSection(MEDIA_FORM_SECTION);
     });
 }
+
+function modifyMediumFormSubmitted(idMedium){
+    document.querySelector('form.mediaForm .submit.button').disabled = true;
+    console.log(idMedium);
+    updateMediumAndRefresh(idMedium)
+    .then(projects => {
+        document.querySelector('form.mediaForm .submit.button').disabled = false;
+        displayProjectMediaDashboard(projects);
+        hideSection(MEDIA_FORM_SECTION);
+    });
+}
+
+
 
 /*###################################################*/
 /*##################### GENERAL #####################*/
@@ -584,7 +632,7 @@ function generateModifyMediaButton(idMedia){
     modifyButton.dataset.idMedia = idMedia;
     modifyButton.innerHTML = "Modifier";
     modifyButton.addEventListener('click', function(){
-        displayFilledSkillForm(this.dataset.idMedia);
+        displayFilledMediaForm(this.dataset.idMedia);
     });
 
     return modifyButton;

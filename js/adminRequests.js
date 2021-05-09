@@ -213,3 +213,21 @@ async function deleteMedium(idMedium) {
     console.log(media);
     return media;
 }
+
+async function updateMediumAndRefresh(idMedium){
+    var mediaForm = new FormData();
+
+    mediaForm.append('medium',document.querySelector('.mediaForm .media').files[0]);
+	mediaForm.append('legende', document.querySelector('.mediaForm .legende').value);
+	//mediaForm.append('idProjet', idProject);
+
+    console.log(mediaForm);
+    const response = await fetch('php/mediaRouter.php/medium/'+idMedium,  {
+        method: 'POST',
+        body: mediaForm
+    });
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
+}
