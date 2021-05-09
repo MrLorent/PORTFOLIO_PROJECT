@@ -181,6 +181,13 @@ async function getMediabyProject(idProject){
     return media;
 }
 
+async function getMediumByID(idMedium){
+    const response = await fetch('php/mediaRouter.php/medium/'+idMedium);
+    const medium = await response.json();
+    console.log(medium);
+    return medium;
+}
+
 async function addMediumAndRefresh(idProject){
     var mediaForm = new FormData();
 
@@ -193,6 +200,14 @@ async function addMediumAndRefresh(idProject){
         method: 'POST',
         body: mediaForm
     });
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
+}
+
+async function deleteMedium(idMedium) {
+    const response = await fetch('php/mediaRouter.php/medium/' + idMedium, { method: 'DELETE'});
     const media = await response.json();
     
     console.log(media);

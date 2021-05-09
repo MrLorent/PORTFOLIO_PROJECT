@@ -10,6 +10,14 @@ function getProjectMedia($idProject) {
     return $mediaProject;
 }
 
+function getMedium($idMedium) {
+    $cnx = connection();
+    $rqt = $cnx->prepare("SELECT * FROM `media` WHERE idMedia=?");
+	$rqt->execute(array($idMedium));
+    $medium = $rqt->fetchAll(PDO::FETCH_ASSOC);
+    return $medium;
+}
+
 function addMedium($typefichier) {
        // creation du medium
        $cnx = connection();
@@ -28,4 +36,21 @@ function addMedium($typefichier) {
        //correction de la bdd
        $rqt = $cnx->prepare( 'UPDATE media SET source = ?, WHERE idMedia = ?');
        $rqt->execute(array($cheminfichier, $idMedium));
+}
+
+function deleteMedium($idMedium) {
+    // Récupération l'idProjet
+    $cnx = connection();
+    $rqt = $cnx->prepare('SELECT `idProjet` FROM `media` WHERE `idMedia`=?');
+    $rqt->execute($idMedium);
+    $idProjet = $rqt->fetch();
+
+    // Suppression du document medium
+    unlink('./img/gallery/'.$idProjet."/".$idMedium);
+
+    // Suppression de la ligne medium de la bdd
+    $rqt = $cnx->prepare('DELETE FROM media WHERE idMedia = ?');
+    $rqt->execute($idMedium);
+
+    return $idProjet;
 }
