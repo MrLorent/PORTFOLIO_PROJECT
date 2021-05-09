@@ -180,3 +180,21 @@ async function getMediabyProject(idProject){
     console.log(media);
     return media;
 }
+
+async function addMedium(idProject){
+    var mediaForm = new FormData();
+
+    mediaForm.append('medium',document.querySelector('.mediumForm .medium').files[0]);
+	mediaForm.append('legende', document.querySelector('.mediumForm .legende').value);
+	mediaForm.append('idProjet', idProject);
+
+    console.log(mediaForm);
+    const response = await fetch('php/mediaRouter.php/medium/',  {
+        method: 'POST',
+        body: mediaForm
+    });
+    const media = await response.json();
+    
+    console.log(media);
+    return media;
+}

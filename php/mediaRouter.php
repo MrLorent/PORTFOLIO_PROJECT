@@ -14,11 +14,11 @@ switch($request[4]){
                 
                 break;
             case 'POST':
-                
+                echo addMediumToAProject();
                 break;
             case 'PUT':
                 $json = file_get_contents('php://input');
-                updateMediumAndRefresh($json, $request[5]);
+                //updateMediumAndRefresh($json, $request[5]);
                 break;
             case 'DELETE':
                 
