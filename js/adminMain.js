@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     // SKILL FORM
     let iconeInput = document.querySelector('.skillForm input.icone');
-    iconeInput.addEventListener('change', () => {
-        imageUploaded('skillForm');
+    iconeInput.addEventListener('change', function(){
+        imageUploaded('skillForm', this);
     });
 
     // PROJECT FORM
