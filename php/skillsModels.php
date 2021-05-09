@@ -51,6 +51,16 @@ function updateSkill($outil, $description, $icone, $idCategorie, $idSkill) {
 
 }
 
+function updateSkillInfos($outil, $description, $idCategorie, $idSkill) {
+    $cnx = connection();
+    $rqt2 = $cnx->prepare('UPDATE competences 
+                        SET outil = ?, description = ?, idCategorie = ?
+                        WHERE idComp = ?');
+    $rqt2->execute(array($outil, $description, $idCategorie, $idSkill));
+    //$rqt2->debugDumpParams();
+
+}
+
 // MÉTHODES
 // Fonctions permettant de manipuler les informations
 // de la BDD en règles générales

@@ -74,7 +74,7 @@ async function addSkillAndRefresh(){
 	skillForm.append('categorie', document.querySelector('.skillForm .categorySelector').value);
 
     console.log(skillForm);
-    const response = await fetch('php/skillsRouter.php/skill/',  {
+    const response = await fetch('php/skillsRouter.php/skill/newSkill',  {
         method: 'POST',
         body: skillForm
     });
