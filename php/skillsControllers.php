@@ -40,5 +40,22 @@ function addSkillAndRefresh($skillInfo) {
 
 function updateSkillAndRefresh($skillInfo, $idSkill) {
     $skill = json_decode($skillInfo, true);
-    updateSkill($skill['outil'], $skill['description'], $skill['icone'], $skill['categorie'], $idSkill);
+
+    move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.basename($_FILES['icone']['name']));
+    $cheminfichier ='./img/skills/'.basename($_FILES['icone']['name']);
+
+    $directory = "./img/skills";
+    $images = glob($directory . "/*.png");
+
+    foreach($images as $image)
+    {
+        if ($cheminfichier==$image)
+        {
+            // delete image écraser image ac la nvle 
+            
+        }
+     
+    }    
+    updateSkill($skill['outil'], $skill['description'], $cheminfichier['icone'], $skill['categorie'], $idSkill);
+    
 }
