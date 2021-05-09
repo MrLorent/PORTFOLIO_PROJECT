@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function(){
     PROJECT_FORM_SECTION = document.getElementById('projectForm');
     MEDIA_SECTION = document.getElementById('projectMedia');
     MEDIA_CONTAINER = document.querySelector('#projectMedia .content');
+    MEDIA_FORM_SECTION = document.getElementById('mediaForm');
 
     // NAV
     let navLinks = document.querySelectorAll('nav a');
@@ -85,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function(){
     getAllProjectsCategories()
     .then(projectCategories => generateGalleryFilters(projectCategories))
     .then(galleryFilters => {
+
         GALLERY_CONTAINER.append(galleryFilters);
 
         let filters = document.querySelectorAll('.filter');
@@ -100,7 +102,9 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-
+    // ADD MEDIUM BUTTON
+    let addMediaButton = document.querySelector('#projectMedia .add.button');
+    addMediaButton.addEventListener('click', displayMediaForm);
 });
 
 /*###################################################*/
@@ -413,6 +417,9 @@ function displayProjectMediaDashboard(projectDetails){
 
     MEDIA_CONTAINER.append(generateProjectMediaDashboard(projectDetails));
 
+    let addMediumButton = document.querySelector('#projectMedia .add.button');
+    addMediumButton.dataset.idProject = projectDetails['infos']['idProject'];
+
     displaySection(MEDIA_SECTION);
 }
 
@@ -463,6 +470,34 @@ function generateProjectMediaDashboard(projectDetails){
     }
 
     return mediaList;
+}
+
+function displayMediaForm(){
+    // RÉINITIALISATION DU FORM
+    let mediaForm = document.querySelector('form.mediaForm');
+    mediaForm.dataset.idProject = this.dataset.idProject;
+    mediaForm.reset();
+    //mediaForm.removeEventListener('submit', modifyMediaFormSubmitted);
+    mediaForm.removeEventListener('submit', function(evt){
+        evt.preventDefault();
+        addMediaFormSubmitted(this.dataset.idProject);
+    });
+    mediaForm.addEventListener('submit', function(evt){
+        evt.preventDefault();
+        addMediaFormSubmitted(this.dataset.idProject);
+    });
+
+    displaySection(MEDIA_FORM_SECTION);
+}
+
+function addMediaFormSubmitted(idProject){
+    document.querySelector('form.mediaForm .submit.button').disabled = true;
+    addMediumAndRefresh(idProject)
+    .then(projects => {
+        document.querySelector('form.mediaForm .submit.button').disabled = false;
+        displayProjectMediaDashboard(projects);
+        hideSection(PROJECT_FORM_SECTION);
+    });
 }
 
 /*###################################################*/

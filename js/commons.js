@@ -11,6 +11,7 @@ var PROJECT_CONTAINER;
 var PROJECT_FORM_SECTION;
 var MEDIA_SECTION;
 var MEDIA_CONTAINER;
+var MEDIA_FORM_SECTION;
 
 /*###################################################*/
 /*################## SKILL SECTIONS #################*/

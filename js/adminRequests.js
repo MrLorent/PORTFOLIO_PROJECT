@@ -181,11 +181,11 @@ async function getMediabyProject(idProject){
     return media;
 }
 
-async function addMedium(idProject){
+async function addMediumAndRefresh(idProject){
     var mediaForm = new FormData();
 
-    mediaForm.append('medium',document.querySelector('.mediumForm .medium').files[0]);
-	mediaForm.append('legende', document.querySelector('.mediumForm .legende').value);
+    mediaForm.append('medium',document.querySelector('.mediaForm .media').files[0]);
+	mediaForm.append('legende', document.querySelector('.mediaForm .legende').value);
 	mediaForm.append('idProjet', idProject);
 
     console.log(mediaForm);
