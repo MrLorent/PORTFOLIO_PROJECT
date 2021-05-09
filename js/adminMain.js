@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', function(){
             displayGalleryDashboard(projects);
         });
     });
+
+    
+   getMediabyProject(2);
 });
 
 /*###################################################*/
@@ -366,6 +369,14 @@ function displayFilledProjectForm(idProject){
             let projectInfos = projectDetails['infos'];
             
             document.querySelector('.projectForm .title').value = projectInfos['titre'];
+
+            // PRÉVISUALISATION DE L'ICONE DE LA COMPÉTENCE
+            let divPreview = document.querySelector('.projectForm .preview');
+            removeAllChildren(divPreview);
+            let miniature = document.createElement('img');
+            miniature.src = projectInfos['miniature'];
+            miniature.alt = "Prévisualisation de l'icone de la compétence "+projectInfos['titre']+".";
+            divPreview.append(miniature);
 
             document.querySelector('.projectForm .date').value = projectInfos['date'];
 

@@ -1,6 +1,7 @@
 <?php
 // IMPORTATION DES MODELS
 require_once('galleryModels.php');
+require_once('mediaModels.php');
 
 // CONTROLEURS
 
@@ -20,7 +21,7 @@ function getProjectAsJSON($idProject) {
     $project = array(
         "infos" => getProjectInfos($idProject),
         "media" => getProjectMedia($idProject),
-        );
+    );
         
     return json_encode($project);
 }
