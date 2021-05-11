@@ -110,6 +110,19 @@ function linkProjectToCategory($titre, $idCategory){
 
 function UpdateProjectToCategory($idProject, $idCategory){
     $cnx = connection();
-    $rqt = $cnx->prepare('UPDATE concerner SET idCategorie = ? WHERE idProjet = ?');
-    $rqt->execute(array($idCategory, $idProject));
+    $rqt = $cnx->prepare('INSERT INTO concerner VALUE (?,?)');
+    $rqt->execute(array($idProject, $idCategory));
+}
+
+function deleteAllCategoriesOfAProject($idProject) {
+    $cnx = connection();
+    $rqt = $cnx->prepare('DELETE FROM concerner WHERE idProjet = ?');
+    $rqt->execute(array($idProject));
+
+}
+
+function updateProjectMiniature($cheminfichier, $idProject) {
+    $cnx = connection();
+    $rqt = $cnx->prepare('UPDATE projets SET miniature = ? WHERE idProjet = ?');
+    $rqt->execute(array($cheminfichier, $idProject));
 }

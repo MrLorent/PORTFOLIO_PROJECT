@@ -15,9 +15,9 @@ switch($request[4]){
                 break;
             case 'POST':
                 if($request[5] == "newProject"){
-                    echo addProjectAndRefresh($_POST, $_FILES);
+                    echo addProjectAndRefresh();
                 }else{
-                    echo updateProjectAndRefresh($jsonForm, $request[5]);
+                    echo updateProjectAndRefresh($request[5]);
                 }
                 break;
             case 'PUT':

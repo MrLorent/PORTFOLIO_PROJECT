@@ -150,12 +150,12 @@ async function updateProjectAndRefresh(idProject){
     const formCategory = {};
     var projectForm = new FormData();
     
-    formProject.append('date', document.querySelector('.projectForm .date').value);
-    formProject.append('titre', document.querySelector('.projectForm .title').value);
-    formProject.append('technique', document.querySelector('.projectForm .technique').value);
-    formProject.append('description', document.querySelector('.projectForm .description').value);
-    formProject.append('miniature', document.querySelector('.projectForm .miniature').files[0]);
-    formProject.append('ordre', 2);
+    projectForm.append('date', document.querySelector('.projectForm .date').value);
+    projectForm.append('titre', document.querySelector('.projectForm .title').value);
+    projectForm.append('technique', document.querySelector('.projectForm .technique').value);
+    projectForm.append('description', document.querySelector('.projectForm .description').value);
+    projectForm.append('miniature', document.querySelector('.projectForm .miniature').files[0]);
+    projectForm.append('ordre', 2);
 	
     let categories = document.querySelectorAll('.categoriesList .category');
     categories.forEach((categorie, index) => {

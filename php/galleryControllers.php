@@ -51,10 +51,39 @@ function addProjectAndRefresh(){
 
 
 
-function updateProjectAndRefresh($form, $idProject){
-    //echo $form;
-    $project = json_decode($form, true);
-    updateProject($project['titre'], $project['date'], $project['technique'], $project['description']/*, $project['miniature'], $project['ordre']*/,$idProject);
-    UpdateProjectToCategory($idProject, $project['categorie']);
-    //UpdateMedia($project['media'],$idProject, $project['mediaId']);
+function updateProjectAndRefresh($idProject){
+    if(isset($_FILES['miniature'])){
+        $infosfichier = pathinfo($_FILES['miniature']['name']);
+        $extension = $infosfichier['extension'];
+        $extensions_images = array('jpg', 'jpeg', 'gif', 'png');
+    
+        if (in_array($extension, $extensions_images)) {
+            //récupérer chemin image
+            $cnx = connection();
+            $rqt = $cnx->prepare('SELECT `miniature` FROM `projets` WHERE `idProjet`=?');
+            $rqt->execute(array($idProject));
+            $pathImg = $rqt->fetch();
+    
+            //supprimer image
+            unlink('.'.$pathImg[0]);
+
+            //insertion de l'image dans les dossiers
+            move_uploaded_file($_FILES['miniature']['tmp_name'], '../img/gallery/miniatures/'.basename($_FILES['miniature']['name']));
+            $cheminfichier='./img/gallery/miniatures/'.basename($_FILES['miniature']['name']);
+            
+            updateProjectMiniature($cheminfichier, $idProject);
+        }
+    }
+
+    //update des infos
+    updateProject($_POST['titre'], $_POST['date'], $_POST['technique'], $_POST['description'],$idProject);
+
+    deleteAllCategoriesOfAProject($idProject);
+
+    $categories = json_decode($_POST['categorie']);
+    foreach($categories as $value){
+        UpdateProjectToCategory($idProject, $value);
+    }
+
+    return json_encode(getAllProjects());
 }
