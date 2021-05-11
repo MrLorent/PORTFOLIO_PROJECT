@@ -43,6 +43,14 @@ document.addEventListener('DOMContentLoaded', function(){
         addCategoriesToForms(categories);
     });
 
+    //SUPPRESSION DU REFRESH ON SUBMIT DE TOUS LES FORMS
+    let forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        })
+    });
+
     // CATEGORY FORM
     let categoryForms = document.querySelectorAll('.categoryForm');
     categoryForms.forEach(categoryForm => {
@@ -131,10 +139,7 @@ function displaySkillForm(){
     // RÉINITIALISATION DU FORM
     let skillForm = document.querySelector('form.skillForm');
     skillForm.reset();
-    skillForm.removeEventListener('submit', function(evt){
-        evt.preventDefault();
-        modifySkillFormSubmitted(idSkill);
-    });
+    skillForm.removeEventListener('submit', modifySkillFormSubmitted);
     skillForm.removeEventListener('submit', addSkillFormSubmitted);
     skillForm.addEventListener('submit', addSkillFormSubmitted);
 
@@ -162,16 +167,11 @@ function addSkillFormSubmitted(evt){
 function displayFilledSkillForm(idSkill){
     // RÉINITIALISATION DU FORM
     let skillForm = document.querySelector('form.skillForm');
+    skillForm.dataset.idSkill = idSkill;
     skillForm.reset();
-    skillForm.removeEventListener('submit', function(evt){
-        evt.preventDefault();
-        modifySkillFormSubmitted(idSkill);
-    });
+    skillForm.removeEventListener('submit', modifySkillFormSubmitted);
     skillForm.removeEventListener('submit', addSkillFormSubmitted);
-    skillForm.addEventListener('submit', function(evt){
-        evt.preventDefault();
-        modifySkillFormSubmitted(idSkill);
-    });
+    skillForm.addEventListener('submit', modifySkillFormSubmitted);
 
     getSkill(idSkill).then(skillDetails => {
         document.querySelector('.skillForm .name').value = skillDetails['nom'];
@@ -203,9 +203,9 @@ function displayFilledSkillForm(idSkill){
     });
 }
 
-function modifySkillFormSubmitted(idSkill){
+function modifySkillFormSubmitted(){
     document.querySelector('form.skillForm .submit.button').disabled = true;
-    updateSkillAndRefresh(idSkill)
+    updateSkillAndRefresh(this.dataset.idSkill)
     .then(skills => {
         displaySkillsDashboard(skills);
         hideSection(SKILL_FORM_SECTION);
