@@ -7,19 +7,19 @@ require_once('mediaControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch($request[5]){
+switch($request[4]){
     case "medium":
         switch($method){
             case 'GET':
-                echo getMediumAsJSONByIDMedium($request[6]);
+                echo getMediumAsJSONByIDMedium($request[5]);
                 break;
             case 'POST':
                 
-                if($request[6] == "newMedium"){
+                if($request[5] == "newMedium"){
                      echo addMediumToAProject();
                 }
                 else{
-                    echo updateMediumAndRefresh($request[6]);
+                    echo updateMediumAndRefresh($request[5]);
                 }
                 break;
             case 'PUT':
@@ -27,7 +27,7 @@ switch($request[5]){
                 //echo updateMediumAndRefresh($request[6]);
                 break;
             case 'DELETE':
-                echo deleteMediumAndRefresh($request[6]);
+                echo deleteMediumAndRefresh($request[5]);
                 break;
             default:
                 http_response_code('404');
@@ -38,7 +38,7 @@ switch($request[5]){
     case 'media':
         switch($method){
             case 'GET':
-                echo getMediaAsJSONbyIDProject($request[6]);
+                echo getMediaAsJSONbyIDProject($request[5]);
                 break;
             case 'POST':
                 

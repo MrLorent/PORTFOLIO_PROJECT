@@ -131,7 +131,10 @@ function displaySkillForm(){
     // RÉINITIALISATION DU FORM
     let skillForm = document.querySelector('form.skillForm');
     skillForm.reset();
-    skillForm.removeEventListener('submit', modifySkillFormSubmitted);
+    skillForm.removeEventListener('submit', function(evt){
+        evt.preventDefault();
+        modifySkillFormSubmitted(idSkill);
+    });
     skillForm.removeEventListener('submit', addSkillFormSubmitted);
     skillForm.addEventListener('submit', addSkillFormSubmitted);
 
@@ -160,7 +163,10 @@ function displayFilledSkillForm(idSkill){
     // RÉINITIALISATION DU FORM
     let skillForm = document.querySelector('form.skillForm');
     skillForm.reset();
-    skillForm.removeEventListener('submit', modifySkillFormSubmitted);
+    skillForm.removeEventListener('submit', function(evt){
+        evt.preventDefault();
+        modifySkillFormSubmitted(idSkill);
+    });
     skillForm.removeEventListener('submit', addSkillFormSubmitted);
     skillForm.addEventListener('submit', function(evt){
         evt.preventDefault();
@@ -477,7 +483,10 @@ function displayMediaForm(){
     let mediaForm = document.querySelector('form.mediaForm');
     mediaForm.dataset.idProject = this.dataset.idProject;
     mediaForm.reset();
-    //mediaForm.removeEventListener('submit', modifyMediaFormSubmitted);
+    mediaForm.removeEventListener('submit', function(evt){
+        evt.preventDefault();
+        modifyMediumFormSubmitted(idMedium);
+    });
     mediaForm.removeEventListener('submit', function(evt){
         evt.preventDefault();
         addMediaFormSubmitted(this.dataset.idProject);
@@ -494,8 +503,14 @@ function displayFilledMediaForm(idMedium){
     // RÉINITIALISATION DU FORM
     let mediaForm = document.querySelector('form.mediaForm');
     mediaForm.reset();
-    mediaForm.removeEventListener('submit', modifyMediumFormSubmitted);
-    mediaForm.removeEventListener('submit', addMediaFormSubmitted);
+    mediaForm.removeEventListener('submit', function(evt){
+        evt.preventDefault();
+        modifyMediumFormSubmitted(idMedium);
+    });
+    mediaForm.removeEventListener('submit', function(evt){
+        evt.preventDefault();
+        addMediaFormSubmitted(this.dataset.idProject);
+    });
     mediaForm.addEventListener('submit', function(evt){
         evt.preventDefault();
         modifyMediumFormSubmitted(idMedium);
