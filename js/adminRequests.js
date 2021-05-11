@@ -128,17 +128,15 @@ async function addProjectAndRefresh(){
     formProject.append('miniature', document.querySelector('.projectForm .miniature').files[0]);
     formProject.append('ordre', 2);
 
-    console.log(formProject);
-
     let categories = document.querySelectorAll('.categoriesList .category');
     categories.forEach((categorie, index) => {
         formCategory[index] = categorie.dataset.idCategory;
     });
-    let formCategories = JSON.stringify(formCategory);
-    formProject.append('categorie',formCategories);
+
+    formProject.append('categorie', JSON.stringify(formCategory));
     console.log(formProject);
    
-    const response = await fetch('php/galleryRouter.php/project/', {
+    const response = await fetch('php/galleryRouter.php/project/newProject', {
         method: 'POST',
         body: formProject
     });
@@ -149,22 +147,32 @@ async function addProjectAndRefresh(){
 }
 
 async function updateProjectAndRefresh(idProject){
-    var projectForm = {};
-    var categorySelector = document.querySelector("#projectForm .categorySelector");
+    const formCategory = {};
+    var projectForm = new FormData();
     
-    projectForm.titre = document.querySelector("#projectForm .title").value;
-    projectForm.date = document.querySelector("#projectForm .date").value;
-	projectForm.description = document.querySelector("#projectForm .description").value;
-    projectForm.technique = document.querySelector("#projectForm .technique").value;
-	projectForm.categorie = categorySelector.options[categorySelector.selectedIndex].value;
-    const response = await fetch('php/galleryRouter.php/project/'+ idProject, {
-        method: 'PUT',
-        body: JSON.stringify(projectForm)
+    formProject.append('date', document.querySelector('.projectForm .date').value);
+    formProject.append('titre', document.querySelector('.projectForm .title').value);
+    formProject.append('technique', document.querySelector('.projectForm .technique').value);
+    formProject.append('description', document.querySelector('.projectForm .description').value);
+    formProject.append('miniature', document.querySelector('.projectForm .miniature').files[0]);
+    formProject.append('ordre', 2);
+	
+    let categories = document.querySelectorAll('.categoriesList .category');
+    categories.forEach((categorie, index) => {
+        formCategory[index] = categorie.dataset.idCategory;
     });
-    const projetUpdated = await response.json();
     
-    console.log(projetUpdated);
-    return projetUpdated;	
+    projectForm.append('categorie', JSON.stringify(formCategory));
+
+    const response = await fetch('php/galleryRouter.php/project/'+ idProject, {
+        method: 'POST',
+        body: projectForm
+    });
+
+    const projects = await response.json();
+    
+    console.log(projects);
+    return projects;
 }
 
 async function getAllCategoriesOfAProject(idProject){

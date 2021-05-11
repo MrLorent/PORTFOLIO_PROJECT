@@ -339,14 +339,11 @@ function displayFilledProjectForm(idProject){
     getAllCategories().then(categories => {
         // RÉINITIALISATION DU FORM
         let projectForm = document.querySelector('form.projectForm');
+        projectForm.dataset.idProject = idProject;
         projectForm.reset();
         projectForm.removeEventListener('submit', modifyProjectFormSubmitted);
         projectForm.removeEventListener('submit', addProjectFormSubmitted);
-        projectForm.addEventListener('submit', function(evt){
-            evt.preventDefault();
-            modifyProjectFormSubmitted(idProject);
-            }
-        );
+        projectForm.addEventListener('submit', modifyProjectFormSubmitted);
 
         let categoriesList = document.querySelector('.categoriesList');
         removeAllChildren(categoriesList);
@@ -404,9 +401,9 @@ function displayFilledProjectForm(idProject){
     
 }
 
-function modifyProjectFormSubmitted(idProject){
+function modifyProjectFormSubmitted(){
     document.querySelector('form.projectForm .submit.button').disabled = true;
-    updateProjectAndRefresh(idProject)
+    updateProjectAndRefresh(this.dataset.idProject)
     .then(projects => {
         document.querySelector('form.projectForm .submit.button').disabled = false;
         displaySkillsDashboard(projects);
@@ -483,18 +480,9 @@ function displayMediaForm(){
     let mediaForm = document.querySelector('form.mediaForm');
     mediaForm.dataset.idProject = this.dataset.idProject;
     mediaForm.reset();
-    mediaForm.removeEventListener('submit', function(evt){
-        evt.preventDefault();
-        modifyMediumFormSubmitted(idMedium);
-    });
-    mediaForm.removeEventListener('submit', function(evt){
-        evt.preventDefault();
-        addMediaFormSubmitted(this.dataset.idProject);
-    });
-    mediaForm.addEventListener('submit', function(evt){
-        evt.preventDefault();
-        addMediaFormSubmitted(this.dataset.idProject);
-    });
+    mediaForm.removeEventListener('submit', modifyMediumFormSubmitted);
+    mediaForm.removeEventListener('submit', addMediaFormSubmitted);
+    mediaForm.addEventListener('submit', addMediaFormSubmitted);
 
     displaySection(MEDIA_FORM_SECTION);
 }
@@ -502,21 +490,14 @@ function displayMediaForm(){
 function displayFilledMediaForm(idMedium){
     // RÉINITIALISATION DU FORM
     let mediaForm = document.querySelector('form.mediaForm');
+    mediaForm.dataset.idMedium = idMedium;
     mediaForm.reset();
-    mediaForm.removeEventListener('submit', function(evt){
-        evt.preventDefault();
-        modifyMediumFormSubmitted(idMedium);
-    });
-    mediaForm.removeEventListener('submit', function(evt){
-        evt.preventDefault();
-        addMediaFormSubmitted(this.dataset.idProject);
-    });
-    mediaForm.addEventListener('submit', function(evt){
-        evt.preventDefault();
-        modifyMediumFormSubmitted(idMedium);
-    });
+    mediaForm.removeEventListener('submit', modifyMediumFormSubmitted);
+    mediaForm.removeEventListener('submit', addMediaFormSubmitted);
+    mediaForm.addEventListener('submit', modifyMediumFormSubmitted);
 
-    getMedium(idMedium).then(mediumDetails => {
+    getMedium(idMedium)
+    .then(mediumDetails => {
         console.log(mediumDetails[0]['legende']);
         let medium = mediumDetails[0];
         //document.querySelector('.skillForm .name').value = mediumDetails['nom'];
@@ -536,9 +517,9 @@ function displayFilledMediaForm(idMedium){
     });
 }
 
-function addMediaFormSubmitted(idProject){
+function addMediaFormSubmitted(){
     document.querySelector('form.mediaForm .submit.button').disabled = true;
-    addMediumAndRefresh(idProject)
+    addMediumAndRefresh(this.dataset.idProject)
     .then(projects => {
         document.querySelector('form.mediaForm .submit.button').disabled = false;
         displayProjectMediaDashboard(projects);
@@ -546,10 +527,9 @@ function addMediaFormSubmitted(idProject){
     });
 }
 
-function modifyMediumFormSubmitted(idMedium){
+function modifyMediumFormSubmitted(){
     document.querySelector('form.mediaForm .submit.button').disabled = true;
-    console.log(idMedium);
-    updateMediumAndRefresh(idMedium)
+    updateMediumAndRefresh(this.dataset.idMedium)
     .then(projects => {
         document.querySelector('form.mediaForm .submit.button').disabled = false;
         displayProjectMediaDashboard(projects);
