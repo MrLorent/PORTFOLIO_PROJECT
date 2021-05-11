@@ -41,6 +41,33 @@ function getAllSkillsFromACategory($idCategorie){
 // Fonctions permettant de modifier les informations
 // de la BDD (commencent par "set...")
 
+function updateSkillWithOrWithoutImage($idSkill) {
+    if(isset($_FILES['icone'])){
+        $infosfichier = pathinfo($_FILES['icone']['name']);
+        $extension = $infosfichier['extension'];
+        $extensions_images = array('jpg', 'jpeg', 'gif', 'png');
+
+        if (in_array($extension, $extensions_images)) {
+            //récupérer chemin image
+            $cnx = connection();
+            $rqt = $cnx->prepare('SELECT `icone` FROM `competences` WHERE `idComp`=?');
+            $rqt->execute(array($idSkill));
+            $pathImg = $rqt->fetch();
+
+            //supprimer image
+            unlink('.'.$pathImg[0]);
+
+            move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.$idSkill.".".$extension);
+            $cheminfichier ='./img/skills/'.$idSkill.".".$extension;
+
+            updateSkill($_POST['outil'], $_POST['description'], $cheminfichier, $_POST['categorie'], $idSkill);          
+        }
+        
+    }else{
+        updateSkillInfos($_POST['outil'], $_POST['description'], $_POST['categorie'], $idSkill);
+    }
+}
+
 function updateSkill($outil, $description, $icone, $idCategorie, $idSkill) {
     $cnx = connection();
     $rqt2 = $cnx->prepare('UPDATE competences 

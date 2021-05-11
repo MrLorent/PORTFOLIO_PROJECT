@@ -64,7 +64,16 @@ function deleteMedium($idMedium) {
 
 function updateMedium($typefichier, $extension_upload, $legende, $idMedium){
     $cnx = connection();
+/*
+    //Recherche du medium existant
+    $rqt = $cnx->prepare('SELECT `source` FROM `media` WHERE `idMedia`=?');
+    $rqt->execute(array($idMedium));
+    $pathImg = $rqt->fetch();
 
+    // Suppression du document medium existant des dossiers
+    unlink('.'.$pathImg[0]);
+*/
+    //Insertion du nouveau medium dans les dossier
     move_uploaded_file($_FILES['medium']['tmp_name'], '../img/gallery/'.$_POST['idProjet']."/".$idMedium.".".$extension_upload);
     $cheminfichier = './img/gallery/'.$_POST['idProjet']."/".$idMedium.".".$extension_upload;
 
