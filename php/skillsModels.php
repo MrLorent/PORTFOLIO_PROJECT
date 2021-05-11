@@ -68,6 +68,16 @@ function updateSkillInfos($outil, $description, $idCategorie, $idSkill) {
 
 function deleteSkill($idSkill) {
     $cnx = connection();
+
+    //récupérer chemin image
+    $rqt = $cnx->prepare('SELECT `icone` FROM `competences` WHERE `idComp`=?');
+    $rqt->execute(array($idSkill));
+    $pathImg = $rqt->fetch();
+
+    //supprimer image
+    unlink('.'.$pathImg[0]);
+
+    //supprimer skill
     $rqt = $cnx->prepare('DELETE FROM competences WHERE idComp = ?');
     $rqt->execute(array($idSkill));
 }
