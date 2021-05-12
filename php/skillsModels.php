@@ -50,38 +50,12 @@ function getSkillIcon($idSkill){
 // Fonctions permettant de modifier les informations
 // de la BDD (commencent par "set...")
 
-function updateSkillWithOrWithoutImage($idSkill) {
-    if(isset($_FILES['icone'])){
-        $infosfichier = pathinfo($_FILES['icone']['name']);
-        $extension = $infosfichier['extension'];
-        $extensions_images = array('jpg', 'jpeg', 'gif', 'png');
-
-        if (in_array($extension, $extensions_images)) {
-            //récupérer chemin image
-            $iconPath = getSkillIcon($idSkill);
-
-            //supprimer image
-            unlink('.'.$iconPath[0]);
-
-            move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.$idSkill.".".$extension);
-            $cheminfichier ='./img/skills/'.$idSkill.".".$extension;
-
-            updateSkill($_POST['outil'], $_POST['description'], $cheminfichier, $_POST['categorie'], $idSkill);          
-        }
-        
-    }else{
-        updateSkillInfos($_POST['outil'], $_POST['description'], $_POST['categorie'], $idSkill);
-    }
-}
-
-function updateSkill($outil, $description, $icone, $idCategorie, $idSkill) {
+function updateSkillIcon($icone, $idSkill) {
     $cnx = connection();
     $rqt2 = $cnx->prepare('UPDATE competences 
-                        SET outil = ?, description = ?, icone = ?, idCategorie = ?
+                        SET icone = ?
                         WHERE idComp = ?');
-    $rqt2->execute(array($outil, $description, $icone, $idCategorie, $idSkill));
-    //$rqt2->debugDumpParams();
-
+    $rqt2->execute(array($icone, $idSkill));
 }
 
 function updateSkillInfos($outil, $description, $idCategorie, $idSkill) {
