@@ -17,8 +17,7 @@ switch($request[4]){
                 if ($request[5] == "newSkill") {
                     echo addSkillAndRefresh();
                 } else {
-                    updateSkillAndRefresh($request[5]);
-                    echo getAllSkillsByCategoryAsJSON();
+                    echo updateSkillAndRefresh($request[5]);
                 }
                 break;
             case 'PUT':

@@ -36,4 +36,6 @@ function addSkillAndRefresh() {
 
 function updateSkillAndRefresh($idSkill) {
     updateSkillWithOrWithoutImage($idSkill);
+    
+    return getAllSkillsByCategoryAsJSON();
 }

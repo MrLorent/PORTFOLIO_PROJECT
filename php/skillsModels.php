@@ -36,6 +36,15 @@ function getAllSkillsFromACategory($idCategorie){
     return $result;
 }
 
+function getSkillIcon($idSkill){
+    $cnx = connection();
+    $rqt = $cnx->prepare('SELECT `icone` FROM `competences` WHERE `idComp`=?');
+    $rqt->execute(array($idSkill));
+    $iconPath = $rqt->fetch();
+
+    return $iconPath;
+}
+
 
 // ACCESSEURS EN ÉCRITURE
 // Fonctions permettant de modifier les informations
@@ -49,13 +58,10 @@ function updateSkillWithOrWithoutImage($idSkill) {
 
         if (in_array($extension, $extensions_images)) {
             //récupérer chemin image
-            $cnx = connection();
-            $rqt = $cnx->prepare('SELECT `icone` FROM `competences` WHERE `idComp`=?');
-            $rqt->execute(array($idSkill));
-            $pathImg = $rqt->fetch();
+            $iconPath = getSkillIcon($idSkill);
 
             //supprimer image
-            unlink('.'.$pathImg[0]);
+            unlink('.'.$iconPath[0]);
 
             move_uploaded_file($_FILES['icone']['tmp_name'], '../img/skills/'.$idSkill.".".$extension);
             $cheminfichier ='./img/skills/'.$idSkill.".".$extension;
