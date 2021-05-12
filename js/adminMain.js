@@ -284,6 +284,9 @@ function displayProjectForm(){
     let categoriesList = document.querySelector('.categoriesList');
     removeAllChildren(categoriesList);
 
+    let divPreview = document.querySelector('.projectForm .preview');
+    removeAllChildren(divPreview);
+
     getAllCategories()
     .then(categories => {
         // RÉINITIALISATION DU FORM
@@ -348,6 +351,9 @@ function displayFilledProjectForm(idProject){
         let categoriesList = document.querySelector('.categoriesList');
         removeAllChildren(categoriesList);
 
+        let divPreview = document.querySelector('.projectForm .preview');
+        removeAllChildren(divPreview);
+
         // AJOUT DES DIFFÉRENTES CATÉGORIES DISPONIBLES AU FORM
         addCategoriesToAForm(categories, 'projectForm');
         
@@ -381,8 +387,6 @@ function displayFilledProjectForm(idProject){
             document.querySelector('.projectForm .title').value = projectInfos['titre'];
 
             // PRÉVISUALISATION DE L'ICONE DE LA COMPÉTENCE
-            let divPreview = document.querySelector('.projectForm .preview');
-            removeAllChildren(divPreview);
             let miniature = document.createElement('img');
             miniature.src = projectInfos['miniature'];
             miniature.alt = "Prévisualisation de l'icone de la compétence "+projectInfos['titre']+".";
