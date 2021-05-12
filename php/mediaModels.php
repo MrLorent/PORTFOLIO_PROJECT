@@ -7,6 +7,7 @@ function getProjectMedia($idProject) {
     $rqt = $cnx->prepare("SELECT * FROM `media` WHERE idProjet=?");
 	$rqt->execute(array($idProject));
     $mediaProject = $rqt->fetchAll(PDO::FETCH_ASSOC);
+    
     return $mediaProject;
 }
 
@@ -16,6 +17,15 @@ function getMedium($idMedium) {
 	$rqt->execute(array($idMedium));
     $medium = $rqt->fetchAll(PDO::FETCH_ASSOC);
     return $medium;
+}
+
+function getMediumSource($idMedium){
+    $cnx = connection();
+    $rqt = $cnx->prepare('SELECT `source` FROM `media` WHERE `idMedia`=?');
+    $rqt->execute(array($idMedium));
+    $mediumPath = $rqt->fetch();
+
+    return $mediumPath;
 }
 
 function addMedium($typefichier, $extension) {
@@ -43,19 +53,14 @@ function addMedium($typefichier, $extension) {
 
 function deleteMedium($idMedium) {
     // Récupération l'idProjet
-    $cnx = connection();
-    $rqt = $cnx->prepare('SELECT `idProjet` FROM `media` WHERE `idMedia`=?');
-    $rqt->execute(array($idMedium));
-    $idProjet = $rqt->fetch();
+    $idProjet = getIDprojectByIDMedia($idMedium);
 
-    $rqt = $cnx->prepare('SELECT `source` FROM `media` WHERE `idMedia`=?');
-    $rqt->execute(array($idMedium));
-    $pathImg = $rqt->fetch();
-
+    $mediumSource = getMediumSource($idMedium);
     // Suppression du document medium
-    unlink('.'.$pathImg[0]);
+    unlink('.'.$mediumSource[0]);
 
     // Suppression de la ligne medium de la bdd
+    $cnx = connection();
     $rqt = $cnx->prepare('DELETE FROM media WHERE idMedia = ?');
     $rqt->execute(array($idMedium));
 
@@ -64,15 +69,7 @@ function deleteMedium($idMedium) {
 
 function updateMedium($typefichier, $extension_upload, $legende, $idMedium){
     $cnx = connection();
-/*
-    //Recherche du medium existant
-    $rqt = $cnx->prepare('SELECT `source` FROM `media` WHERE `idMedia`=?');
-    $rqt->execute(array($idMedium));
-    $pathImg = $rqt->fetch();
 
-    // Suppression du document medium existant des dossiers
-    unlink('.'.$pathImg[0]);
-*/
     //Insertion du nouveau medium dans les dossier
     move_uploaded_file($_FILES['medium']['tmp_name'], '../img/gallery/'.$_POST['idProjet']."/".$idMedium.".".$extension_upload);
     $cheminfichier = './img/gallery/'.$_POST['idProjet']."/".$idMedium.".".$extension_upload;

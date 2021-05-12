@@ -32,7 +32,18 @@ function getAllCategoriesOfAProjectAsJSON($idProject) {
 
 function deleteProjectAndRefresh($idProject){
     deleteProject($idProject);
-    return json_encode(getAllProjects());
+
+    $projectMedia = getProjectMedia($idProject);
+
+    foreach($projectMedia as $medium){
+        unlink('.'.$medium['source']);
+    }
+
+    //rmdir("../img/gallery/".$idProject);
+
+    //return json_encode(getAllProjects());
+
+    return json_encode($projectMedia);
 }
 
 
@@ -49,9 +60,8 @@ function addProjectAndRefresh(){
     return json_encode(getAllProjects());
 }
 
-
-
 function updateProjectAndRefresh($idProject){
+    // GESTION DE LA MINIATURE
     if(isset($_FILES['miniature'])){
         $infosfichier = pathinfo($_FILES['miniature']['name']);
         $extension = $infosfichier['extension'];
@@ -59,13 +69,10 @@ function updateProjectAndRefresh($idProject){
     
         if (in_array($extension, $extensions_images)) {
             //récupérer chemin image
-            $cnx = connection();
-            $rqt = $cnx->prepare('SELECT `miniature` FROM `projets` WHERE `idProjet`=?');
-            $rqt->execute(array($idProject));
-            $pathImg = $rqt->fetch();
+            $miniaturePath = getProjectMiniature($idProject);
     
             //supprimer image
-            unlink('.'.$pathImg[0]);
+            unlink('.'.$miniaturePath[0]);
 
             //insertion de l'image dans les dossiers
             move_uploaded_file($_FILES['miniature']['tmp_name'], '../img/gallery/miniatures/'.basename($_FILES['miniature']['name']));
@@ -75,15 +82,18 @@ function updateProjectAndRefresh($idProject){
         }
     }
 
-    //update des infos
-    updateProject($_POST['titre'], $_POST['date'], $_POST['technique'], $_POST['description'],$idProject);
-
+    // GESTION DES CATÉGORIES MULTIPLES DU PROJET
+    //Suppression des catégories liées précédentes
     deleteAllCategoriesOfAProject($idProject);
 
+    //Ajout des nouvelles catégories
     $categories = json_decode($_POST['categorie']);
     foreach($categories as $value){
         UpdateProjectToCategory($idProject, $value);
     }
+
+    // GESTION DES AUTRES INFORMATIONS DU PROJET
+    updateProject($_POST['titre'], $_POST['date'], $_POST['technique'], $_POST['description'], $idProject);
 
     return json_encode(getAllProjects());
 }

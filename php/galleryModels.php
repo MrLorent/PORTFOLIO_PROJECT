@@ -33,6 +33,15 @@ function getProjectInfos($idProject) {
     return $infoProject;
 }
 
+function getProjectMiniature($idProject){
+    $cnx = connection();
+    $rqt = $cnx->prepare('SELECT `miniature` FROM `projets` WHERE `idProjet`=?');
+    $rqt->execute(array($idProject));
+    $miniaturePath = $rqt->fetch();
+
+    return $miniaturePath;
+}
+
 function getAllCategoriesOfProject($idProject) {
     $cnx = connection();
     $rqt = $cnx->prepare("SELECT idCategorie FROM `concerner` WHERE idProjet = ?");
@@ -52,7 +61,6 @@ function getAllCategoriesOfProject($idProject) {
 // Fonctions permettant de manipuler les informations
 // de la BDD en règles générales
 // (commencent par "add..." ou "delete..." par exemple)
-
 
 //DELETE
 function deleteProject($idProject){
@@ -83,21 +91,6 @@ function updateProject($titre,$date,$technique,$description/*,$miniature,$ordre*
                                 WHERE idProjet = ?');
     $rqtProject->execute(array($titre,$date,$technique,$description/*,$miniature,$ordre*/,$idProject));
     //$rqtProject->DumpDebugParams;
-}
-
-function addMedia($source, $legende, $type, $titre){
-    $cnx = connection();
-    $rqt = $cnx->prepare('INSERT INTO media VALUES( NULL, ?, ?, ?, (SELECT idProjet FROM projets WHERE titre=? ))');
-    $rqt->execute(array($source, $legende, $type, $titre));
-}
-  
-function UpdateMedia($source,$idProject, $idMedias){
-     $cnx = connection();
-     $rqtMedia = $cnx->prepare('UPDATE media
-                                 SET source = ?
-                                 WHERE idProjet = ?
-                                 AND idMedia = ?');
-     $rqtMedia->execute(array($source,$idProject, $idMedias));
 }
 
 
