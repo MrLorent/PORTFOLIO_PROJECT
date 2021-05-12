@@ -232,7 +232,6 @@ async function updateMediumAndRefresh(idMedium){
 
     mediaForm.append('medium',document.querySelector('.mediaForm .media').files[0]);
 	mediaForm.append('legende', document.querySelector('.mediaForm .legende').value);
-	//mediaForm.append('idProjet', idProject);
 
     console.log(mediaForm);
     const response = await fetch('php/mediaRouter.php/medium/'+idMedium,  {

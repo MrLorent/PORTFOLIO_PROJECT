@@ -25,7 +25,7 @@ function getMediumSource($idMedium){
     $rqt->execute(array($idMedium));
     $mediumPath = $rqt->fetch();
 
-    return $mediumPath;
+    return $mediumPath[0];
 }
 
 function addMedium($typefichier, $extension) {
@@ -67,19 +67,15 @@ function deleteMedium($idMedium) {
     return $idProjet[0];
 }
 
-function updateMedium($typefichier, $extension_upload, $legende, $idMedium){
+function updateMediumImage($typefichier, $cheminfichier, $idMedium){
     $cnx = connection();
 
-    //Insertion du nouveau medium dans les dossier
-    move_uploaded_file($_FILES['medium']['tmp_name'], '../img/gallery/'.$_POST['idProjet']."/".$idMedium.".".$extension_upload);
-    $cheminfichier = './img/gallery/'.$_POST['idProjet']."/".$idMedium.".".$extension_upload;
-
     //correction de la bdd
-    $rqt = $cnx->prepare( 'UPDATE media SET source = ?, legende = ?, type = ? WHERE idMedia = ?');
-    $rqt->execute(array($cheminfichier,$legende, $typefichier, $idMedium));
+    $rqt = $cnx->prepare( 'UPDATE media SET source = ?, type = ? WHERE idMedia = ?');
+    $rqt->execute(array($cheminfichier, $typefichier, $idMedium));
 }
 
-function updateLegend($legende,$idMedium){
+function updateMediumInfos($legende,$idMedium){
     $cnx = connection();
     $rqt = $cnx->prepare( 'UPDATE media SET legende = ? WHERE idMedia = ?');
     $rqt->execute(array($legende, $idMedium));

@@ -48,6 +48,7 @@ function deleteMediumAndRefresh($idMedium) {
 }
 
 function updateMediumAndRefresh($idMedium){
+       $idProject = getIDprojectByIDMedia($idMedium);
        if (isset($_FILES['medium'])) {
               // Testons si l'extension est autorisée
               $infosfichier = pathinfo($_FILES['medium']['name']);
@@ -56,22 +57,30 @@ function updateMediumAndRefresh($idMedium){
               $extensions_images = array('jpg', 'jpeg', 'gif', 'png');
               $extensions_videos = array('mp4');
 
-       if (in_array($extension_upload, $extensions_autorisees)) {
-              if (in_array($extension_upload, $extensions_images)) {
-                     $typefichier = 'photo';
+              if (in_array($extension_upload, $extensions_autorisees)) {
+                     if (in_array($extension_upload, $extensions_images)) {
+                            $typefichier = 'photo';
+                     }
+                     if (in_array($extension_upload, $extensions_videos)) {
+                            $typefichier = 'video';
+                     }
+
+                     // Suppression du média précédent
+                     $mediumPath = getMediumSource($idMedium);
+                     unlink('.'.$mediumPath);
+
+                     //Insertion du nouveau medium dans les dossier
+                     move_uploaded_file($_FILES['medium']['tmp_name'], '../img/gallery/'.$idProject."/".$idMedium.".".$extension_upload);
+                     $cheminfichier = './img/gallery/'.$idProject."/".$idMedium.".".$extension_upload;
+                     
+                     updateMediumImage($typefichier, $cheminfichier, $idMedium);
+              } 
+              else{
+                     echo "Type (extension) non conforme. Extensions acceptées : jpg, jpeg, gif, png, mp4.";
               }
-              if (in_array($extension_upload, $extensions_videos)) {
-                     $typefichier = 'video';
-              }
-              updateMedium($typefichier, $extension_upload, $_POST['legende'], $idMedium);
-       } 
-       else{
-              echo "Type (extension) non conforme. Extensions acceptées : jpg, jpeg, gif, png, mp4.";
        }
-       }else{
-              updateLegend($_POST['legende'], $idMedium);
-       }
-       $idProject = getIDprojectByIDMedia($idMedium);
+       updateMediumInfos($_POST['legende'], $idMedium);
+
        return getProjectAsJSON($idProject);
 }
 
