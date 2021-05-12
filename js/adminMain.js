@@ -406,7 +406,7 @@ function modifyProjectFormSubmitted(){
     updateProjectAndRefresh(this.dataset.idProject)
     .then(projects => {
         document.querySelector('form.projectForm .submit.button').disabled = false;
-        displaySkillsDashboard(projects);
+        displayGalleryDashboard(projects);
         hideSection(PROJECT_FORM_SECTION);
     });
 }
