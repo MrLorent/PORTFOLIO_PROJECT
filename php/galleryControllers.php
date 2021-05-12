@@ -31,19 +31,19 @@ function getAllCategoriesOfAProjectAsJSON($idProject) {
 }
 
 function deleteProjectAndRefresh($idProject){
-    deleteProject($idProject);
-
+    // Suppression des médias stockés
     $projectMedia = getProjectMedia($idProject);
 
     foreach($projectMedia as $medium){
         unlink('.'.$medium['source']);
     }
 
-    //rmdir("../img/gallery/".$idProject);
+    rmdir("../img/gallery/".$idProject);
 
-    //return json_encode(getAllProjects());
+    // Suppression du projet en base de donné
+    deleteProject($idProject);
 
-    return json_encode($projectMedia);
+    return json_encode(getAllProjects());
 }
 
 
