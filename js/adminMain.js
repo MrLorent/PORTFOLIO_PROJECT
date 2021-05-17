@@ -52,16 +52,20 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // CATEGORY FORM
-    let categoryForms = document.querySelectorAll('.categoryForm');
-    categoryForms.forEach(categoryForm => {
-        categoryForm.addEventListener('submit', (evt)=>{
-            evt.preventDefault();
-            addCategoryAndRefresh()
-            .then(categories => {
-                categoryForm.reset();
-                addCategoriesToForms(categories);
-            });
+    let categoryForm = document.querySelector('.categoryForm');
+
+    categoryForm.addEventListener('submit', (evt)=>{
+        evt.preventDefault();
+        addCategoryAndRefresh()
+        .then(categories => {
+            categoryForm.reset();
+            addCategoriesToForms(categories);
         });
+    });
+
+    let categoryButton = document.querySelector('#categoryForm .plus');
+    categoryButton.addEventListener('click', ()=>{
+        categoryForm.classList.toggle('displayed');
     });
 
     // SKILL FORM

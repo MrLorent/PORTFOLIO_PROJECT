@@ -1,9 +1,11 @@
 /* -------------- GENERAL -------------- */
-.button.delete {
+.button.delete,
+.button.cancel {
     background: #c72525;
 }
 
-.button.delete:hover {
+.button.delete:hover,
+.button.cancel:hover {
     background: #a51e1e;
 }
 
@@ -35,23 +37,83 @@
     white-space: nowrap;
 }
 
+.button.manage:hover {
+    background: #1624a5;
+}
+
+/* --------------- FORMS ---------------- */
+
+#skillForm,
+#projectForm,
+#mediaForm {
+    padding-right: 0;
+    padding-left: 0;
+}
+
 form {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    padding: 25px 55px 25px 25px;
+}
+
+form input:not([type="file"]),
+form textarea {
+    background: #121212;
+    color: #ffffff;
+    font-family: "Roboto";
+    font-size: 1em;
+    width: 100%;
+    border: 2px solid #202020;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 7.5px;
+    margin: 0 0 20px;
+}
+
+form label {
+    margin: 0 0 10px 0;
+}
+
+form button[type="submit"] {
+    background: #18CC5C;
+    color: #ffffff;
+    font-family: "Roboto";
+    border: none;
+    position: relative;
+    padding: 15px 30px;
+    margin: 0 auto;
+}
+
+form button[type="submit"]::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 60px;
+}
+
+form textarea {
+    min-height: 150px;
 }
 
 /* ------------ SKILLS SECTION ------------- */
 
 /* ----------- CATEGORY FORM ------------ */
 #categoryForm {
-    width: 20%;
+    width: 300px;
     height: min-content;
     display: none;
     flex-direction: column;
     align-items: flex-end;
+    overflow: hidden;
     position: fixed;
     right: 0;
     bottom: 8vh;
+    padding: 10px 20px 10px 10px;
     z-index: 2;
 }
 
@@ -60,7 +122,27 @@ form {
 }
 
 #categoryForm .categoryForm {
+    background: #181818;
     width: 100%;
+    border: 2px solid #202020;
+    border-radius: 7.5px;
+    align-items: flex-end;
+    overflow-y: auto;
+    padding: 20px;
+    transform: translateX(350px);
+    transition: 0.5s ease-out;
+}
+
+#categoryForm .categoryForm.displayed {
+    transform: translateX(0);
+}
+
+#categoryForm button[type="submit"] {
+    margin: 0;
+}
+
+#categoryForm button[type="submit"]::after{
+    display: none;
 }
 
 #categoryForm .plus {
@@ -117,6 +199,19 @@ li.project span.projectTitle {
 
 .categories .addCategoryForm {
     display: flex;
+}
+
+.categoriesList .category img {
+    cursor: pointer;
+    height: 10px;
+    padding: 0 0 0 5px;
+}
+
+.categoriesList .category {
+    background: #18CC5C;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 0 10px 0 0;
 }
 
 /* ---------- MEDIA SECTION ----------- */
