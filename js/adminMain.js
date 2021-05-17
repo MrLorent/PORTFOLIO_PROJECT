@@ -113,6 +113,16 @@ document.addEventListener('DOMContentLoaded', function(){
     // ADD MEDIUM BUTTON
     let addMediaButton = document.querySelector('#projectMedia .add.button');
     addMediaButton.addEventListener('click', displayMediaForm);
+
+
+    /*###################################################*/
+    /*################## MEDIA SECTION ##################*/
+    /*###################################################*/
+
+    let mediaInput = document.querySelector('.mediaForm input.media');
+    mediaInput.addEventListener('change', function(){
+        imageUploaded('mediaForm', this);
+    });
 });
 
 /*###################################################*/
@@ -504,15 +514,14 @@ function displayFilledMediaForm(idMedium){
     .then(mediumDetails => {
         console.log(mediumDetails[0]['legende']);
         let medium = mediumDetails[0];
-        //document.querySelector('.skillForm .name').value = mediumDetails['nom'];
 
         // PRÉVISUALISATION DE L'IMAGE
-        //let divPreview = document.querySelector('.mediaForm .preview');
-        //removeAllChildren(divPreview);
-        //let image = document.createElement('img');
-        //image.src = mediumDetails['source'];
-        //image.alt = mediumDetails['legend'];
-        //divPreview.append(image);
+        let divPreview = document.querySelector('.mediaForm .preview');
+        removeAllChildren(divPreview);
+        let image = document.createElement('img');
+        image.src = mediumDetails[0]['source'];
+        image.alt = mediumDetails[0]['legend'];
+        divPreview.append(image);
 
         document.querySelector('.mediaForm .legende').value = medium['legende'];
 

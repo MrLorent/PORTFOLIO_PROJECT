@@ -173,8 +173,8 @@ li.skill {
 
 #gallery .filter.selected,
 #gallery .filter.selected:hover {
-    color: #39CFAF;
-    border-bottom: 2px solid #39CFAF;
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
 }
 
 #gallery .filter:hover {

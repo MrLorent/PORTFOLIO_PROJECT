@@ -30,6 +30,11 @@
     background: #14aa4d;
 }
 
+.button.manage {
+    background: #182acc;
+    white-space: nowrap;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -112,4 +117,9 @@ li.project span.projectTitle {
 
 .categories .addCategoryForm {
     display: flex;
+}
+
+/* ---------- MEDIA SECTION ----------- */
+span.mediaPreview {
+    flex-grow: 1;
 }

@@ -185,12 +185,18 @@
             <form class="mediaForm">
 
                 <!--TITRE DU PROJET-->
-                <label for="legend">Nom du projet :</label>
+                <label for="legend">Légende du medium :</label>
                 <input class="legende" type="text" name="legend">
 
                 <!--MEDIA-->
-                <label for="media">Chercher votre media : </label>
-                <input class="media" type="file" name="media" accept="image/png, image/jpeg, image/gif, video/mp4">
+                <fieldset class="mediaZone">
+                    <legend>Medium</legend>
+                    <div class="preview">
+
+                    </div>
+                    <label for="media">Chercher votre medium : </label>
+                    <input class="media" type="file" name="media" accept="image/png, image/jpeg, image/gif, video/mp4">
+                </fieldset>
 
                 <!--SUBMIT BUTTON-->
                 <button type="submit" class="button submit">Envoyer</button>
