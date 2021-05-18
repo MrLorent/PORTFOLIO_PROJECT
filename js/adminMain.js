@@ -66,6 +66,15 @@ document.addEventListener('DOMContentLoaded', function(){
     let categoryButton = document.querySelector('#categoryForm .button.display');
     categoryButton.addEventListener('click', ()=>{
         categoryForm.classList.toggle('displayed');
+        if(document.querySelector('#categoryForm').offsetWidth == 80){
+            document.querySelector('#categoryForm').style.width = "300px";
+            document.querySelector('#categoryForm').style.height = "min-content";
+        }else{
+            setTimeout(()=>{
+                document.querySelector('#categoryForm').style.width = "50px";
+                document.querySelector('#categoryForm').style.height = "105px";
+            }, 500);
+        }
     });
 
     // SKILL FORM
