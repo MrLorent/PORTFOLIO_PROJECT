@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function(){
         });
     });
 
-    let categoryButton = document.querySelector('#categoryForm .plus');
+    let categoryButton = document.querySelector('#categoryForm .button.display');
     categoryButton.addEventListener('click', ()=>{
         categoryForm.classList.toggle('displayed');
     });

@@ -60,6 +60,7 @@ form {
     padding: 25px 55px 25px 25px;
 }
 
+form select.categorySelector,
 form input:not([type="file"]),
 form textarea {
     background: #121212;
@@ -74,9 +75,24 @@ form textarea {
     margin: 0 0 20px;
 }
 
+.btn-upload {
+    background: #18CC5C;
+    color: #ffffff;
+    font-family: "Roboto";
+    font-size: 1em;
+}
+
 form label {
     margin: 0 0 10px 0;
 }
+
+form fieldset {
+    border: 2px solid #323232;
+    border-radius: 5px;
+    margin: 0 0 20px 0;
+    padding: 10px;
+}
+
 
 form button[type="submit"] {
     background: #18CC5C;
@@ -124,7 +140,7 @@ form textarea {
 #categoryForm .categoryForm {
     background: #181818;
     width: 100%;
-    border: 2px solid #202020;
+    border: 2px solid #323232;
     border-radius: 7.5px;
     align-items: flex-end;
     overflow-y: auto;
@@ -149,6 +165,30 @@ form textarea {
     height: 30px;
     width: 30px;
     fill: #ffffff;
+    z-index: 4;
+    transition: 0.25s ease-out;
+}
+
+#categoryForm .displayed~.button .plus{
+    transform: rotate(-45deg);
+}
+
+#categoryForm .button.display {
+    position: relative;
+    padding: 10px;
+    margin: 10px 0 0 0;
+}
+
+#categoryForm .button.display::after{
+    background: #18CC5C;
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 50%;
+    position: absolute;
+    top:0;
+    right:0;
 }
 
 /* ----------- PICTURE UPLOAD ---------- */
@@ -193,12 +233,30 @@ li.project span.projectTitle {
 }
 
 /* ---------- PROJECT FORM SECTION ----------- */
+#projectForm fieldset.categories {
+    padding: 10px 10px 0 10px;
+}
+
 .categories .button.add {
     width: min-content;
+    padding: 0 10px;
 }
 
 .categories .addCategoryForm {
     display: flex;
+}
+
+.addCategoryForm label {
+    margin: 0;
+}
+
+.addCategoryForm select.categorySelector {
+    margin: 0 15px 0 0;
+}
+
+.categoriesList {
+    display: flex;
+    padding: 20px;
 }
 
 .categoriesList .category img {
@@ -210,6 +268,7 @@ li.project span.projectTitle {
 .categoriesList .category {
     background: #18CC5C;
     border-radius: 20px;
+    box-sizing: border-box;
     padding: 5px 10px;
     margin: 0 10px 0 0;
 }
