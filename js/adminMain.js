@@ -511,6 +511,9 @@ function displayMediaForm(){
     mediaForm.removeEventListener('submit', addMediaFormSubmitted);
     mediaForm.addEventListener('submit', addMediaFormSubmitted);
 
+    let iconePreview = document.querySelector('.mediaForm .preview');
+    removeAllChildren(iconePreview);
+
     displaySection(MEDIA_FORM_SECTION);
 }
 

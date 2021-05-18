@@ -72,7 +72,7 @@
             <form class="skillForm">
                 <!--SKILL NAME-->
                 <label for="name">Nom de la compétence :</label>
-                <input class="name" type="text" name="name">
+                <input class="name" type="text" name="name" required="required">
                 
                 <!--SKILL ICONE-->
                 <fieldset class="iconeZone">
@@ -81,7 +81,7 @@
 
                     </div>
                     <label for="icone"> Chercher un fichier : </label>
-                    <input class="icone" type="file" name="icone" accept="image/png,image/jpg">
+                    <input class="icone" type="file" name="icone" accept="image/png,image/jpg" required="required">
                 </fieldset>
                 
                 <!--CATEGORY SELECTION-->
@@ -90,7 +90,7 @@
 
                 <!--SKILL DESCRIPTION-->
                 <label for="description">Description de la compétence :</label>
-                <textarea class="description" name="description"></textarea>
+                <textarea class="description" name="description" required="required"></textarea>
                 
                 <!--SUBMIT BUTTON-->
                 <button type="submit" class="button submit">Envoyer</button>
@@ -128,7 +128,7 @@
             <form class="projectForm">
                 <!--TITRE DU PROJET-->
                 <label for="title">Nom du projet :</label>
-                <input class="title" type="text" name="title">
+                <input class="title" type="text" name="title" required="required">
 
                 <!--MINIATURE-->
                 <fieldset class="miniatureZone"> 
@@ -137,7 +137,7 @@
 
                     </div>
                     <label for="miniature"> Chercher un fichier : </label>
-                    <input class="miniature" type="file" name="miniature" accept="image/png">
+                    <input class="miniature" type="file" name="miniature" accept="image/png, image/jpeg" required="required">
                 </fieldset>
 
                 <!--CATEGORIE DU PROJET-->
@@ -155,15 +155,15 @@
                 
                 <!--DATE DE RÉALISATION DU PROJET-->
                 <label for="date">Date de réalisation :</label>
-                <input class="date" type="text" name="date">
+                <input class="date" type="text" name="date" required="required">
                 
                 <!--TECHNIQUES-->
                 <label for="technique">Techniques utilisées :</label>
-                <input class="technique" type="text" name="technique">
+                <input class="technique" type="text" name="technique" required="required">
                 
                 <!--DESCRIPTION DU PROJET-->
                 <label for="description">Description du projet :</label>
-                <textarea class="description" name="description"></textarea>
+                <textarea class="description" name="description" required="required"></textarea>
 
                 <!--SUBMIT BUTTON-->
                 <button type="submit" class="button submit">Envoyer</button>
@@ -186,7 +186,7 @@
 
                 <!--TITRE DU PROJET-->
                 <label for="legend">Légende du medium :</label>
-                <input class="legende" type="text" name="legend">
+                <input class="legende" type="text" name="legend" required="required">
 
                 <!--MEDIA-->
                 <fieldset class="mediaZone">
@@ -195,7 +195,7 @@
 
                     </div>
                     <label for="media">Chercher votre medium : </label>
-                    <input class="media" type="file" name="media" accept="image/png, image/jpeg, image/gif, video/mp4">
+                    <input class="media" type="file" name="media" accept="image/png, image/jpeg, image/gif, video/mp4" required="required">
                 </fieldset>
 
                 <!--SUBMIT BUTTON-->
