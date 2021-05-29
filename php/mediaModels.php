@@ -41,7 +41,7 @@ function addMedium($typefichier, $extension) {
 
        //insertion de l'image dans les dossiers
        if (!file_exists('../img/gallery/'.$_POST['idProjet'])){
-           mkdir('../img/gallery/'.$_POST['idProjet'], 0700);
+           mkdir('../img/gallery/'.$_POST['idProjet'], 0705);
        }
        move_uploaded_file($_FILES['medium']['tmp_name'], '../img/gallery/'.$_POST['idProjet']."/".$idMedium[0].".".$extension);
        $cheminfichier = './img/gallery/'.$_POST['idProjet']."/".$idMedium[0].".".$extension;
