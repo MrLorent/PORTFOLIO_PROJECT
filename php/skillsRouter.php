@@ -7,20 +7,24 @@ require_once('skillsControllers.php');
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch($request[3]){
-    case /* endpoint name */:
+switch($request[4]){
+    case "skill":
         switch($method){
             case 'GET':
-                
+                echo getSkillAsJSON($request[5]);
                 break;
             case 'POST':
-                
+                if ($request[5] == "newSkill") {
+                    echo addSkillAndRefresh();
+                } else {
+                    echo updateSkillAndRefresh($request[5]);
+                }
                 break;
             case 'PUT':
-                
                 break;
             case 'DELETE':
-
+                deleteSkillAndRefresh($request[5]);
+                echo getAllSkillsByCategoryAsJSON();
                 break;
             default:
                 http_response_code('404');
@@ -28,10 +32,10 @@ switch($request[3]){
                 break;
         }
         break;
-    case /* endpoint name */:
+    case 'skills':
         switch($method){
             case 'GET':
-                
+                echo getAllSkillsByCategoryAsJSON();
                 break;
             case 'POST':
                 

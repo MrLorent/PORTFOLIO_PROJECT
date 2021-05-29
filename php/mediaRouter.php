@@ -1,42 +1,44 @@
 <?php
 // IMPORTATION DES CONTROLEURS
-require_once('categoriesControllers.php');
+require_once('mediaControllers.php');
 
 // ROUTEUR
 
 $request = explode('/', $_SERVER['REQUEST_URI']);
 $method = $_SERVER['REQUEST_METHOD'];
-    
-//var_dump($request);
+
 switch($request[4]){
-    case 'category' :
+    case "medium":
         switch($method){
             case 'GET':
+                echo getMediumAsJSONByIDMedium($request[5]);
                 break;
-
             case 'POST':
-                $json = file_get_contents('php://input');
-                echo addCategoryAndRefresh($json);
+                
+                if($request[5] == "newMedium"){
+                     echo addMediumToAProject();
+                }
+                else{
+                    echo updateMediumAndRefresh($request[5]);
+                }
                 break;
-
             case 'PUT':
+                //$json = file_get_contents('php://input');
+                //echo updateMediumAndRefresh($request[6]);
                 break;
-
             case 'DELETE':
-                echo deleteACategoryAndRefresh($request[5]);
+                echo deleteMediumAndRefresh($request[5]);
                 break;
-
             default:
                 http_response_code('404');
                 echo 'OUPSI !';
                 break;
         }
         break;
-
-    case 'categories':
+    case 'media':
         switch($method){
             case 'GET':
-                echo getAllCategoriesAsJson();
+                echo getMediaAsJSONbyIDProject($request[5]);
                 break;
             case 'POST':
                 
